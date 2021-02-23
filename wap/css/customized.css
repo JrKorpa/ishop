@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* 钻戒定制 */
+
+.custom1{padding-top: 2rem;}
+.custom1 img,.custom3 img{display: block;width: 100%;}
+
+.custom1,.diamond_alist,.custom3{margin-bottom: 1.5rem;}
+.diamond_alist{overflow: hidden;}
+.diamond_alist li{width:24.1%; display: block;float: left; margin-right: 1.13%;position:relative; overflow: hidden;}
+.diamond_alist li a img{width: 100%;}
+.diamond_alist li span{position:absolute; left:0; bottom:0;width:100%; z-index: 20; height:60px;padding-top:5px;text-align: center; font-size: 1.2rem; color: #fff; background: rgba(0,0,0,0.6);}
+.diamond_alist li span em{font-style: normal; color: #d0a972; font-size: 10px;display: block;}
+.diamond_alist li:last-child{margin:0;}
+
+/*会员有礼弹窗*/
+.vip-content .vip-body{padding: 2rem 4rem;}
+.vip-content .p1 input,.vip-content .p1 select{ border: 1px solid #eee; width: 33%; height: 3rem; text-indent: 0.5rem;background: #fff;}
+.vip-content p.title{width: 100%;font-size: 1rem;padding:1rem 0 0;line-height:3rem;}
+.vip-content .p2 div{overflow: hidden;}
+.vip-content .p2 div a{display:inline-block;padding:0.3rem 1rem;background: #f2f2f2;border-radius: 5px;margin-right: 1rem;font-size: 1rem;}
+.vip-content .p2 div a.active{background: #76ba8e;color:#fff;}
+.vip-content .p3{line-height:3rem;}
+.vip-content .p3 input{border: 1px solid #eee;text-indent: 5px;height: 3rem;}
+.vip-content .modal-footer .btn{background: #76ba8e;color: #fff;width: 8rem;margin: 0 1rem;}
+.vip-content .modal-footer .quxiao { background: #b6b6b6;}
+
+

@@ -1,0 +1,721 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="format-detection" content="telephone=no"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1" />
+<title>购物车</title>
+<link rel="stylesheet" href="../js/bootstrapt4/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/base.css">
+<link rel="stylesheet" type="text/css" href="../css/cart_list.css?3">
+<script src="../js/jquery3.2.1.min.js"></script>
+<script src="../js/bootstrapt4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="nctouch-main-layout">
+	   <div id="cart-list-title">
+		  <dl class="nctouch-cart-store" >
+			    <dt><span class="store-check">
+					<input class="all_checkbox" type="checkbox" checked>&nbsp;&nbsp;全选
+				</span>
+				<i class="icon-store"></i>
+				<span class="handle_btn">
+			   <a id="add_goods" class="btn" style="background:#35aa47;" href="javascript:" role="button" data-toggle="modal" data-target=".bd-goods-modal-lg">添加货号</a>
+			   <a id="add_style" class="btn"  href="javascript:" role="button" data-toggle="modal" data-target=".bd-style-modal-lg">添加款号</a>
+			   <a id="add_qiban" class="btn" style="background:#35aa47;" href="javascript:" role="button" data-toggle="modal" data-target=".bd-qiban-modal-lg">添加起版</a> 
+			   <a id="add_gift" class="btn" style="background:#eca22e" href="javascript:" role="button" data-toggle="modal" data-target=".bd-gift-modal-lg">添加赠品</a>
+				</span>
+			</dt>
+		 </dl>
+	  </div>
+      <div id="cart-list-wp"></div>
+    </div>
+    <div class="pre-loading hide">
+      <div class="pre-block">
+        <div class="spinner"><i></i></div>购物车数据读取中...
+      </div>
+    </div>
+</div>
+
+<script id="cart-list" type="text/html">
+<% if(cart_list.length >0){%>
+		<% for (var i = 0;i<cart_list.length;i++){%>
+			<div class="nctouch-cart-container">
+				<ul class="nctouch-cart-item">
+				<% if (cart_list[i].goods) { %>
+					<% for (var j=0; j<cart_list[i].goods.length; j++) {var goods = cart_list[i].goods[j];%>
+					<li cart_id="<%=goods.cart_id%>" class="cart-litemw-cnt" >
+						<div class="goods-check">
+							<input type="checkbox" checked name="cart_id"  goods-type="<%=goods.goods_type%>" value="<%=goods.cart_id%>" />
+							<input type="hidden"  value="<%=goods.goods_num%>" />
+						</div>
+						<div class="goods-pic">
+			<% if (goods.goods_type==2) { %>
+			   	<a href="diamond_detail.html?cert_id=<%= goods.cert_id%>">
+					<img src="<%=goods.goods_image%>"/>
+				</a>
+			<% }else if(goods.goods_type==3){ %>
+			    <a href="javascript:">
+					<img src="<%=goods.goods_image%>"/>
+				</a>
+			<% }else if(goods.goods_type==4){ %>
+			    <a href="xianhuo_detail.html?goods_sn=<%= goods.goods_id%>&style_sn=<%= goods.style_sn%>">
+					<img src="<%=goods.goods_image%>"/>
+				</a>
+			<% }else if(goods.goods_type==5){ %>
+			   <a href="javascript:">
+					<img src="<%=goods.goods_image%>"/>
+			   </a>
+			<% }else{ %>
+			   <a href="jietuo_detail.html?goods_sn=<%= goods.goods_id%>">
+					<img src="<%=goods.goods_image%>"/>
+				</a>
+			<%}%>
+						</div>
+				<dl class="goods-info">
+			<% if (goods.goods_type==2) { %>
+			    <dt class="goods-name"><a href="diamond_detail.html?cert_id=<%= goods.cert_id%>"><%=goods.goods_name%></a></dt>
+				<dd class="goods-type">
+				<p><em>裸石货号：<%= goods.goods_id%></em><em>证书号：<%= goods.cert_id%></em><em>证书类型：<%= goods.cert%></em><em>形状：<%=goods.shape_name%></em><em>大小：<%=goods.carat%>克拉</em><em>颜色：<%=goods.color%></em><em>切工：<%=goods.cut%></em><em>净度：<%= goods.clarity%></em><em>镶嵌方式：<%= goods.xiangqian%></em><em>定制/现货：<%= goods.is_xianhuo==1?"现货":"定制"%></em><br/>
+				</p>	
+				</dd> 			
+			<% }else if(goods.goods_type==3){ %>
+			   <dt class="goods-name"><a href="javascript:"><%=goods.goods_name%></a></dt>
+				<dd class="goods-type">
+				<p><em>起版号：<%= goods.goods_id%></em><em>款号：<%= goods.style_sn%></em><em>镶口：<%=goods.xiangkou%></em><em>主石粒数:<%=goods.zhushi_num%></em><em>主石单颗重:<%=goods.carat%></em><em>证书类型：<%= goods.cert%></em><em>形状：<%=goods.shape_name%></em><em>材质：<%=goods.caizhi_name%><%=goods.yanse_name%></em><em>指圈：<%=goods.shoucun%></em><em>金重：<%= goods.jinzhong%></em><em>刻字：<%= goods.kezi%></em><em>表面工艺：<%= goods.facework%></em><em>镶嵌方式：<%= goods.xiangqian%></em>				
+				</p> 
+				</dd> 
+			<% }else if(goods.goods_type==4 || goods.goods_type==6){ %>
+			    <dt class="goods-name"><a href="xianhuo_detail.html?goods_sn=<%= goods.goods_id%>&style_sn=<%= goods.style_sn%>"><%=goods.goods_name%></a></dt>
+				<dd class="goods-type">
+				<p><em>现货货号：<%= goods.goods_id%></em><em>款号：<%= goods.style_sn%></em><em>镶口：<%=goods.xiangkou%></em><em>主石粒数:<%=goods.zhushi_num%></em><em>主石单颗重:<%=goods.carat%></em><em>形状：<%=goods.shape_name%></em><em>证书号：<%= goods.cert_id%></em><em>证书类型：<%= goods.cert%></em><em>材质：<%=goods.caizhi_name%><%=goods.yanse_name%></em><em>指圈：<%=goods.shoucun%></em><em>金重：<%= goods.jinzhong%></em><em>刻字：<%=#goods.kezi%></em><em>表面工艺：<%= goods.facework%></em><em>镶嵌方式：<%= goods.xiangqian%></em><em>定制/现货：<%= goods.is_xianhuo==1?"现货":"定制"%></em><em>现货增值项：<%= goods.xianhuo_adds%></em><br/>
+				</p>
+				</dd> 
+			<% }else if(goods.goods_type==5){ %>
+			    <dt class="goods-name"><a href="javascript:"><%=goods.goods_name%></a></dt>
+				<dd class="goods-type">
+				<p><em>赠品款号：<%= goods.style_sn%></em><em>指圈：<%=goods.shoucun%></em></p>
+				</dd> 
+			<% }else{ %>			    
+			    <dt class="goods-name"><a href="jietuo_detail.html?goods_sn=<%= goods.goods_id%>"><%=goods.goods_name%></a></dt>
+				<dd class="goods-type">
+					<p><em>定制货号：<%= goods.goods_id%></em><em>款号：<%= goods.style_sn%></em><em>镶口：<%=goods.xiangkou%></em><em>主石粒数:<%=goods.zhushi_num%></em><em>主石单颗重:<%=goods.carat%></em><em>形状：<%=goods.shape_name%></em><em>证书号：<%= goods.cert_id%></em><em>证书类型：<%= goods.cert%></em><em>材质：<%=goods.caizhi_name%><%=goods.yanse_name%></em><em>指圈：<%=goods.shoucun%></em><em>金重：<%= goods.jinzhong%></em><em>刻字：<%=#goods.kezi%></em><em>表面工艺：<%= goods.facework%></em><em>镶嵌方式：<%= goods.xiangqian%></em><em>定制/现货：<%= goods.is_xianhuo==1?"现货":"定制"%><%if (goods.is_cpdz==1){%>(成品定制)<% }%></em><% if (goods.is_xianhuo==1){%><em>现货增值项：<%= goods.xianhuo_adds%></em><% }%>
+					
+					</p> 
+				</dd>
+				<%}%>
+                            <dd class="goods-subtotal">
+                                <span class="goods-price" goods_pay_price="<%= goods.goods_pay_price%>">
+								<% if(goods.goods_pay_price/1 == goods.goods_price/1){%>
+									<em class="goods_price">￥<%= goods.goods_price%></em>
+								<%}else{%>
+									<em style='text-decoration:line-through; color:gray'>￥<%= goods.goods_price%></em>
+									<em class="goods_price">￥<%= goods.goods_pay_price%></em>
+								<%}%>
+							</span>
+							<span class="goods-sale" style="display:none">
+							<% if (!isEmpty(goods.groupbuy_info))
+								{%><em>抢购</em><% }
+							else if (!isEmpty(goods.xianshi_info))
+								{ %><em>限时折扣</em><% }
+							else if (!isEmpty(goods.sole_info))
+								{ %><em><i></i>手机专享</em><% } %>
+							</span>
+                                <div class="value-box" style="display:none">
+								<span class="minus">
+									<a href="javascript:void(0);">&nbsp;</a>
+								</span>
+        						<span>
+									<input type="text" pattern="[0-9]*" readonly class="buy-num buynum" value="<%=goods.goods_num%>"/>
+								</span>
+								<span class="add">
+									<a href="javascript:void(0);">&nbsp;</a>
+								</span>
+                                </div>
+                            </dd>
+						</dl>
+						<div class="goods-del" cart_id="<%=goods.cart_id%>"><a href="javascript:void(0);" class="icon icon-delet"></a></div>
+
+						<% if (goods.gift_list && goods.gift_list.length > 0) { %>
+							<div class="goods-gift" style="display:none">
+							<% for (var k=0; k<goods.gift_list.length; k++) { var gift = goods.gift_list[k]%>
+								<span><em>赠品</em><%=gift.gift_goodsname%>x<%=gift.gift_amount%></span>
+							<% } %>
+							</div>
+						<% } %>
+					</li>
+					<% } %>
+				<% } %>
+				</ul>
+						
+					</div> 
+                <%}%>
+				<% if (check_out === true) {%>
+                    <div class="nctouch-cart-bottom">
+						<div class="all-check" style="display: none;"><input class="all_checkbox" type="checkbox" checked></div>
+						<div class="total">
+                        	<dl class="total-money"><dt>合计总金额：</dt><dd>￥<em><%=sum%></em></dd></dl>
+                    	</div>
+                    	<div class="check-out ok">
+                        	<a href="javascript:void(0)">确认信息</a>
+						</div>
+                    </div>
+				<% } else { %>				    
+					<div class="nctouch-cart-bottom no-login">
+						<div class="cart-nologin-tip">结算购物车中的商品，需先登录商城</div>
+						<div class="cart-nologin-btn"><a href="../login.html" class="btn">登录</a>
+							<a href="../tmpl/member/register.html" class="btn">注册</a>
+						</div>
+					</div>
+				<% } %>
+  <%}else{%>
+			
+            <div class="nctouch-norecord cart">
+				<div class="norecord-ico"><i class="icon icon-dianpu"></i></div>
+				<dl>
+					<dt>您的购物车还是空的</dt>
+					<dd>去挑一些中意的商品吧</dd>
+				</dl>
+				<a href="<%=WapSiteUrl%>" class="btn">随便逛逛</a>
+			</div>
+<%}%>
+</script>
+<!-- 添加起版信息 -->
+<div class="modal fade bd-qiban-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" id="qiban_form">
+        <div class="modal-content dingzhi-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加起版</h5>
+                <button type="button" class="close dialog-dingzhi-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<div class="modal-body dingzhi-body" style="padding-bottom:0px">
+				<div class="div1" style="width:70%"><label>起版号：</label>
+					<input type="text" id="goods_id" name="goods_id" value=""/>
+				</div> 
+				<div class="div1" style="width:20%">
+					<button type="button" class="btn search">搜索</button>
+					<!--<button type="button" class="btn scan">扫一扫</button>-->
+				</div>             
+            </div>
+            <div class="modal-body dingzhi-body" id="qiban_info">
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save ">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="qiban-info" type="text/html">
+<div class="div1"><label>镶嵌方式:</label>
+	<input type="text" id="xiangqian"  value="<%= goods_info.xiangqian%>" readonly/>
+</div>
+<div class="div1"><label>表面工艺:</label>
+	<input type="text" id="facework"  value="<%= goods_info.facework%>" readonly/>
+</div>
+<div class="div1"><label>证书类型:</label>
+    <select name="cert" id="cert">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.cert) { var name = attr_list.cert[id]; %>
+        <option <%= name==goods_info.cert?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>证书号:</label>
+    <%if(goods_info.xiangqian == "工厂配钻，工厂镶嵌"){%>
+	   <input type="number" id="cert_id" name="cert_id" placeholder="请输入裸石证书号" value="<%= goods_info.cert_id%>" readonly/>
+	   
+	   <%}else{%>
+	   <input type="number" id="cert_id" name="cert_id" placeholder="请输入裸石证书号" value="<%= goods_info.cert_id%>"/>
+	<%}%>
+	
+</div>
+<div class="div1"><label>主石单颗重:</label>
+	<input type="text" id="carat" name="carat"   value="<%= goods_info.carat%>" readonly/>
+</div>
+<div class="div1"><label>主石粒数:</label>
+	<input type="text" id="zhushi_num" name="zhushi_num"  value="<%= goods_info.zhushi_num%>" readonly/>
+</div>
+
+<div class="div1"><label>主石颜色:</label>
+	<select name="color" id="color">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.color) { var name = attr_list.color[id]; %>
+        <option <%= name==goods_info.color?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>主石净度:</label>
+	<select name="clarity" id="clarity">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.clarity) { var name = attr_list.clarity[id]; %>
+        <option <%= name==goods_info.clarity?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1" style="display:none"><label>主石切工:</label>
+	<select name="cut" id="cut">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.cut) { var name = attr_list.cut[id]; %>
+        <option <%= name==goods_info.cut?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>商品价格:</label>
+	<input type="text" id="goods_price"  value="<%= goods_info.goods_price%>" readonly/>
+</div>
+<div class="div1 jt_kezi"><label>刻字内容:</label>
+	<input type="text" placeholder="请输入" id="kezi" name="kezi" maxlength="36"/>
+	<% for (var id in attr_list.kezi) { var name = attr_list.kezi[id]; %>
+	<em data-val="<%=id%>"><img src="../images/face/<%=name%>"/></em>
+	<% } %>
+	<div class="showKZ showKZ2"></div>
+</div>
+</script>
+<div class="modal fade bd-gift-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" id="gift_form">
+        <div class="modal-content dingzhi-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加赠品</h5>
+                <button type="button" class="close dialog-dingzhi-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<div class="modal-body dingzhi-body" style="padding-bottom:0px">
+				<div class="div1" style="width:70%"><label>请选择赠品：</label>
+					<select name="goods_id">
+					   <option value="">请选择赠品</option>					
+					</select>
+				</div> 				       
+            </div>
+            <div class="modal-body dingzhi-body" id="gift_info">
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save ">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="gift-info">
+<div class="div1"><label>赠品名称:</label>
+	<input type="text" name="goods_name"  value="<%= gift_info.goods_name%>" readonly/>
+</div>
+<div class="div1"><label>赠品款号:</label>
+	<input type="text" name="style_sn"  value="<%= gift_info.goods_id%>" readonly/>
+</div>
+<div class="div1"><label>赠品价格:</label>
+	<input type="text" name="goods_pay_price"  value="<%= gift_info.goods_price%>" />
+	<input type="hidden"  name="goods_price"  value="<%= gift_info.goods_price%>"/>
+</div>
+<div class="div1"><label>赠品指圈:</label>
+	<input type="text" name="shoucun" placeholder="请输入指圈" value=""/>
+</div>
+</script>
+
+<div class="modal fade bd-goods-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" id="goods_form">
+        <div class="modal-content dingzhi-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加货号</h5>
+                <button type="button" class="close dialog-dingzhi-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<div class="modal-body dingzhi-body" style="padding-bottom:0px">
+				<div class="div1" style="width:70%"><label>货号：</label>
+					<input type="text" name="goods_id" data-val="" value=""/>
+					<input type="hidden" name="goods_key" value=""/>
+				</div> 
+				<div class="div1" style="width:20%">
+					<button type="button" class="btn search">搜索</button>
+					<button type="button" class="btn scan">扫一扫</button>
+				</div>        				       
+            </div>
+            <div class="modal-body dingzhi-body" id="goods_info">
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="goods-info" >
+<div class="show_msg" style='color:red;font-weight:bold;text-align:center;width:100%;clear:both;display:none;'></div>
+<a class="cpdz_price_search" style="display:none" href="javascript:void(0)" role="button" data-toggle="modal" data-target=".bd-cpdz-modal-lg">挑选</a>
+
+<input type="hidden" name="goods_type" value="<%= goods_info.goods_type%>"/>
+<div class="div1" style=" display:none"><label>商品名称:</label>
+	<input type="text" name="goods_name" value="<%= goods_info.goods_name%>" disabled/>
+</div>
+<div class="div1"><label>款号:</label>
+	<input type="text" name="style_sn" value="<%= goods_info.style_sn%>" disabled/>
+</div>
+<div class="div1"><label>成品/空托:</label>
+	<select name="tuo_type">
+	<% for (var id in attr_list.tuo_type) { var name = attr_list.tuo_type[id]; %>
+        <option <%= id==goods_info.tuo_type?' selected':''%> value="<%= id%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>是否定制:</label>
+	<select name="is_dingzhi">
+	<% for (var id in attr_list.confirm) { var name = attr_list.confirm[id]; %>
+        <option <%= id==goods_info.is_dingzhi?' selected':''%> value="<%= id%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>工厂镶嵌方式:</label>
+	<select name="xiangqian">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.xiangqian) { var name = attr_list.xiangqian[id]; %>
+        <option <%= name==goods_info.xiangqian?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>材质:</label>
+    <select name="jinse">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.jinse) { var name = attr_list.jinse[id]; %>
+        <option <%= name==goods_info.zhuchengse?' selected':''%> value="<%= id%>" data-name="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>指圈:</label>
+   <select name="shoucun">
+   <option value="">请选择</option>
+	<% for (var id in attr_list.shoucun) { var name = attr_list.shoucun[id]; %>
+		<option <%= name==goods_info.shoucun?' selected':''%> value="<%= name%>" org="<%=goods_info.shoucun%>"><%=name%></option>
+	<% } %>	
+   </select> 
+</div>
+<div class="div1"><label>镶口:</label>
+   <select name="xiangkou">
+   <option value="">请选择</option>
+	<% for (var id in attr_list.xiangkou) { var name = attr_list.xiangkou[id]; %>
+		<option <%= name/1==goods_info.xiangkou/1?' selected':''%> value="<%= name%>"><%=name%></option>
+	<% } %>	
+   </select> 
+</div>
+<div class="div1"><label>主石粒数:</label>
+	<input type="number" id="zhushi_num" name="zhushi_num" placeholder="从款式带出" value="<%= goods_info.zhushi_num%>" disabled/>
+</div>
+<div class="div1"><label>主石单颗重:</label>
+	<input type="number" name="carat"  placeholder="请输入石重" value="<%= goods_info.carat%>"/>
+</div>
+<div class="div1 cert_box"><label>证书类型:</label>
+    <select name="cert">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.cert) { var name = attr_list.cert[id]; %>
+        <option <%= name==goods_info.cert?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+	<div class="hideBox"></div>
+</div>
+
+<div class="div1"><label>证书号:</label>
+	<input type="number" name="cert_id" data-cert_id="" placeholder="请输入裸石证书号" value="<%= goods_info.cert_id%>"/>
+</div>
+<div class="div1 color_box"><label>主石颜色:</label>
+	<select name="color">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.color) { var name = attr_list.color[id]; %>
+        <option <%= name==goods_info.color?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+	<div class="hideBox"></div>
+</div>
+<div class="div1 clarity_box"><label>主石净度:</label>
+	<select name="clarity">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.clarity) { var name = attr_list.clarity[id]; %>
+        <option <%= name==goods_info.clarity?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+	<div class="hideBox"></div>
+</div>
+<div class="div1" style="display:none"><label>主石切工:</label>
+	<select name="cut">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.cut) { var name = attr_list.cut[id]; %>
+        <option <%= name==goods_info.cut?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>表面工艺:</label>
+	<select name="facework" name="facework">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.facework) { var name = attr_list.facework[id]; %>
+        <option <%= name==goods_info.facework?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<!--<div class="div1"><label>成品定制码:</label>
+	<input type="text" name="cpdz_code" placeholder="请输入定制码" value=""/>
+</div>-->
+<div class="div1 xianhuo_adds" style="display:none"><label>现货增值项:</label>
+    <input name="xianhuo_adds" type="checkbox" value="镶石"/>镶石
+	<input name="xianhuo_adds" type="checkbox" value="改圈"/>改圈
+	<input name="xianhuo_adds" type="checkbox" value="刻字"/>刻字
+</div>
+<div class="div1"><label>商品价格:</label>
+	<input type="number" name="goods_price" value="<%= goods_info.goods_price%>" style="width:10rem !important" disabled/>
+	<a class="btn create_price" style="background:#76ba8e;color:#fff;display:none" href="javascript:">取价</a>
+</div>
+<input type="hidden" name="policy_id"/>
+<div class="div1 jt_kezi"><label>刻字内容:</label>
+	<input type="text" placeholder="请输入" id="kezi" name="kezi" value="<%=goods_info.kezi%>" maxlength="36"/>
+	<% for (var id in attr_list.kezi) { var name = attr_list.kezi[id]; %>
+	<em data-val="<%=id%>"><img src="../images/face/<%=name%>"/></em>
+	<% } %>
+	<div class="showKZ showKZ2"></div>
+</div>
+</script>
+<div class="modal fade bd-style-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" id="style_form">
+        <div class="modal-content dingzhi-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加款号</h5>
+                <button type="button" class="close dialog-dingzhi-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<div class="modal-body dingzhi-body" style="padding-bottom:0px">
+				<div class="div1" style="width:70%"><label>款 号：</label>
+					<input type="text" name="style_sn" data-val="" value=""/>
+				</div> 
+				<div class="div1" style="width:20%">
+					<button type="button" class="btn search">搜索</button>
+					<!--<button type="button" class="btn scan">扫一扫</button>-->
+				</div>        				       
+            </div>
+            <div class="modal-body dingzhi-body" id="style_info">
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="style-info" >
+<div class="show_msg" style='color:red;font-weight:bold;text-align:center;width:100%;clear:both;display:none;'></div>
+<a class="cpdz_price_search" style="display:none" href="javascript:void(0)" role="button" data-toggle="modal" data-target=".bd-cpdz-modal-lg">挑选</a>
+<div class="div1" style="width:70%;display:none"><label>商品名称:</label>
+	<input type="text" name="goods_name" value="<%= goods_info.style_name%>" disabled/>
+</div>
+<div class="div1" style="display:none"><label>虚拟货号:</label>
+	<input type="text" name="goods_id" value="" disabled/>
+</div>
+<div class="div1"><label>成品/空托:</label>
+	<select name="tuo_type">
+	<% for (var id in attr_list.tuo_type) { var name = attr_list.tuo_type[id]; %>
+        <option <%= id==goods_info.tuo_type?' selected':''%> value="<%= id%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>是否定制:</label>
+	<select name="is_dingzhi">
+	<% for (var id in attr_list.confirm) { var name = attr_list.confirm[id]; %>
+        <option <%= id==goods_info.is_dingzhi?' selected':''%> value="<%= id%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>工厂镶嵌方式:</label>
+	<select name="xiangqian">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.xiangqian) { var name = attr_list.xiangqian[id]; %>
+        <option <%= name==goods_info.xiangqian?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>材质:</label>
+    <select name="jinse">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.jinse) { var name = attr_list.jinse[id]; %>
+        <option <%= name==goods_info.caizhi_name?' selected':''%> value="<%= id%>" data-name="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>指圈:</label>
+   <select name="shoucun">
+   <option value="">请选择</option>
+	<% for (var id in attr_list.shoucun) { var name = attr_list.shoucun[id]; %>
+		<option <%= name==goods_info.shoucun?' selected':''%> value="<%= name%>" org="<%= goods_info.shoucun%>"><%=name%></option>
+	<% } %>	
+   </select> 
+</div>
+<div class="div1"><label>镶口:</label>
+   <select name="xiangkou">
+   <option value="">请选择</option>
+	<% for (var id in attr_list.xiangkou) { var name = attr_list.xiangkou[id]; %>
+		<option <%= name/1==goods_info.xiangkou/1?' selected':''%> value="<%= name%>"><%=name%></option>
+	<% } %>	
+   </select> 
+</div>
+<div class="div1"><label>主石粒数:</label>
+	<input type="number" id="zhushi_num" name="zhushi_num" placeholder="从款式带出" value="<%= attr_list.zhushi_num%>" disabled/>
+</div>
+<div class="div1"><label>主石单颗重:</label>
+	<input type="number" name="carat"  placeholder="请输入石重" value="<%= goods_info.carat%>"/>
+</div>
+<div class="div1"><label>证书号:</label>
+	<input type="number" name="cert_id" data-cert_id="" placeholder="证书号" value="<%= goods_info.cert_id%>"/>
+</div>
+<div class="div1 cert_box"><label>证书类型:</label>
+    <select name="cert">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.cert) { var name = attr_list.cert[id]; %>
+        <option <%= name==goods_info.cert?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+	<div class="hideBox"></div>
+</div>
+<div class="div1 color_box"><label>主石颜色:</label>
+	<select name="color">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.color) { var name = attr_list.color[id]; %>
+        <option <%= name==goods_info.color?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+	<div class="hideBox"></div>
+</div>
+<div class="div1 clarity_box"><label>主石净度:</label>
+	<select name="clarity">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.clarity) { var name = attr_list.clarity[id]; %>
+        <option <%= name==goods_info.clarity?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+	<div class="hideBox"></div>
+</div>
+<div class="div1" style="display:none"><label>主石切工:</label>
+	<select name="cut">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.cut) { var name = attr_list.cut[id]; %>
+        <option <%= name==goods_info.cut?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<div class="div1"><label>表面工艺:</label>
+	<select name="facework" name="facework">
+	<option value="">请选择</option>
+	<% for (var id in attr_list.facework) { var name = attr_list.facework[id]; %>
+        <option <%= name==goods_info.facework?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %>	
+	</select>
+</div>
+<!--
+<div class="div1"><label>成品定制码:</label>
+	<input type="text" name="cpdz_code" placeholder="请输入定制码" value=""/>
+</div>-->
+<div class="div1 xianhuo_adds" style="display:none"><label>现货增值项:</label>
+    <input name="xianhuo_adds" type="checkbox" value="镶石"/>镶石
+	<input name="xianhuo_adds" type="checkbox" value="改圈"/>改圈
+	<input name="xianhuo_adds" type="checkbox" value="刻字"/>刻字
+</div>
+<div class="div1"><label>商品价格:</label>
+	<input type="number" name="goods_price" value="<%= goods_info.goods_price%>" style="width:10rem !important" disabled/>
+	<a class="btn create_price" style="background:#76ba8e;color:#fff;" href="javascript:">取价</a>
+</div>
+<input type="hidden" name="policy_id"/>
+<div class="div1 jt_kezi"><label>刻字内容:</label>
+	<input type="text" placeholder="请输入" id="kezi" name="kezi" value="<%=goods_info.kezi%>" maxlength="36"/>
+	<% for (var id in attr_list.kezi) { var name = attr_list.kezi[id]; %>
+	<em data-val="<%=id%>"><img src="../images/face/<%=name%>"/></em>
+	<% } %>
+	<div class="showKZ showKZ2"></div>
+</div>
+</script>
+<style>
+.cpdzTable th{ font-weight:bold}
+.cpdzTable th,.cpdzTable td{ text-align:center }
+.dingzhi-body .msg{font-size:16px;text-align:center;width:100%; padding:20% 0;font-weight:bold}
+</style>
+<div class="modal fade bd-cpdz-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" >
+        <div class="modal-content dingzhi-content" id="cpdz_price_form">
+            <div class="modal-header">
+                <h5 class="modal-title">成品定制价格列表</h5>
+                <button type="button" class="close dialog-dingzhi-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body dingzhi-body">
+                <div class="msg">努力加载中....</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="cpdz-price-list" >
+ <table class="cpdzTable" style="width:100%; border-collapse:collapse" border="1">
+ <tr><th>颜色</th><th>净度</th><th>证书类型</th><th>商品价格</th><th style="width:20%">挑选</th></tr>
+ <% for (var id in cpdz_price_list) { var info = cpdz_price_list[id]; %>
+    <tr>
+		<td><%= info.color%></td>
+		<td><%= info.clarity%></td>
+		<td><%= info.cert%></td>
+		<td>
+		<%if (info.items.length>1){
+		%>
+		<div class="div1" style="width:100%; height:auto">
+		<select name='cpdz_price_select' >
+		<%
+		   for(var s_id in info.items){
+		      var s_info = info.items[s_id];
+		%>
+		  <option value="<%= s_info.policy_id%>|<%= s_info.goods_price%>">
+		  <%= s_info.goods_price%>
+		  </option>			  
+		<%	  
+		   }		   
+		%>
+		</select> 
+		</div>
+		<%}else{%>
+		<div class="div1" style="width:100%; height:38px">
+		  <%= info.goods_price%>
+		</div>
+		<%}%>
+		</td>
+		<td><a class="checkBtn" href="javascript:void()" data-color="<%= info.color%>" data-clarity="<%= info.clarity%>" data-cert="<%= info.cert%>" data-goods_price="<%= info.goods_price%>" data-goods_key="<%= info.goods_key%>" data-policy_id="<%= info.policy_id%>" style="color:blue">挑选</a></td>
+	</tr> 
+ <% } %>
+ </table>
+</script>
+<script type="text/javascript">
+    $.noConflict(false);
+</script>
+<script type="text/javascript" src="../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../js/config.js"></script> 
+<script type="text/javascript" src="../js/template.js"></script> 
+<script type="text/javascript" src="../js/common.js"></script> 
+<script type="text/javascript" src="../js/simple-plugin.js"></script> 
+<script type="text/javascript" src="../js/native/loader.js"></script>
+<script type="text/javascript" src="../js/tmpl/goods_common.js"></script>
+<script type="text/javascript" src="../js/tmpl/cart-list.js?t=111"></script>
+<script type="text/javascript" src="../js/tmpl/header.js"></script>
+</body>
+</html>

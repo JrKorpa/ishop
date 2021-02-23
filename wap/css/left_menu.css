@@ -1,0 +1,13 @@
+/* CSS Document */
+/*会员有礼弹窗*/
+.vip-content .vip-body{padding: 2rem 4rem;}
+.vip-content .p1 input,.vip-content .p1 select{ border: 1px solid #eee; width: 30%;margin-right: 1rem; height: 2.5rem; text-indent: 0.5rem;background: #fff;}
+.vip-content p.title{width: 100%;font-size: 1rem;padding:1rem 0 0;line-height:3rem;}
+.vip-content .p2 div{overflow: hidden;}
+.vip-content .p2 div a{display:inline-block;padding:0.3rem 1rem;background: #f2f2f2;border-radius: 5px;margin-right: 1rem;font-size: 1rem;}
+.vip-content .p2 div a.active{background: #76ba8e;color:#fff;}
+.vip-content .p3{line-height:3rem;}
+.vip-content .p3 input{border: 1px solid #eee;text-indent: 5px;height: 2.5rem;width: 7rem;}
+.vip-content .modal-footer .btn{background: #76ba8e;color: #fff;width: 8rem;margin: 0 1rem;}
+.vip-content .modal-footer .quxiao { background: #b6b6b6;}
+

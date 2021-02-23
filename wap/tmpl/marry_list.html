@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>列表</title>
+    <link rel="stylesheet" href="../js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/base.css?2">
+    <link rel="stylesheet" href="../css/prolist.css?2">
+    <link rel="stylesheet" href="../css/pageNav.css" />
+    <script src="../js/jquery3.2.1.min.js"></script>
+    <script src="../js/bootstrapt4/js/bootstrap.min.js"></script>
+	
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="proclass" id="proclass-list">
+        
+    </div>
+    <!-- 列表搜索部分 -->
+    <div class="prosearch" >
+        <div id="prosearch-list" class="prosearchBox">
+
+        </div>
+        <span class="ssBox">精简选项<i class="icon icon-arrowtop1"></i></span>
+    </div>
+
+    <!-- 钻石列表 -->
+    <div class="diamList">
+        <div class="diam_top">
+            <div id="nav-list">
+                
+            </div>
+            <div class="input-group searchName ">
+                <input type="text" class="form-control" id="goods_name" value="" placeholder="产品名称或款号"/>
+                <div class="input-group-append">
+                    <button class="btn_search btn-outline-secondary" onClick="doSearch()" type="button">搜索</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="jietuoList row" id="data-list">
+            
+        </div>
+        <div id="page">
+            
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/html" id="proclass-content">
+    <ul>
+        <%var cat_type = objtoarr(cat_type);%>
+        <% for (var i = 0;i<cat_type.length;i++){
+           var is_active=cat_type_val[cat_type[i]]==active_type;
+        %>
+        <li class="lis<%=(i+1)%> <%if (is_active){%>active<%}%>">
+            <a href="javascript:;" data-val="<%=cat_type_val[cat_type[i]]%>" data-name="<%=cat_type[i]%>"><span class="img"></span><i><%=cat_type[i]%></i></a>
+        </li>
+        <%}%>
+    </ul>
+</script>
+<script type="text/html" id="prosearch-content">
+    <div class="select x_schCondition_wrap">
+        <div class="row">
+            <%if(!isEmpty(pick_xilie_key)){%>
+            <div class="select-list">
+                <label>甄选系列</label>
+                <dl class="select_dl" data-dl="pick_xilie" id="pick_xilie">
+                    <dd class="select-all <%if(isEmpty(params.pick_xilie)){%>selected<%}%>" data-val=""><a href="javascript:;">不限</a></dd>
+                    <% for (var i = 0;i<pick_xilie_val.length;i++){%>
+                    <dd data-val="<%=pick_xilie_key[i]%>" class="<%if(params.pick_xilie == pick_xilie_key[i]){%>selected<%}%>"><a href="javascript:;"><%=pick_xilie_val[i]%></a></dd>
+                    <%}%>
+                </dl>
+            </div>
+            <%}%>
+            <%if(!isEmpty(tuo_type)){%>
+            <div class="select-list">
+                <label>金托类型</label>
+                <dl class="select_dl" data-dl="tuo_type" id="tuo_type">
+                    <dd class="select-all <%if(isEmpty(params.tuo_type)){%>selected<%}%>"><a href="javascript:;">不限</a></dd>
+                    <% for (var i in tuo_type) { var name = tuo_type[i]; %>
+                    <dd data-val="<%= i%>" class="<%if(params.tuo_type == i){%>selected<%}%>"><a href="javascript:;"><%=name%></a></dd>
+                    <% } %>
+                </dl>
+            </div>
+            <%}%>
+        </div>
+        <div class="row">
+            <%if(!isEmpty(jud_type)){%>
+            <div class="select-list">
+                <label>类别</label>
+                <dl class="select_dl" data-dl="jud_type" id="jud_type">
+                    <dd class="select-all <%if(isEmpty(params.jud_type)){%>selected<%}%>" data-val=""><a href="javascript:;">不限</a></dd>
+                    <%var jud_type = objtoarr(jud_type);%>
+                    <% for (var i = 0;i<jud_type.length;i++){%>
+                    <dd data-val="<%=jud_type[i]%>" class="<%if(params.jud_type == jud_type[i]){%>selected<%}%>"><a href="javascript:;"><%=jud_type[i]%></a></dd>
+                    <%}%>
+                </dl>
+            </div>
+            <%}%>
+        </div>
+        <div class="row">
+            <%if(!isEmpty(cart_key)){%>
+            <div class="select-list">
+                <label>主钻石重</label>
+                <dl class="select_dl" data-dl="cart" id="cart">
+                    <dd class="select-all <%if(isSet(params.cart)){%>selected<%}%>"><a href="javascript:;">不限</a></dd>
+                    <% for (var i = 0;i<cart_key.length;i++){%>
+                    <dd data-cartmin="<%=cart_val[i][0]%>" data-cartmax="<%=cart_val[i][1]%>" class="<%if(!isEmpty(params.cart)){%><%if(cart_val[i][0] == params.cart[0] && cart_val[i][1] == params.cart[1]){%>selected<%}%><%}%>"><a href="javascript:;"><%=cart_key[i]%></a></dd>
+                    <%}%>
+                </dl>
+            </div>
+            <%}%>
+        </div>
+       <div class="row">
+           <%if(!isEmpty(price_key)){%>
+           <div class="select-list">
+               <label>价格</label>
+               <dl class="select_dl" data-dl="price" id="price">
+                   <dd class="select-all <%if(isSet(params.price)){%>selected<%}%>"><a href="javascript:;">不限</a></dd>
+                   <% for (var i = 0;i<price_key.length;i++){%>
+                   <dd data-pricemin="<%=price_val[i][0]%>" data-pricemax="<%=price_val[i][1]%>" class="<%if(!isEmpty(params.price)){%><%if(price_val[i][0] == params.price[0] && price_val[i][1] == params.price[1]){%>selected<%}%><%}%>"><a href="javascript:;"><%=price_key[i]%></a></dd>
+                   <%}%>
+               </dl>
+           </div>
+           <%}%>
+       </div>
+        <div class="row">
+            <%if(!isEmpty(caizhi)){%>
+            <div class="select-list">
+                <label>材质</label>
+                <dl class="select_dl" data-dl="caizhi" id="caizhi">
+                    <dd class="select-all <%if(isEmpty(params.caizhi)){%>selected<%}%>"><a href="javascript:;">不限</a></dd>
+                    <%var caizhi = objtoarr(caizhi);%>
+                    <% for (var i = 0;i<caizhi.length;i++){%>
+                    <dd data-val="<%=caizhi[i]%>" class="<%if(params.caizhi == caizhi[i]){%>selected<%}%>"><a href="javascript:;"><%=caizhi[i]%></a></dd>
+                    <%}%>
+                </dl>
+            </div>
+            <%}%>
+            <%if(!isEmpty(warehouse)){%>
+            <div class="select-list">
+                <label>库存</label>
+                <dl class="select_dl" data-dl="warehouse" id="warehouse">
+                    <%var warehouse_list = objtoarr(warehouse);%>
+                    <% for (var i = 0;i<warehouse_list.length;i++){%>
+                    <dd data-val="<%=warehouse_list[i]%>"  class="<%if(params.warehouse == warehouse_list[i]){%>selected<%}%>" ><a href="javascript:;"><%=warehouse_list[i]%></a></dd>
+                    <%}%><!--<%=i==0?' selected':''%>-->
+                </dl>
+            </div>
+            <%}%>
+            <%if(!isEmpty(zhiquan)){%>
+            <div class="select-list">
+                <label>指圈</label>
+                <dl class="select_dl" data-dl="zhiquan">
+                    <input type="number" placeholder="指圈号" class="zhiquan" value="<%if(params.zhiquan>0){%><%=params.zhiquan%><%}%>" id="zhiquan">
+                </dl>
+            </div>
+            <%}%>
+        </div>
+        <div class="row">
+            <%if(!isEmpty(is_xianhuo)){%>
+            <div class="select-list" style="display:none">
+                <label>类型</label>
+                <dl class="select_dl" data-dl="is_xianhuo" id="is_xianhuo">
+                    <% for (var id in is_xianhuo) { var name = is_xianhuo[id]; %>
+                    <dd data-val="<%=id%>" class="<%=id==1?' selected':''%>" ><a href="javascript:;"><%=name%></a></dd>
+                    <%}%>
+                </dl>
+            </div>
+            <%}%>
+        </div>
+    </div>
+    <div class="row search2">
+        <div class="btn-group2 screen" id="order_by">
+            <button type="button" class="btn active" data-val="1">综合<i class="icon" data-val="1"></i></button>
+            <button type="button" class="btn " data-val="2">人气<i class="icon icon-arrowtop" data-val="2"></i></button>
+            <button type="button" class="btn " data-val="3">新品<i class="icon icon-arrowdown" data-val="2"></i></button>
+            <button type="button" class="btn " data-val="4">销量<i class="icon icon-arrowdown" data-val="2"></i></button>
+            <button type="button" class="btn " data-val="5">价格<i class="icon icon-arrowdown" data-val="2"></i></button>
+        </div>
+        <div class="price ">
+            <p class="price_span"><input type="number" placeholder="￥" class="minprice" value="<%if(params.price_min>0){%><%=params.price_min%><%}%>" id="minprice"></p><em>&nbsp;&nbsp;-&nbsp;&nbsp;</em>
+            <p class="price_span"><input type="number" placeholder="￥" class="maxprice" value="<%if(params.price_max>0){%><%=params.price_max%><%}%>" id="maxprice"></p>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <p class="price_span"><input type="number" placeholder="CT" class="mincart" value="<%if(params.carat_min>0){%><%=params.carat_min%><%}%>" id="mincart"></p><em>&nbsp;&nbsp;-&nbsp;&nbsp;</em>
+            <p class="price_span"><input type="number" placeholder="CT" class="maxcart" value="<%if(params.carat_max>0){%><%=params.carat_max%><%}%>" id="maxcart"></p>
+
+            <a href="javascript:;" onClick="doSearch()" class="btn search_a">搜索</a><a href="javascript:;" onClick="doReset()" class="btn reset_a">重置</a>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="nav-content">
+<ul class="nav nav-pills" id="myTab">
+    <li class="nav-item">
+        <a class="nav-link active" data-val="all" id="all" href="javascript:">全部<%if (allNum){%>(<%=allNum%>)<%}else{%><%}%></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-val="hot" id="hot" href="javascript:">推荐<%if (hotNum){%>(<%=hotNum%>)<%}else{%><%}%></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-val="diff" id="diff" href="javascript:">比较<%if (diffNum){%>(<%=diffNum%>)<%}else{%><%}%></a>
+    </li>
+</ul>
+</script>
+<script type="text/html" id="data-content">
+<% if (style_goods_list && style_goods_list.length > 0) { %>
+<% for (var k in style_goods_list) { var v = style_goods_list[k]; %>
+     <div class="col-sm-4 col-lg-3">
+        <a href="jietuo_detail.html?goods_sn=<%=v.goods_sn%>">
+            <div class="imgWap">
+                <%if(!isEmpty(v.goods_image)){%>
+                    <img src="<%= v.goods_image %>"/>
+                <%}else{%>
+                    <img src="../../data/common/default_goods_image_240.gif" alt="">
+                <%}%>
+            </div> 
+            <p><%= v.style_name %></p>
+            <p class="price">￥<%= v.goods_price %></p>
+		   </a>
+		   <%if (del_show == false){%><p onclick="delConTrast('<%=v.goods_sn%>')" style="font-size:12px;cursor:pointer">(删除对比)</p><% } %>
+        
+      </div>
+<% } %>
+<% } else { %>
+    <div class="nctouch-norecord">
+        <div class="norecord-ico"><i class="icon icon-dianpu2"></i></div>
+        <dl>
+            <dt>未查询到任何数据</dt>
+            <dd> </dd>
+        </dl>
+    </div>
+<% } %>
+</script>
+<script type="text/html" id="warehouse-goods-list">
+<% if (warehouse_goods_list && warehouse_goods_list.length > 0) {%>
+<% for (var k in warehouse_goods_list) { var v = warehouse_goods_list[k]; %>
+     <div class="col-sm-4 col-lg-3">
+			<a href="xianhuo_detail.html?goods_sn=<%=v.goods_id%>&style_sn=<%=v.style_sn%>&from_type=marry_list&is_shop=<%=is_shop%>">
+				<div class="imgWap">
+					<%if(!isEmpty(v.goods_image)){%>
+                        <img src="<%= v.goods_image %>"/>
+                    <%}else{%>
+                        <img src="../../data/common/default_goods_image_240.gif" alt="">
+                    <%}%>
+				</div>
+				<p><%= v.goods_name %>(现货)</p>
+				<p class="price">￥<%= v.goods_price %></p>
+			</a>
+			<%if (del_show == false){%><p onclick="delConTrast('<%=v.goods_id%>')" style="font-size:12px;cursor:pointer">(删除对比)</p><% } %>
+      </div>
+<% } %>
+<% } else { %>
+	<div class="nctouch-norecord">
+		<div class="norecord-ico"><i class="icon icon-dianpu"></i></div>
+		<dl>
+			<dt>未查询到任何数据</dt>
+			<dd> </dd>
+		</dl>
+	</div>
+<% } %>
+</script>
+<script type="text/html" id="page-content">
+<!-- 分页 -->
+<nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId">
+</nav>
+<!-- 分页 -->
+</script>
+<script type="text/javascript">
+    $.noConflict(false);
+</script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/tmpl/marry_list.js?v=1"></script>
+<script type="text/javascript" src="../js/pageNav.js"></script>
+<script type="text/javascript" src="../js/tmpl/header.js"></script>
+<script type="text/javascript" src="../js/simple-plugin.js"></script>
+<script type="text/javascript">
+  jQuery(function($){   //使用jQuery
+    $(document).delegate('.ssBox','click',function () {
+      if($("#prosearch-list").css("display") == "block"){
+        $(".ssBox i").removeClass("icon-arrowtop1").addClass("icon-arrowdown1");
+      }else{
+        $(".ssBox i").removeClass("icon-arrowdown1").addClass("icon-arrowtop1");
+      }
+      $("#prosearch-list").slideToggle();
+    })
+  });
+</script>
+</html>

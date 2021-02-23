@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>钻戒定制</title>
+    <link rel="stylesheet" href="../js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/base.css?2">
+    <link rel="stylesheet" href="../css/diamond.css?6">
+    <link rel="stylesheet" href="../css/pageNav.css" />
+    <script src="../js/jquery3.2.1.min.js"></script>
+    <script src="../js/bootstrapt4/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- 导航 -->
+    <div class="row diamTop">
+        <div class="col col1">定制您的钻戒<span class="d-block">ENGAGEMENT RINGS</span><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col active nav-sel-dia" style="cursor:pointer"><em class="icon icon-jiezhi2"></em>挑选钻石<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col nav-sel-jietuo" style="cursor:pointer"><em class="icon icon-jiezhi3"></em>挑选戒托/成品<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col "><em class="icon icon-check1"></em>完成下单 <i class="jt1"></i></div>
+    </div>
+    <!-- 筛选条件 -->
+    <div  class="diamSearch">
+        <div id="search-content" class="diamSearchBox">
+
+        </div>
+        <span class="ssBox"><span>精简选项</span><i class="icon icon-arrowtop1"></i></span>
+    </div>
+    <!-- 钻石列表 -->
+    <div class="diamList">
+        <div id="diamtop-content" class="diam_top">
+            
+        </div>
+        <div id="diamond-content" class="diamTable">
+            <p style="text-align: center;">努力加载中...</p>
+        </div>
+        <div id="page">
+            
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/html" id="diamond-search">
+    <% if (!isEmpty(diamond_search)) { %>
+    <div class="row">
+        <div class="btn-group shape" >
+            <label class="d-inline">形状</label>
+            <%var shape = objtoarr(diamond_search.shape);%>
+            <%var shape_sed = objtoarr(params.shape);%>
+            <%var shape_val = diamond_search.shape_val;%>
+            <% for (var i = 0;i<shape.length;i++){%>
+            <button type="button" class="btn <%if(in_array(shape_val[shape[i]],shape_sed)){%>active<%}%>" data-val="<%=shape_val[shape[i]]%>" <% if (is_shape_disabled == true) { %>disabled="disabled"<%}%>><i class="shapI shap<%=shape_val[shape[i]]%>"></i><%=shape[i]%></button>
+            <%}%>
+        </div>
+    </div>
+    <div class="row">
+        <div class="btn-group color">
+            <label class="d-inline">颜色</label>
+            <%var color = objtoarr(params.color);%>
+            <% for (var i = 0;i<diamond_search.color.length;i++){%>
+            <button type="button" class="btn <%if(in_array(diamond_search.color[i],color)){%>active<%}%>" data-val="<%=diamond_search.color[i]%>"><%=diamond_search.color[i]%></button>
+            <%}%>
+        </div>
+    </div>
+    <div class="row">
+        <div class="btn-group cut">
+            <label class="d-inline">切工</label>
+            <%var cut = objtoarr(params.cut);%>
+            <% for (var i = 0;i<diamond_search.cut.length;i++){%>
+            <button type="button" class="btn <%if(in_array(diamond_search.cut[i],cut)){%>active<%}%>" data-val="<%=diamond_search.cut[i]%>"><%=diamond_search.cut[i]%></button>
+            <%}%>
+        </div>
+        <div class="btn-group clarity">
+            <label class="d-inline">净度</label>
+            <%var clarity = objtoarr(params.clarity);%>
+            <% for (var i = 0;i<diamond_search.clarity.length;i++){%>
+            <button type="button" class="btn <%if(in_array(diamond_search.clarity[i],clarity)){%>active<%}%>" data-val="<%=diamond_search.clarity[i]%>"><%=diamond_search.clarity[i]%></button>
+            <%}%>
+        </div>
+    </div>
+    <div class="row">
+        <div class="btn-group symmetry">
+            <label class="d-inline">对称</label>
+            <%var symmetry = objtoarr(params.symmetry);%>
+            <% for (var i = 0;i<diamond_search.symmetry.length;i++){%>
+            <button type="button" class="btn <%if(in_array(diamond_search.symmetry[i],symmetry)){%>active<%}%>" data-val="<%=diamond_search.symmetry[i]%>"><%=diamond_search.symmetry[i]%></button>
+            <%}%>
+        </div>
+        <div class="btn-group fluorescence">
+            <label class="d-inline">荧光</label>
+            <%var fluorescence = objtoarr(params.fluorescence);%>
+            <% for (var i = 0;i<diamond_search.fluorescence.length;i++){%>
+            <button type="button" class="btn <%if(in_array(diamond_search.fluorescence[i],fluorescence)){%>active<%}%>" data-val="<%=diamond_search.fluorescence[i]%>"><%=diamond_search.fluorescence[i]%></button>
+            <%}%>
+        </div>
+    </div>
+    <div class="row">
+        <div class="btn-group polishing">
+            <label class="d-inline">抛光</label>
+            <%var polish = objtoarr(params.polishing);%>
+            <% for (var i = 0;i<diamond_search.polish.length;i++){%>
+            <button type="button" class="btn <%if(in_array(diamond_search.polish[i],polish)){%>active<%}%>" data-val="<%=diamond_search.polish[i]%>"><%=diamond_search.polish[i]%></button>
+            <%}%>
+        </div>
+        <div class="btn-group is_3dimage">
+            <label class="d-inline">有图</label>
+            <%var is_3dimage = objtoarr(params.is_3dimage);%>
+            <button type="button" class="btn <%if(in_array(1,is_3dimage)){%>active<%}%>" data-val="1">是</button>
+            <button type="button" class="btn <%if(in_array(2,is_3dimage)){%>active<%}%>" data-val="2">否</button>
+        </div>
+        <div class="btn-group weight ">
+            <label class="d-inline">重量</label>
+            <input type="text" id="carat_min" name="carat_min" value="<%if(cart>0){%><%=cart%><%}else{%><%if(params.carat_min>0){%><%=params.carat_min%><%}%><%}%>" <%if(cart){%>disabled<%}%> placeholder="ct"><em>&nbsp;&nbsp;-&nbsp;&nbsp;</em>
+            <input type="text" id="carat_max" name="carat_max" value="<%if(cart>0){%><%=cart%><%}else{%><%if(params.carat_max>0){%><%=params.carat_max%><%}%><%}%>" <%if(cart){%>disabled<%}%> placeholder="ct"><em></em>
+        </div>
+    </div>
+    <div class="row">
+        <div class="btn-group certificate">
+            <label class="d-inline">证书</label>
+            <%var cert_sed = objtoarr(params.certificate);%>
+            <% for (var i = 0;i<diamond_search.cert.length;i++){%>
+            <button type="button" class="btn <%if(in_array(diamond_search.cert[i],cert_sed)){%>active<%}%>" data-val="<%=diamond_search.cert[i]%>" <% if (is_cert_disabled) { %>disabled="disabled"<%}%>><%=diamond_search.cert[i]%></button>
+            <%}%>
+        </div>
+        <!--<div class="btn-group series ">
+            <label class="d-inline">系列</label>
+            <%var xilie = diamond_search.xilie;%>
+            <%var xilie_sed = objtoarr(params.xilie);%>
+            <%var xilie_val = diamond_search.xilie_val;%>
+            <% for (var i = 0;i<xilie.length;i++){%>
+            <button type="button" class="btn <%if(in_array(xilie_val[xilie[i]],xilie_sed)){%>active<%}%>" data-val="<%=xilie_val[xilie[i]]%>" <% if (is_xilie_disabled) { %>disabled="disabled"<%}%>><%=xilie[i]%></button>
+            <%}%>
+        </div>-->
+        <div class="btn-group good_type">
+            <label class="d-inline">类型</label>
+            <%var good_type = objtoarr(params.good_type);%>
+            <button type="button" class="btn <%if(in_array(1,good_type)){%>active<%}%>" data-val="1">现货</button>
+            <button type="button" class="btn <%if(in_array(2,good_type)){%>active<%}%>" data-val="2">期货</button>
+        </div>
+        <!--<div class="btn-group carats_tsyd1">
+            <label class="d-inline">天生一对钻重1</label>
+            <input type="text" id="s_carats_tsyd1" name="s_carats_tsyd1" value="<%if(cart>0){%><%=cart%><%}else{%><%if(params.carat_min>0){%><%=params.carat_min%><%}%><%}%>" <%if(cart){%>disabled<%}%> placeholder="ct"><em>&nbsp;&nbsp;-&nbsp;&nbsp;</em>
+            <input type="text" id="e_carats_tsyd1" name="e_carats_tsyd1" value="<%if(cart>0){%><%=cart%><%}else{%><%if(params.carat_max>0){%><%=params.carat_max%><%}%><%}%>" <%if(cart){%>disabled<%}%> placeholder="ct"><em></em>
+        </div>
+        <div class="btn-group carats_tsyd2">
+            <label class="d-inline">天生一对钻重2</label>
+            <input type="text" id="s_carats_tsyd2" name="s_carats_tsyd2" value="<%if(cart>0){%><%=cart%><%}else{%><%if(params.carat_min>0){%><%=params.carat_min%><%}%><%}%>" <%if(cart){%>disabled<%}%> placeholder="ct"><em>&nbsp;&nbsp;-&nbsp;&nbsp;</em>
+            <input type="text" id="e_carats_tsyd2" name="e_carats_tsyd2" value="<%if(cart>0){%><%=cart%><%}else{%><%if(params.carat_max>0){%><%=params.carat_max%><%}%><%}%>" <%if(cart){%>disabled<%}%> placeholder="ct"><em></em>
+        </div>-->
+    </div>
+    <div class="row">
+        <div class="btn-group price ">
+            <label class="d-inline">价格</label>
+            <span class="price_span"><input type="text" id="price_min" name="price_min" value="<%if(params.price_min>0){%><%=params.price_min%><%}%>"  placeholder="￥"></span><em>&nbsp;&nbsp;-&nbsp;&nbsp;</em>
+            <span class="price_span"><input type="text" id="price_max" name="price_max" value="<%if(params.price_max>0){%><%=params.price_max%><%}%>"  placeholder="￥"></span>
+        </div>
+        <div class="btn-group certificateNum ">
+            <label class="d-inline">证书号</label>
+            <input type="text" id="cert_id" name="cert_id" value="<%if(params.cert_id>0){%><%=params.cert_id%><%}%>" placeholder="请输入证书号">
+        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btnSearch" onclick="doSearch()">搜索</button>&nbsp;&nbsp;
+        <button type="button" class="btn btnReset" onclick="doReset()">重置</button>
+    </div>
+    <% } else { %>
+        <div class="row"></div>
+    <% } %>
+</script>
+<script type="text/html" id="diamond-top">
+    <ul class="nav nav-pills" id="myTab">
+        <li class="nav-item ">
+            <a class="nav-link active" href="javascript:void(0)" id="all" data-val="all">全部(<%if (allNum){%><%=allNum%><%}else{%>0<%}%>)</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" id="hot" data-val="hot">推荐(<%if (hotNum) {%><%=hotNum%><%}else{%>0<%}%>)</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" id="dff" data-val="dff">比较(<%if (dffNum) {%><%=dffNum%><%}else{%>0<%}%>)</a>
+        </li>
+    </ul>
+</script>
+<script type="text/html" id="diamond-list">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <!--<th scope="col">3D图</th>-->
+            <th scope="col">形状</th>
+            <th scope="col">石重</th>
+            <th scope="col">颜色</th>
+            <th scope="col">净度</th>
+            <th scope="col">切工</th>
+            <th scope="col">对称</th>
+            <th scope="col">抛光</th>
+            <th scope="col">荧光</th>
+            <th scope="col" class="th1">珂兰价
+                <img src="<%=src_val%>" alt="" id="sortcheck" data-val="<%=price_sort%>">
+            </th>
+            <th scope="col" class="th1">证书类型</th>
+            <th scope="col" class="th1">证书号</th>
+            <th scope="col" class="th1">货品类型</th>
+            <th scope="col">订购</th>
+            <%if (del == false && !is_hot) {%><th scope="col">操作</th><% } %>
+        </tr>
+        </thead>
+        <tbody>
+        <% if (diamond_list && diamond_list.length > 0) { %>
+            <% for (var i = 0;i<diamond_list.length;i++){%>
+                <% if(diamond_list[i].kuan_sn && diamond_list[i].add) {%>
+                    <tr class="tsyd_diam">
+                        <td rowspan="2" class="diamShap" style="vertical-align: middle;"><i class="shapI shap<%=diamond_list[i].shape%>"></i></td>
+                        <td><%=toFixed(diamond_list[i].carat)%></td>
+                        <td><%=diamond_list[i].color%></td>
+                        <td><%=diamond_list[i].clarity%></td>
+                        <td><%=diamond_list[i].cut%></td>
+                        <td><%=diamond_list[i].symmetry%></td>
+                        <td><%=diamond_list[i].polish%></td>
+                        <td><%=diamond_list[i].fluorescence%></td>
+                        <td><%=toFixed(diamond_list[i].shop_price)%></td>
+                        <td><%=diamond_list[i].cert%></td>
+                        <td><%=diamond_list[i].cert_id%></td>
+                        <td><%if(diamond_list[i].good_type == 1){%>现货<%}else{%>期货<%}%></td>
+                        <!--<td><%=diamond_list[i].cert_id%></td>-->
+                        <td>
+                        <%if(isEmpty(goods_sn)){%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?cert_id=<%=diamond_list[i].cert_id%>">查看</a>
+                        <%}else if(is_xianhuo==1){%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?goods_sn=<%=goods_sn%>&style_sn=<%=style_sn%>&cert_id=<%=diamond_list[i].cert_id%>">查看</a>
+                        <%}else{%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?goods_sn=<%=goods_sn%>&cert_id=<%=diamond_list[i].cert_id%>">查看</a>                <%}%>
+                        </td>
+                        <%if (del == false && !is_hot){%>
+                        <td><button id="del" class="dele_btn" type="button" data-val="<%=diamond_list[i].cert_id%>">删除</button></td>
+                        <% } %>
+                    </tr>
+                    <tr class="tsyd_diam2">
+                        <td><%=toFixed(diamond_list[i].add.carat)%></td>
+                        <td><%=diamond_list[i].add.color%></td>
+                        <td><%=diamond_list[i].add.clarity%></td>
+                        <td><%=diamond_list[i].add.cut%></td>
+                        <td><%=diamond_list[i].add.symmetry%></td>
+                        <td><%=diamond_list[i].add.polish%></td>
+                        <td><%=diamond_list[i].add.fluorescence%></td>
+                        <td><%=toFixed(diamond_list[i].add.shop_price)%></td>
+                        <td><%=diamond_list[i].add.cert%></td>
+                        <td><%=diamond_list[i].add.cert_id%></td>
+                        <td><%if(diamond_list[i].add.good_type == 1){%>现货<%}else{%>期货<%}%></td>
+                        <!--<td><%=diamond_list[i].add.cert_id%></td>-->
+                        <td>
+                        <%if(isEmpty(goods_sn)){%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?cert_id=<%=diamond_list[i].add.cert_id%>">查看</a>
+                        <%}else if(is_xianhuo==1){%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?goods_sn=<%=goods_sn%>&style_sn=<%=style_sn%>&cert_id=<%=diamond_list[i].add.cert_id%>">查看</a>
+                        <%}else{%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?goods_sn=<%=goods_sn%>&cert_id=<%=diamond_list[i].add.cert_id%>">查看</a>                <%}%>
+                        </td>
+                        <%if (del == false && !is_hot){%>
+                        <td><button id="del" class="dele_btn" type="button" data-val="<%=diamond_list[i].add.cert_id%>">删除</button></td>
+                        <% } %>
+                    </tr>
+                <%}else{%>
+                    <tr>
+                        <td class="diamShap"><i class="shapI shap<%=diamond_list[i].shape%>"></i></td>
+                        <td><%=toFixed(diamond_list[i].carat)%></td>
+                        <td><%=diamond_list[i].color%></td>
+                        <td><%=diamond_list[i].clarity%></td>
+                        <td><%=diamond_list[i].cut%></td>
+                        <td><%=diamond_list[i].symmetry%></td>
+                        <td><%=diamond_list[i].polish%></td>
+                        <td><%=diamond_list[i].fluorescence%></td>
+                        <td><%=toFixed(diamond_list[i].shop_price)%></td>
+                        <td><%=diamond_list[i].cert%></td>
+                        <td><%=diamond_list[i].cert_id%></td>
+                        <td><%if(diamond_list[i].good_type == 1){%>现货<%}else{%>期货<%}%></td>
+                        <!--<td><%=diamond_list[i].cert_id%></td>-->
+                        <td>
+                        <%if(isEmpty(goods_sn)){%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?cert_id=<%=diamond_list[i].cert_id%>">查看</a>
+                        <%}else if(is_xianhuo==1){%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?goods_sn=<%=goods_sn%>&style_sn=<%=style_sn%>&cert_id=<%=diamond_list[i].cert_id%>">查看</a>
+                        <%}else{%>
+                        <a class="diamLink" href="<%=WapSiteUrl%>/tmpl/diamond_detail.html?goods_sn=<%=goods_sn%>&cert_id=<%=diamond_list[i].cert_id%>">查看</a>                <%}%>
+                        </td>
+                        <%if (del == false && !is_hot){%>
+                        <td><button id="del" class="dele_btn" type="button" data-val="<%=diamond_list[i].cert_id%>">删除</button></td>
+                        <% } %>
+                    </tr>
+                <%}%>
+            <%}%>
+        <% } else { %>
+            <tr><td colspan="14">未查询到任何数据</td></tr>
+        <% } %>
+        </tbody>
+    </table>
+</script>
+<script type="text/html" id="page-content">
+<!-- 分页 -->
+<% if (pagetab_show == true) { %>
+<nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId">
+</nav>
+<% } %>
+<!-- 分页 -->
+</script>
+<a href="javascript:;" id="talkqq_link" style="display: block;width: 40px;height: 40px;line-height:50px;text-align:center;border-radius:50%;color:#fff;position: fixed;top: 60%;z-index:100;right:0;"><img style="display: block;width: 100%;" src="../images/img/kefu.gif"/></a>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/tmpl/diamond.js"></script>
+<script type="text/javascript" src="../js/pageNav.js"></script>
+<script type="text/javascript" src="../js/tmpl/header.js"></script>
+<script type="text/javascript" src="../js/native/loader.js"></script>
+<script type="text/javascript">
+  jQuery(function($){   //使用jQuery
+    $(document).delegate('.ssBox','click',function () {
+      if($("#search-content").css("display") == "block"){
+        $(".ssBox span").html("更多选项");
+        $(".ssBox i").removeClass("icon-arrowtop1").addClass("icon-arrowdown1");
+      }else{
+        $(".ssBox span").html("精简选项");
+        $(".ssBox i").removeClass("icon-arrowdown1").addClass("icon-arrowtop1");
+      }
+      $("#search-content").slideToggle();
+    });
+
+    $('#talkqq_link').click(function(){
+        if(typeof cordova =="undefined" || typeof cordova.InAppBrowser =='undefined'){
+          window.open('talkqq.html')
+        } else {
+          cordova.InAppBrowser.open('talkqq.html', '_system', 'location=yes');
+        }
+    });
+
+  });
+</script>
+<!--<script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzkzODAzMzUxMF80NjI4NzZfNDAwOTk4NTE1MV8"></script>-->
+<!-- WPA start -->
+<!--<script type="text/javascript">
+    setTimeout(function(){
+      if (window.platformId == '' || window.platformId == null || window.platformId == undefined) {
+            loadJs('https://wp.qiye.qq.com/qidian/2852155799/0588e3d905f8c3af5ce41c9510f402ad');
+        }
+    }, 2000);
+</script>-->
+<!-- WPA end -->        
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>订单列表</title>
+    <link rel="stylesheet" href="js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="css/base.css?1">
+    <link rel="stylesheet" href="css/orderList.css">
+    <script src="js/jquery3.2.1.min.js"></script>
+    <script src="js/bootstrapt4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <a href="javascript:history.go(-1);">
+            <i class="icon icon-arrowleft1"></i>back
+            </a>
+        </div>
+        <div class="logo"><img src="images/logo.png"/></div>
+        <div class="head-nav">
+            <a href="javascript:;"><i class="icon icon-read"></i>珠宝课堂</a>
+            <a id="login_common"><i class="icon icon-person"></i>登录</a>
+            <a href="javascript:;"><i class="icon icon-cart"></i>购物车</a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div id="fixed_nav" class="nctouch-single-nav">
+        <ul>
+            <li class="selected"><a href="javascript:void(0);" data-state="">全部</a></li>
+            <li><a href="javascript:void(0);" data-state="state_pay">待付款</a></li>
+            <li><a href="javascript:void(0);" data-state="state_send">待发货</a></li>
+            <li><a href="javascript:void(0);" data-state="state_sendok">已发货</a></li>
+            <li><a href="javascript:void(0);" data-state="state_cancel">已取消</a></li>
+        </ul>
+    </div>
+    <div class="nctouch-order-list">
+        <ul id="order-list">
+            <li class="">
+                <div class="nctouch-order-item">
+                    <div class="nctouch-order-item-head">
+                        <span>订单编号：78978978979</span>
+                        <span>制单人：张三</span>
+                        <span>下单日期：2018-11-11</span>
+                        <label class="order-type">定制  未付款</label>
+                    </div>
+                    <div class="nctouch-order-item-con">
+                        <div class="goods-block">
+                            <a href="#">
+                                <div class="goods-pic">
+                                    <img src="http://kelacms.kela.cn/images/product/nvjie/yuanban/1.jpg"/>
+                                </div>
+                                <dl class="goods-info">
+                                    <dt class="goods-name">18k金钻石女戒</dt>
+                                    <dd class="goods-canshu">
+                                        <span class="goods-caizhi">材质：18k白金</span>
+                                        <span class="goods-shoucun">指圈：16</span>
+                                        <span class="goods-cart">主石大小：0.8</span>
+                                        <span class="goods-cart">主石颜色：D</span>
+                                        <span class="goods-cart">主石切工：EX</span>
+                                        <span class="goods-cart">主石净度：VVS1</span>
+                                    </dd>
+                                    <dd class="goods-subtotal">
+                                        <span class="goods-price">￥<em>184645</em></span>
+                                        <span class="goods-num">x1</span>
+                                    </dd>
+                                </dl>
+                            </a>
+                        </div>
+                        <div class="goods-block">
+                            <a href="#">
+                                <div class="goods-pic">
+                                    <img src="http://kelacms.kela.cn/images/product/nvjie/yuanban/1.jpg"/>
+                                </div>
+                                <dl class="goods-info">
+                                    <dt class="goods-name">18k金钻石女戒</dt>
+                                    <dd class="goods-canshu">
+                                        <span class="goods-caizhi">材质：18k白金</span>
+                                        <span class="goods-shoucun">指圈：16</span>
+                                        <span class="goods-cart">主石大小：0.8</span>
+                                        <span class="goods-cart">主石颜色：D</span>
+                                        <span class="goods-cart">主石切工：EX</span>
+                                        <span class="goods-cart">主石净度：VVS1</span>
+                                    </dd>
+                                    <dd class="goods-subtotal">
+                                        <span class="goods-price">￥<em>184645</em></span>
+                                        <span class="goods-num">x1</span>
+                                    </dd>
+                                </dl>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="nctouch-order-item-footer">
+                        <div class="store-totle">
+                            <span>共<em>1</em>件商品，合计</span><span class="sum">￥<em>184545</em></span><span class="freight">(含运费￥0)</span><br>
+                        </div>
+                        <div class="handle">
+                            <a href="javascript:void(0)" class="btn ">审核订单</a>
+                            <a href="javascript:void(0)" class="btn ">取消订单</a>
+                            <a href="javascript:;"  class="btn shbtn" >支付</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="nctouch-order-item">
+                    <div class="nctouch-order-item-head">
+                        <span>订单编号：78978978979</span>
+                        <span>制单人：张三</span>
+                         <span>下单日期：2018-11-11</span>
+                        <label class="order-type">定制  未付款</label>
+                    </div>
+                    <div class="nctouch-order-item-con">
+                        <div class="goods-block">
+                            <a href="#">
+                                <div class="goods-pic">
+                                    <img src="http://kelacms.kela.cn/images/product/nvjie/yuanban/1.jpg"/>
+                                </div>
+                                <dl class="goods-info">
+                                    <dt class="goods-name">18k金钻石女戒</dt>
+                                    <dd class="goods-canshu">
+                                        <span class="goods-caizhi">材质：18k白金</span>
+                                        <span class="goods-shoucun">指圈：16</span>
+                                        <span class="goods-cart">主石大小：0.8</span>
+                                        <span class="goods-cart">主石颜色：D</span>
+                                        <span class="goods-cart">主石切工：EX</span>
+                                        <span class="goods-cart">主石净度：VVS1</span>
+                                    </dd>
+                                    <dd class="goods-subtotal">
+                                        <span class="goods-price">￥<em>184645</em></span>
+                                        <span class="goods-num">x1</span>
+                                    </dd>
+                                </dl>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="nctouch-order-item-footer">
+                        <div class="store-totle">
+                            <span>共<em>1</em>件商品，合计</span><span class="sum">￥<em>184545</em></span><span class="freight">(含运费￥0)</span><br>
+                        </div>
+                        <div class="handle">
+                            <a href="javascript:void(0)" class="btn checkd-order">审核订单</a>
+                            <a href="javascript:void(0)" class="btn cancel-order">取消订单</a>
+                            <a href="javascript:;"  class="btn-l check-payment btn shbtn" >支付</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+
+</script>
+</body>
+</html>

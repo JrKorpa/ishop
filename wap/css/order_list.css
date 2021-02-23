@@ -1,0 +1,272 @@
+@charset "utf-8";
+
+/* 订单列表导航 start */
+.nctouch-single-nav {
+    display: block;
+    width: 100%;
+    background: #FFF;
+    border-bottom: solid 1px #EEE;
+    position: fixed;
+    top: 70px;
+    z-index: 30;
+    /* left: 0; */
+    max-width: 1366px;
+}
+
+/* bootstrap样式导致的位移 */
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.nctouch-single-nav ul {
+    display: block;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.nctouch-single-nav ul li {
+    width: 12.5%;
+    display: block;
+    float: left;
+    text-align: center;
+    height: 3.5rem;
+    padding: 0 !important;
+}
+
+.nctouch-single-nav ul li a {
+    display: inline-block;
+    height: 3.5rem;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 3.5rem;
+    color: #333;
+}
+
+.nctouch-single-nav ul li.selected a {
+    color: #d29962;
+    border-bottom: solid 0.1rem #d29962 !important;
+}
+
+.nctouch-single-nav p {
+    padding: 0 15px;
+    line-height: 3rem;
+    background: #fafbfc;
+}
+
+/*订单列表导航 end */
+
+.container-fluid {
+    margin-top: calc(70px + 6.5rem);
+}
+
+/*订单列表*/
+.nctouch-order-list {
+    display: block;
+    clear: both;
+    width: 100%;
+}
+
+.nctouch-order-list ul li {
+    border-bottom: 1rem solid #f7f7f7;
+}
+
+.nctouch-order-item-head {
+    padding: 1rem 0;
+    border-bottom: solid 0.05rem #EEE;
+    position: relative;
+}
+
+.nctouch-order-item-head span {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    display: block;
+    color: #333;
+}
+
+.nctouch-order-item-head .order-type {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 0;
+    display: block;
+    color: #ff3358;
+    font-size: 1rem;
+}
+
+/*订单商品简介*/
+.nctouch-order-item-footer .store-totle {
+    min-height: 0.9rem;
+    padding: 0.5rem 0;
+    text-align: right;
+    border-bottom: solid 0.05rem #EEE;
+}
+
+.nctouch-order-item-footer .store-totle span {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+.nctouch-order-item-footer .store-totle .sum {
+    color: #d29962;
+    margin: 0 0.15rem;
+}
+
+.nctouch-order-item-footer .store-totle .freight {
+    color: #999;
+}
+
+.nctouch-order-item-footer .handle {
+    position: relative;
+    z-index: 1;
+    text-align: right;
+    padding: 1rem 0;
+}
+
+.nctouch-order-item-footer .handle .btn {
+    display: inline-block;
+    margin-left: 10px;
+    text-align: center;
+    width: 6rem;
+    border: 1px solid #fff;
+    color: #fff;
+    background: #fff;
+    line-height: 1.4rem;
+}
+
+.nctouch-order-item-footer .handle .btn.shbtn {
+    border: 1px solid red;
+    color: red;
+}
+
+.nctouch-order-item-footer .handle .cancel-order {
+    background: #ffc1b2;
+}
+
+.nctouch-order-item-footer .handle .check-order {
+    background: #9dd2b4;
+}
+
+.nctouch-order-item-footer .handle .delete-order {
+    background: #ffc1b2;
+}
+
+.nctouch-order-item-footer .handle .order-bc {
+    background: #83bc9b;
+}
+
+/* 筛选*/
+.shaixuan_mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+.shaixuan {
+    width: 550px;
+    height: 100%;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    right: -550px;
+    z-index: 100;
+}
+
+.shaixuan_body {
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.shaixuan_body .row {
+    margin: 0;
+}
+
+.shaixuan_body h3 {
+    font-size: 1.1rem;
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.shaixuan_body input.ipt1 {
+    width: 100%;
+    height: 3rem;
+    border-bottom: 1px solid #eee;
+}
+
+.shaixuan_body input.ipt2 {
+    width: 10rem;
+    height: 3rem;
+    border-bottom: 1px solid #eee;
+}
+
+.shaixuan_body .p5 em {
+    line-height: 3rem;
+    padding: 0 1rem;
+}
+
+.shaixuan_foot {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.shaixuan_foot .btn {
+    width: 50%;
+    float: left;
+    height: 3rem;
+    line-height: 3rem;
+    padding: 0;
+    text-align: center;
+    display: block;
+}
+
+.shaixuan_foot .clearq {
+    width: 45%;
+}
+
+.shaixuan_foot .success {
+    width: 55%;
+    background: #76ba8e;
+    color: #fff !important;
+}
+
+.shaixuan_body .p3 a,
+.shaixuan_body .p4 a {
+    padding: 0.2rem 1rem;
+    background: #eee;
+    display: inline-block;
+    margin-right: 1rem;
+    border-radius: 5px;
+}
+
+.shaixuan_body .p3 a.active,
+.shaixuan_body .p4 a.active {
+    background: #76ba8e;
+    color: #fff;
+}
+
+/* 适配*/
+@media (orientation: portrait) {
+    /* 竖屏CSS */
+
+}
+
+@media (orientation: landscape) {
+    /* 横屏CSS */
+
+}

@@ -1,0 +1,156 @@
+<?php defined('INTELLIGENT_SYS') or exit('Access Invalid!'); return array (
+  'data' => 
+  array (
+    1057 => 
+    array (
+      'gc_id' => '1057',
+      'gc_name' => '结婚钻戒',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '0',
+      'commis_rate' => '0',
+      'gc_sort' => '0',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+    1062 => 
+    array (
+      'gc_id' => '1062',
+      'gc_name' => '对戒',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '0',
+      'commis_rate' => '0',
+      'gc_sort' => '0',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+    1058 => 
+    array (
+      'gc_id' => '1058',
+      'gc_name' => '经典爪镶',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '1057',
+      'commis_rate' => '0',
+      'gc_sort' => '1',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+    1059 => 
+    array (
+      'gc_id' => '1059',
+      'gc_name' => '奢华群镶',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '1057',
+      'commis_rate' => '0',
+      'gc_sort' => '2',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+    1084 => 
+    array (
+      'gc_id' => '1084',
+      'gc_name' => '心之吻',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '1057',
+      'commis_rate' => '20',
+      'gc_sort' => '3',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+    1063 => 
+    array (
+      'gc_id' => '1063',
+      'gc_name' => '天生一对',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '1062',
+      'commis_rate' => '0',
+      'gc_sort' => '1',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+    1064 => 
+    array (
+      'gc_id' => '1064',
+      'gc_name' => '时尚显钻',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '1062',
+      'commis_rate' => '0',
+      'gc_sort' => '2',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+    1065 => 
+    array (
+      'gc_id' => '1065',
+      'gc_name' => '个性扭臂',
+      'type_id' => '0',
+      'type_name' => '',
+      'gc_parent_id' => '1062',
+      'commis_rate' => '0',
+      'gc_sort' => '3',
+      'gc_virtual' => '0',
+      'gc_title' => '',
+      'gc_keywords' => '',
+      'gc_description' => '',
+      'show_type' => '1',
+    ),
+  ),
+  'parent' => 
+  array (
+    1057 => '0',
+    1062 => '0',
+    1058 => '1057',
+    1059 => '1057',
+    1084 => '1057',
+    1063 => '1062',
+    1064 => '1062',
+    1065 => '1062',
+  ),
+  'children' => 
+  array (
+    0 => 
+    array (
+      0 => '1057',
+      1 => '1062',
+    ),
+    1057 => 
+    array (
+      0 => '1058',
+      1 => '1059',
+      2 => '1084',
+    ),
+    1062 => 
+    array (
+      0 => '1063',
+      1 => '1064',
+      2 => '1065',
+    ),
+  ),
+);

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>结婚戒指展示</title>
+    <link rel="stylesheet" href="../js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/base.css?2">
+    <link rel="stylesheet" href="../css/coupIndex.css?2">
+    <link rel="stylesheet" href="../css/pageNav.css" />
+    <script src="../js/jquery3.2.1.min.js"></script>
+    <script src="../js/bootstrapt4/js/bootstrap.min.js"></script>
+</head> 
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+<div class="marryIndex_wap1" style="margin-top: 70px;">
+    <a href="/wap/tmpl/zhuanti/xxbl.html" class=" a1"><img src="../images/pixel.gif"/></a>
+</div>
+<div class="container-fluid" style="margin-top: 0;">
+    <div class="coupIndex_wap2" id="gc-container">
+    </div>
+    <div class="coupIndex_wap3" id="style-container">
+    </div>
+</div>
+</body>
+<script  type="text/html" id="gc-content">
+    <p>婚戒甄选</p>
+    <ul>
+        <% if (child_type_list && child_type_list.length > 0) { %>
+        <% for (var k in child_type_list) { var v = child_type_list[k]; %>
+        <%if(k==0){%>
+        <li><a  onclick="change_gc(this,<%=v.gc_id%>)" class="gc_name active" data-id="<%=v.gc_id%>"><%=v.gc_name%></a></li>
+        <%}else{%>
+        <li><a onclick="change_gc(this,<%=v.gc_id%>)"  class="gc_name"  data-id="<%=v.gc_id%>"><%=v.gc_name%></a></li>
+        <% } %>
+        <% } %>
+        <% } %>
+    </ul>
+</script>
+<script type="text/html" id="style-content">
+    <div class="wap3_lf">
+        <a href="/wap/tmpl/zhuanti/xzw.html"><img src="../images/img/jh_02.jpg"/></a>
+    </div>
+    <div class="wap3_rt">
+        <ul>
+            <% if (style_goods_list && style_goods_list.length > 0) { %>
+            <% for (var k in style_goods_list) { var v = style_goods_list[k]; %>
+            <li><a href="/wap/tmpl/jietuo_detail.html?goods_sn=<%=v.goods_sn%>" data-id=""><img src="<%=v.goods_image%>" style="margin-top: 1rem;"/>
+                <p class="p_name" data-id=""><%=v.style_name%></p>
+                <p class="p_price" data-id="">￥<%=v.goods_price%></p>
+            </a></li>
+            <% } %>
+            <% } %>
+            <li class="last"><a href="marry_list.html"><img src="../images/img/jh_03.jpg"/></a></li>
+        </ul>
+    </div>
+    </div>
+</script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/tmpl/header.js"></script>
+<script type="text/javascript" src="../js/native/loader.js"></script>
+<script type="text/javascript">
+
+    if (window.cordovaext && window.cordovaext.is_android()) {
+        $('.marryIndex_wap1 a img').attr('src','file:///android_asset/www/img/jh_01.webp');
+    } else {
+        $('.marryIndex_wap1 a img').attr('src',WapSiteUrl+'/images/img/jh_01.jpg');
+    }
+
+    var w=$(".wap3_rt li").width();
+    $(".wap3_rt li").height(w);
+    $(document).ready(function(){
+        $(window).resize(function() {
+            var w=$(".wap3_rt li").width();
+            $(".wap3_rt li").height(w);
+        });
+    });
+
+    function change_gc(obj,gc_id){
+        $(".gc_name").removeClass("active");
+        $(obj).addClass("active");
+        init(gc_id);
+    }
+
+    function init(gc_id) {
+        var key = getCookie('key');
+        $.ajax({
+            url:ApiUrl+"/index.php?act=style_goods&op=get_recommend_style",
+            type:'post',
+            data:{key:key,gc_parent_id:1057,rec_gc_id:gc_id},
+            dataType:'json',
+            success:function(result){
+                if(result.code ==200){
+                    if(gc_id==0){
+                        console.log(result.datas);
+                        var html = template.render('gc-content',result.datas);
+                        $("#gc-container").html(html);
+                    }
+                    var html = template.render('style-content',result.datas);
+                    $("#style-container").html(html);
+                }else{
+                    alert(result.datas.error);
+                }
+            }
+        });
+    }
+    init(0);
+</script>
+</html>

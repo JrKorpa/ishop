@@ -1,0 +1,21 @@
+/* 退款退货 */
+.special-tips{width: 100%; line-height: 2rem;margin-top: 1rem;padding:0.5rem 0;}
+.special-tips p{font-size: 0.8rem;text-align: center;}
+
+.nctouch-inp-con ul{border: 1px solid #eee;}
+.nctouch-inp-con li{width: 100%;border-bottom: 1px solid #eee;padding:1rem 0;}
+.nctouch-inp-con li h4{width: 8rem;display: inline-block;font-size: 1rem;margin: 0;vertical-align: middle;}
+.nctouch-inp-con li .input-box{width: calc(100% - 9rem);display: inline-block;}
+.nctouch-inp-con li .input-box input,.nctouch-inp-con li .input-box select{width:15rem;}
+.nctouch-inp-con li .input-box .note,.nctouch-inp-con li .input-box .note h6{display: inline-block;}
+#returnAble{color:red;}
+.nctouch-inp-con li .input-box .tksm{width:100%;}
+
+.nctouch-inp-con li .input-radio{width: calc(100% - 9rem);display: inline-block;}
+.nctouch-inp-con li .input-radio input,.nctouch-inp-con li .input-radio select{width:1.3rem;}
+.nctouch-inp-con li .input-radio .note,.nctouch-inp-con li .input-radio .note h6{display: inline-block;}
+#returnAble{color:red;}
+.nctouch-inp-con li .input-radio .tksm{width:100%;}
+
+.form-btn{text-align: center;}
+.form-btn a.btn{ display: inline-block;  margin-left: 10px;  text-align: center;  width: 10rem;color: #fff;background: #83bc9b;}

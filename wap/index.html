@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>首页</title>
+    <link rel="stylesheet" href="js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="css/base.css?1">
+    <link rel="stylesheet" href="css/index.css?7">
+    <script src="js/jquery3.2.1.min.js"></script>
+    <script src="js/bootstrapt4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header head-fix">
+    <div class="head" id="header-container"></div>
+</div>
+<div class="container-fluid ">
+    <div class="indexMain">
+        <ul>
+            <li>
+                <a href="tmpl/zhuanti/ppgs.html">
+                    <span>品牌故事</span>
+                    <label>BRAND STORY</label>
+                    <i>进入></i>
+                </a>
+            </li>
+            <li>
+                <a href="tmpl/marry_index.html">
+                    <span>结婚戒指</span>
+                    <label>WEDDING RINGS</label>
+                    <i>进入></i>
+                </a>
+            </li>
+            <li>
+                <a href="customized.html">
+                    <span>钻戒定制</span>
+                    <label>ENGAGEMENT RINGS</label>
+                    <i>进入></i>
+                </a>
+            </li>
+            <li>
+                <a href="tmpl/couple_index.html">
+                    <span>情侣对戒</span>
+                    <label>COUPLE RINGS</label>
+                    <i>进入></i>
+                </a>
+            </li>
+        </ul>
+        <div class="link_box">
+            <a href="tmpl/marry_list.html?from=home">更多产品</a><a href="http://crm.kela.cn/">CRM</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/common.js?v=1.2"></script>
+<script type="text/javascript" src="js/tmpl/header.js"></script>
+<script type="text/javascript" src="js/jquery3.2.1.min.js"></script>
+<script type="text/javascript" src="js/RFIDOCXFunJs.js"></script>
+<script type="text/javascript">
+
+    if (getQueryString('key') != '') {
+        var key = getQueryString('key');
+        addCookie('key', key);
+    } else {
+        var key = getCookie('key');
+    }
+
+    var tel = getQueryString('tel');
+    if(tel){
+        getMemberInfo(tel);
+    }else{
+        tel = sessionStorageGet('tel');
+        if(tel){
+            getMemberInfo(tel);
+        }
+    }
+
+    var bj = parseInt(Math.random()*4)+1;
+    $(".container-fluid").addClass("bjChange"+bj);
+
+    if (window.platformId == '' || window.platformId == null || window.platformId == undefined) {
+        var last_tid = '';
+        $(document).ready(function () {
+            //setInterval("read_rfid()", 1000);
+        });
+
+        //用于演示
+        function read_rfid() {
+            read(function(tid, epc){
+                if (last_tid != tid) {
+                    last_tid = tid;
+                    if(last_tid=="E28011302000393F257408CC"){
+                        window.location.href = WapSiteUrl+"/tmpl/zhuanti/xy.html";
+                    }else{
+                        window.location.href = WapSiteUrl+"/tmpl/zhuanti/video.html";
+                    }
+                }
+            });
+        }
+    }
+
+    function getMemberInfo (tel) {
+        $.ajax({
+            url:ApiUrl+"/index.php?act=member_order&op=getMemberInfo",
+            type:'get',
+            data:{key:key, khphone:tel},
+            jsonp:'callback',
+            dataType:'jsonp',
+            success:function(result){
+                var data = result.datas;
+                console.log(data);
+                if(result.code == 200){
+                    sessionStorageAdd("vip_info", data, true);
+                }
+            }
+        }); 
+    }
+</script>

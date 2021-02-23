@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* 首页 */
+body,html{width: 100%;height: 100%;}
+.head-fix{background: rgba(255,255,255,0.4);}
+.logo{float: left;margin-left: 15px;}
+
+.container-fluid{width: 100%;height: 100%;background-size: 100%;margin-top: 0;}
+.indexMain{overflow: hidden;}
+.indexMain ul{padding:20vh 10vw 0;overflow: hidden;}
+.indexMain li{display: block;width: 50%;float:left;}
+.indexMain li a{display: block;width:12rem;height: 12rem;border-radius: 200px;border:3px solid #fff;box-shadow:0 0 3px #fff;overflow: hidden;background: rgba(211,135,147,0.4);margin: 5vh auto;}
+.indexMain li a span,.indexMain li a label{display: block;text-align: center;}
+.indexMain li a span { margin-top: 2.3rem;font-size: 2.3rem;color:#fff}
+.indexMain li a label {font-size: 1.1rem;color:#fff;}
+.indexMain li a i{display: block;width: 5rem;padding:2px 0;margin: 0 auto;background: #e9c028;color:#fff;text-align: center;}
+
+@media (orientation: portrait ){ /* 竖屏CSS */
+.container-fluid{background-image: url(../images/img/index.jpg?1);background-repeat:no-repeat;}
+}
+@media ( orientation: landscape ){ /* 横屏CSS */
+.container-fluid{background-image: url(../images/img/index2.jpg?1);background-repeat:no-repeat;}
+    .indexMain ul{padding:15vh 12vw 0;overflow: hidden;}
+}

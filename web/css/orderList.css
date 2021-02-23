@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* 订单列表导航 start */
+.nctouch-single-nav { display: block; width: 100%; height: 3.5rem;background: #FFF; border-bottom: solid 1px #EEE;position: fixed;top:80px;left:0;z-index: 30;}
+.nctouch-single-nav ul { display: block;padding:0;margin: 0;}
+.nctouch-single-nav ul li {width: 20%; display:block;float:left;text-align: center;height: 3.5rem;padding: 0!important;}
+.nctouch-single-nav ul li a { display:inline-block;height: 3.5rem;padding:0 10px;text-align:center;font-size:1.2rem; line-height:3.5rem; color: #333; }
+.nctouch-single-nav ul li.selected a { color: #d29962; border-bottom: solid 0.1rem #d29962 !important; }
+/*订单列表导航 end */
+
+.container-fluid{margin-top: calc(80px + 3.5rem);}
+
+/*订单列表*/
+.nctouch-order-list { display: block; clear: both; width: 100%;}
+.nctouch-order-list ul li{border-bottom: 1rem solid #f7f7f7;}
+.nctouch-order-item-head {padding:1rem 0;border-bottom: solid 0.05rem #EEE;position: relative;}
+.nctouch-order-item-head span { font-size: 1rem;line-height: 1.5rem; display:block;color:#333; }
+.nctouch-order-item-head .order-type{position: absolute;bottom: 2.5rem;right: 0;display: block;color: #ff3358;font-size: 1rem;}
+.nctouch-order-item-con .goods-block { position: relative;padding:1rem; z-index: 1; border-bottom: solid #fff 5px;min-height: 9rem;}
+.nctouch-order-item-con .goods-block:nth-last-child(1) { border: none;}
+.nctouch-order-item-con .goods-block a { display: block; color: #111;}
+
+/*订单列表商品图片*/
+.nctouch-order-item-con{background:#FAFAFA;}
+.nctouch-order-item-con .goods-pic { display: block; width: 7rem; height:7rem;overflow: hidden; position: absolute; z-index: 1; top:1rem; left: 1rem;}
+.nctouch-order-item-con .goods-pic img { width: 100%;}
+
+/*订单商品简介*/
+.nctouch-order-item-con .goods-info { display: block;margin: 0 0 0 8rem; position: relative; z-index: 1;}
+.nctouch-order-item-con .goods-info dt.goods-name {color: #333;font-size: 1.2rem;font-weight: normal;}
+.nctouch-order-item-con .goods-info dd{display: block;overflow: hidden;margin: 0;}
+.nctouch-order-item-con .goods-info .goods-canshu span{display: block;float:left;margin-right:1rem;font-size: 1rem;color:#999;}
+.nctouch-order-item-con .goods-subtotal{ display: block;overflow: hidden;height: 2rem;line-height: 2rem;}
+.nctouch-order-item-con .goods-subtotal .goods-price { display: block; float:left;width:50%;font-size: 1rem;color:#76ba8e;}
+.nctouch-order-item-con .goods-subtotal .goods-num { display: block;float:left;width:50%; font-size: 1rem;color: #999;text-align: right;}
+.nctouch-order-item-footer .store-totle { min-height: 0.9rem; padding: 0.5rem 0; text-align: right; border-bottom: solid 0.05rem #EEE;}
+.nctouch-order-item-footer .store-totle span { vertical-align: middle; display: inline-block; font-size: 1rem; line-height: 2rem;}
+.nctouch-order-item-footer .store-totle .sum {color: #d29962; margin: 0 0.15rem;}
+.nctouch-order-item-footer .store-totle .freight {color: #999;}
+.nctouch-order-item-footer .handle { position: relative; z-index: 1; text-align: right;  padding: 1rem 0;}
+.nctouch-order-item-footer .handle .btn{display: inline-block;margin-left:10px;text-align:center;width: 7rem;border: 1px solid #999;color: #999;background: #fff;}
+.nctouch-order-item-footer .handle .btn.shbtn{border: 1px solid red;color:red;}
+
+
+/* 适配*/
+@media (orientation: portrait ){ /* 竖屏CSS */
+
+}
+@media ( orientation: landscape ){ /* 横屏CSS */
+
+}

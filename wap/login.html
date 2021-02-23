@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>登录</title>
+    <link rel="stylesheet" href="js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/base.css?2">
+    <link rel="stylesheet" href="css/login.css?7">
+    <link rel="stylesheet" href="js/swiper/css/swiper.min.css">
+    <script src="js/swiper.min.js"></script>	
+</head>
+<body>
+<div class="header head-fix">
+    <div class="head" id="header-container"></div>
+</div>
+<div class="container-fluid">
+    <div class="nctouch-inp-con">
+        <form action="" method="" name="login_form" id="login_form">
+            <ul class="form-box">
+                <li class="form-item">
+                    <div class="input-box">
+                        <input type="text" placeholder="手机号或用户名" class="inp" name="username" id="username"/>
+                    </div>
+                </li>
+                <li class="form-item">
+                    <div class="input-box">
+                        <input type="password" placeholder="请输入登录密码" class="inp" name="pwd" id="userpwd"/>
+                    </div>
+                </li>
+            </ul>
+            <div class="remember-form">
+                <a class="forgot-password" href="javascript:;">忘记密码？</a>
+            </div>
+            <div class="form-btn"><a href="javascript:void(0);" class="btn loginbtn" id="loginbtn">登录</a></div>
+            <div class="form-btn"><a href="javascript:void(0);" class="btn hide loginbtn2" id="loginbtn2">登录2</a></div>
+        </form>
+    </div>
+</div>
+
+<!--选择店铺-->
+<div id="list-store-wrapper" class="nctouch-full-mask hide">
+    <div class="nctouch-full-mask-bg"></div>
+    <div class="nctouch-full-mask-block">
+        <div class="header header-msk">
+            <div class="h_left header-l">
+                <a href="javascript:void(0);" class="icon icon-arrowleft1"></a>
+            </div>
+            <div class="h_title">选择店铺</div>
+        </div>
+        <div class="nctouch-main-layout" id="list-store-scroll"  style="height: calc(100% - 80px)">
+            <div class="addrLists" style="padding-top:1rem;margin: 0;" id="ul-store"><!--class="nctouch-default-list"-->
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="js/config.js"></script>	
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/template.js"></script>
+<script type="text/javascript" src="js/simple-plugin.js"></script>
+<script type="text/javascript" src="js/tmpl/login.js?v=1.52"></script>
+<script type="text/javascript" src="js/swiper/js/swiper.js"></script>
+<script type="text/javascript" src="js/tmpl/header.js"></script>
+<script type="text/javascript">
+    var bj = parseInt(Math.random()*4)+1;
+    $(".container-fluid").addClass("bjChange"+bj);
+</script>

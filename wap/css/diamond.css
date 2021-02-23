@@ -1,0 +1,107 @@
+@charset "utf-8";
+/* 选钻 */
+.table thead th{border-bottom: none;}
+
+/* 搜索部分 */
+.diamSearch{position: relative;padding:0 0  1.5rem;}
+.diamSearchBox{padding: 1.5rem 0 0;border-bottom: 1px solid #e9e9e9;}
+.btn-group{margin-bottom: 1.5rem;}
+.btn-group label,.btn-group2 label{width: 3.8rem;line-height: 2.5rem;text-align: center;margin: 0;color: #40220f;}
+.btn-group button,.btn-group2 button{width: 3.8rem;height: 2.5rem;padding:0;background:none;border: 1px solid #c9c9c9;color:#727171;}
+.btn-group button{line-height: 2.5rem;}
+.btn-group button.active{background: #83bc9b;color:#fff;}
+.btn-group.shape button.active{background: none;color: #83bc9b;}
+.btn-group.shape label{line-height: 3.6rem;}
+.btn-group.shape button{width:4.8rem;height: 3.6rem;font-size:1rem;border:none;line-height: normal;}
+/*.btn.active .shap1{background-position: -2px -39px;} *//* 圆*//*
+.btn.active .shap2{background-position: -48px -39px;} *//* 公主方*//*
+.btn.active .shap5{background-position: -144px -39px;} *//* 椭圆形*//*
+.btn.active .shap7{background-position: -334px -39px;}*//* 心形*//*
+.btn.active .shap4{background-position: -187px -39px;}*//* 橄榄型*//*
+.btn.active .shap19{background-position: -430px -39px;}*//* 雷迪恩*//*
+.btn.active .shap8{background-position: -235px -39px;}*//* 垫形*//*
+.btn.active .shap3{background-position: -95px -39px;} *//* 祖母绿*//*
+.btn.active .shap15{background-position: -286px -39px;}*//* 梨形*/
+
+.btn.active .shap1{background-position: -4px -42px;} /* 圆*/
+.btn.active .shap2{background-position: -51px -42px;} /* 公主方*/
+.btn.active .shap5{background-position: -147px -42px;} /* 椭圆形*/
+.btn.active .shap7{background-position: -336px -42px;}/* 心形*/
+.btn.active .shap4{background-position: -190px -42px;}/* 橄榄型*/
+.btn.active .shap19{background-position: -431px -42px;}/* 雷迪恩*/
+.btn.active .shap8{background-position: -236px -42px;}/* 垫形*/
+.btn.active .shap3{background-position: -100px -42px;} /* 祖母绿*/
+.btn.active .shap15{background-position: -288px -42px;}/* 梨形*/
+
+.btn-group.series button {width:5rem;}
+.btn-group input[type=text]{width:5rem;height: 2.5rem;vertical-align: middle;border: 1px solid #c9c9c9;font-size: 1rem;text-indent: 0.5rem;}
+.certificateNum input[type=text]{width:12rem;}
+.btnSearch{width: 10rem;height: 2.5rem;background: #83bc9b;color:#fff;}
+.btnReset{width: 10rem;height: 2.5rem;color:#fff !important;background: #bfb1a2;margin-right: 5rem;}
+
+/* 钻石列表 */
+#sortcheck{padding:0.6rem 0.2rem;background: none;}
+.diamList{}
+.diamList th,.diamList td{min-width: 3.5rem;text-align: center;line-height: 2.5rem;}
+.diamList th{line-height: 2.2rem;background: url(../images/img/tabbg.png) center repeat-x;background-size: contain;padding:0.5rem 0.75rem ;}
+.diamList th.th1{min-width: 6rem;}
+.diamList td{padding:0.5rem 0.3rem;}
+.diamList td:last-of-type{min-width: 5rem;}
+.diamList tr:last-of-type{border-bottom: 1px solid #dee2e6;}
+.diamList .diamTable{overflow-x: scroll;}
+
+/* 头部*/
+/*.diam_top{position: relative;padding:1rem 0;}
+*//*.diam_top ul{position: absolute;bottom:0;left: 0;}*//*
+.diamList .diamLink{padding:0.3rem 0.8rem;color:#fff !important;border-radius:5px;background: #83bc9b;}
+.nav-pills .nav-link.active{color:#83bc9b;background: none;}
+.nav-pills .nav-link{padding:0.3rem 1rem;border-radius: 0;}
+.searchName{width: 16rem;float: right;height: 2rem;box-sizing:content-box;position: absolute;right:0;bottom:1rem;border: 1px solid #83bc9b;}
+.searchName .form-control{height: 2rem;line-height: 2rem;font-size: 1rem;border: none;}
+.searchName .btn_search{color: #fff;background: #83bc9b ;border:none;border-radius: 0;height: 2rem;line-height: 2rem;padding:0 0.75rem;}*/
+
+/* 戒托css*/
+.btn-group2{ margin-bottom: 1rem;  position: relative;  display: -webkit-inline-box;  display: -ms-inline-flexbox;  display: inline-flex;  vertical-align: middle;}
+.btn-group2 .btn{margin-left: -1px;}
+.btn-group2 > .btn:not(:first-child), .btn-group > .btn-group2:not(:first-child) > .btn{border-top-left-radius: 0;border-bottom-left-radius: 0;}
+.btn-group.style button{width:6rem;}
+.jietuoList{border-top: 1px solid #eee;margin: 0;margin-bottom: 2rem;padding-top: 2rem;}
+.jietuoList>div{margin-bottom: 1rem;}
+.jietuoList .imgWap{width: 100%;overflow: hidden;margin-bottom: 1rem;}
+.jietuoList .imgWap img{width: 100%;}
+.jietuoList p{text-align: center;margin: 0;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.jietuoList p.price{color:red;}
+.jietuoList .nctouch-norecord {
+    position:static;
+	z-index: 0; 
+	height: 8.2rem; 
+    width: 320px;
+    margin: 50px auto 50px auto;
+    text-align: center;
+}
+
+.btn-group2.screen button{width:5rem;}
+.btn-group2.screen button.active,.btn-group2.screen button.active i{color:#83bc9b;}
+.btn-group2.screen .icon{font-size: 0.8rem;color:#c7c1c1;}
+.nctouch-norecord{width: 100%;text-align: center;}
+
+.table-striped tbody tr{background-color: #fff !important;}
+
+.tsyd_diam2 td{border-top:1px solid #f7f7f7;}
+
+/*.price_span{border: 1px solid #c9c9c9;height:2.5rem;line-height: 2.5rem;box-sizing: border-box;overflow: hidden;padding:0 0.2rem;}
+.price_span input[type=text]{border:none;height: 100%;vertical-align: top;}*/
+
+.dele_btn{background: none;color:#83bc9b;}
+
+/* 适配*/
+@media (orientation: portrait ){ /* 竖屏CSS */
+    .diamTop .icon{font-size: 2rem;vertical-align: middle;}
+    .diamTop .col{font-size: 1.1rem;}
+    .diamTop .col1{padding-top: 1rem;}
+}
+@media ( orientation: landscape ){ /* 横屏CSS */
+    .btn-group.shape button{width:6.1rem;}
+    .btn-group label,.btn-group2 label{width: 5rem;}
+    .btn-group button,.btn-group2 button{width: 5rem;}
+}

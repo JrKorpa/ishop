@@ -1,0 +1,182 @@
+@charset "utf-8";
+
+/* 首页 */
+body,
+html {
+    width: 100%;
+    height: 100%;
+    max-width: 1366px;
+    margin: 0 auto;
+}
+
+.head-fix {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.logo {
+    float: left;
+    margin-left: 15px;
+}
+
+.container-fluid {
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+    margin-top: 0;
+}
+
+.indexMain {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.indexMain ul {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0;
+}
+
+.indexMain li {
+    display: block;
+    width: 14rem;
+    height: 14rem;
+    position: absolute;
+}
+
+.indexMain li:nth-of-type(1) {
+    top: 54%;
+    left: 20%;
+    margin-top: -7rem;
+    margin-left: -7rem;
+}
+
+.indexMain li:nth-of-type(2) {
+    top: 44%;
+    left: 40%;
+    margin-top: -7rem;
+    margin-left: -7rem;
+}
+
+.indexMain li:nth-of-type(3) {
+    top: 54%;
+    left: 60%;
+    margin-top: -7rem;
+    margin-left: -7rem;
+}
+
+.indexMain li:nth-of-type(4) {
+    top: 44%;
+    left: 80%;
+    margin-top: -7rem;
+    margin-left: -7rem;
+}
+
+.indexMain li a {
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 200px;
+    box-shadow: 0 0 3px #fff;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 5vh auto;
+}
+
+.indexMain li a span,
+.indexMain li a label {
+    display: block;
+    text-align: center;
+}
+
+.indexMain li a span {
+    margin-top: 2.3rem;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.indexMain li a label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    padding-bottom: 0.5rem;
+}
+
+.indexMain li a i {
+    display: block;
+    width: 4rem;
+    font-size: 0.9rem;
+    padding: 1px 0;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+}
+
+.link_box {
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    text-align: right;
+}
+
+.link_box a {
+    display: inline-block;
+    width: 5rem;
+    background: #000;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin-left: 15px;
+    padding: 0.2rem;
+    font-size: 0.9rem;
+}
+
+@media (orientation: portrait) {
+
+    /* 竖屏CSS */
+    .bjChange1 {
+        background-image: url(../images/img/bj1-2.jpg?1);
+        background-repeat: no-repeat;
+    }
+
+    .bjChange2 {
+        background-image: url(../images/img/bj2-2.jpg?1);
+        background-repeat: no-repeat;
+    }
+
+    .bjChange3 {
+        background-image: url(../images/img/bj3-2.jpg?1);
+        background-repeat: no-repeat;
+    }
+
+    .bjChange4 {
+        background-image: url(../images/img/bj4-2.jpg?1);
+        background-repeat: no-repeat;
+    }
+
+}
+
+@media (orientation: landscape) {
+
+    /* 横屏CSS */
+    .bjChange1 {
+        background-image: url(../images/img/bj1.jpg?1);
+        background-repeat: no-repeat;
+    }
+
+    .bjChange2 {
+        background-image: url(../images/img/bj2.jpg?1);
+        background-repeat: no-repeat;
+    }
+
+    .bjChange3 {
+        background-image: url(../images/img/bj3.jpg?1);
+        background-repeat: no-repeat;
+    }
+
+    .bjChange4 {
+        background-image: url(../images/img/bj4.jpg?1);
+        background-repeat: no-repeat;
+    }
+}

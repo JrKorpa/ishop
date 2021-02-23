@@ -1,0 +1,90 @@
+@charset "utf-8";
+@import "font/iconfont.css";
+*{padding:0;margin:0;color:#333;text-decoration:none;outline:none;list-style: none;font-weight:normal;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(255,255,255,0);-webkit-tap-highlight-color:transparent;  }
+img{border: 0;vertical-align:top; -webkit-touch-callout: none;  -webkit-user-select: none;  user-select: none;}
+body,html{background: #fff;width: 100%;margin: 0;padding:0;min-width: 700px;}
+section{ display: block;}
+a{outline:none;text-decoration: none;color:#333;}
+a:after,a:link,a:hover{color:#333;text-decoration: none;outline:none;}
+label,p{margin: 0;}
+i,em{font-style:normal; font-weight: normal;}
+em{font-size:inherit;color:inherit;font-weight: inherit;}
+*,*:before,*:after{box-sizing:border-box;-webkit-box-sizing:border-box;}
+a, img ,p{-webkit-touch-callout:none;}
+input,button{border:0; outline: none;}
+.por{position: relative;}
+.poa{position:absolute;}
+.fr{float:right;}
+.fl{float:left}
+.clear{clear: both;}
+.hide{display:none ;}
+.p_hid{text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.icon{font-size: 20px;padding:0 5px;}
+input, textarea { -webkit-user-select: text; -ms-user-select: text; user-select: text; -webkit-appearance: none; }
+input:focus, select:focus, textarea:focus, button:focus { outline: none; }
+input[type="search"], input[type="tel"], input[type="number"], input[type="email"], input[type="url"], textarea { -webkit-appearance: none;  border-radius: 0; }
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none;}
+input[type=text],input[type=password],input[type=button]{height:2rem;font-size: 1rem;}
+input[type="checkbox"] { position: relative; width:24px; height: 24px; background-color: #F5F5F5; border: 0.05rem solid #CCC; -webkit-border-radius: 50%; border-radius: 50%; vertical-align: middle; }
+input[type="checkbox"]:checked { border-color: #ED5564; background-color: #ED5564; }
+input[type="checkbox"]:checked:after { content: ''; position: absolute;left: 4px;top: 3px;width: 14px;height: 10px;border-left: 0.065rem solid #fff; border-bottom: 0.065rem solid #fff; -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg); transform: rotate(-45deg); }
+:-moz-placeholder { color:#999; }
+::-moz-placeholder {  color:#999; }
+input:-ms-input-placeholder{ color:#999;}
+input::-webkit-input-placeholder{ color:#999; }
+/* base 公用部分  end */
+
+/* header */
+.header{width: 100%;background:#fff;height:80px;position: fixed;top:0;left:0;z-index:30;overflow: hidden;min-width: 700px;border-bottom: 1px solid #EEE;}
+.head{width: 100%;height: 100%;position: relative;overflow: hidden;}
+.head-l{width: 80px;height: 80px;position: absolute;left:0;top:0;text-align: center;line-height: 80px;font-size: 1.2rem;}
+.head-l .icon{font-size: 1.6rem;vertical-align: middle;}
+.logo{width:175px;height:40px;margin: 20px auto;overflow: hidden;display:block;}
+.head-nav{display: block;position: absolute;right: 0;top: 0;}
+.head-nav a{height: 80px;line-height: 80px;display: inline-block;padding-right: 10px;}
+.logo img{height: 100%;}
+/* header  end*/
+
+.container-fluid{margin-top: 80px;height: 100%;padding-top: 1px;}
+
+/* menu */
+.menu{position: fixed;top:0;left:-15rem;width: 15rem;height:100%;z-index:31;background: #faf4f9;}
+.menu .menuWap{width: 100%;height: 100%;overflow:hidden;position: relative;}
+.menu .mclose{display:block;width:3rem;height:3rem;position: absolute;top: 0;right:0;z-index:32;}
+.menu .mclose span{display:block;width:3rem;height:3rem;border-radius:100px;background: rgba(211,135,147,0.4);font-size: 3rem;position: absolute;top: -1rem;right: -1rem;overflow: hidden;line-height: 2.5rem;padding-left: 0.3rem;}
+.menu .menuList{width:100%;height: 100%;overflow-y: scroll; }
+.menu li{padding:0 10px;box-sizing: border-box;}
+.menu li a{display: block;width: 100%;height: 100%;text-indent: 4.6rem;line-height:2.5rem;color:#414141;}
+.menu li.disabled{margin: 0.5rem 0;}
+.menu li.home{margin-bottom: 0;}
+.menu li.disabled a{text-align: left;text-indent: 3rem;border-bottom: 1px solid #f2dde0;line-height:3rem;color:#000;}
+/* menu  end*/
+
+/* 裸钻导航部分 */
+/* 导航*/
+.diamTop{margin-left: 0;margin-right: 0;height: 72px;border: 1px solid #83bc9b;margin-top: 2rem;}
+.diamTop .col{text-align: center;position: relative;line-height:70px;font-size: 1.3rem;color:#83bc9b;padding:0;}
+.diamTop .col1{padding-top: 0.8rem;line-height: normal;}
+.diamTop .col1 span{color:#ccc;font-size: 1rem;}
+.diamTop .col.active{background: #83bc9b;color:#fff;}
+.diamTop .col.active .jt1{border-left-color: #fff;}
+.diamTop .col.active .jt2,.diamTop .col.active .jt3{border-left-color:  #83bc9b;}
+.diamTop .col .jt3{border-left-color: #fff;}
+.diamTop i{width: 0;height: 0;border-top: 35px solid transparent;border-left: 30px solid #83bc9b;border-bottom: 35px solid transparent;}
+.jt1{position:absolute;top:0;left:0; }
+.jt2{position:absolute;top:0;right:-30px;z-index:10; }
+.jt3{position:absolute;top:0;right:-29px;z-index:11;}
+.diamTop .icon{font-size: 2.2rem;vertical-align: middle;}
+/* 裸钻导航部分  end*/
+
+/* 主石形状*/
+.shapI{display:block;width: 2.5rem;height: 2.3rem;margin: 0 auto;background-image:url(../images/b_dmod4.png?1);background-repeat:no-repeat;}
+.shap1{background-position: -2px 4px;} /* 圆*/
+.shap2{background-position: -48px 4px;} /* 公主方*/
+.shap3{background-position: -144px 4px;} /* 椭圆形*/
+.shap4{background-position: -334px 4px;}/* 心形*/
+.shap5{background-position: -187px 4px;}/* 橄榄型*/
+.shap6{background-position: -430px 4px;}/* 雷迪恩*/
+.shap7{background-position: -235px 4px;}/* 垫形*/
+.shap8{background-position: -95px 4px;} /* 祖母绿*/
+.shap9{background-position: -286px 4px;}/* 梨形*/

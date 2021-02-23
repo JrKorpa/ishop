@@ -1,0 +1,54 @@
+/* 订单列表 */
+
+/*订单列表*/
+.nctouch-order-list { display: block; clear: both; width: 100%;}
+.nctouch-order-item { width: 100%; box-sizing: border-box; background-color: #FFF;}
+
+/*订单列表商品图片*/
+.nctouch-order-item-con{background: #FAFAFA;}
+.nctouch-order-item-con .goods-pic { display: block; width:7rem; height: 7rem; position: absolute; z-index: 1; top:1rem; left: 15px;}
+#order-list .nctouch-order-item-con .goods-pic { display: block; width: 180px; height: 180px; position: absolute; z-index: 1; top:20px; left: 30px;}
+.nctouch-order-item-con .goods-pic img { width: 100%; height: 100%;}
+
+/*订单商品简介*/
+.nctouch-order-item-con .goods-block .goods_p{text-align: right;display:inline-block;width:100%;}
+.nctouch-order-item-con .goods-block a { display:block;/* color: #76ba8e;text-decoration: underline;margin-left: 1.5rem;*/}
+.nctouch-order-item-con .goods-block .btn{font-size:1rem;margin-top: 18px;margin-left: 10px;display:inline-block;text-align:center;padding:0 1rem;height: 2.5rem;line-height:2.5rem;border: 1px solid #999;color: #999;background: #fff;width:100px; float:right}
+
+.nctouch-order-item-con .goods-subtotle {background: #fff;}
+.nctouch-order-item-con .goods-subtotle dl { font-size: 1rem;padding:1rem 0;color: #a4a4a4;border-bottom: 1px solid #f5f5f5; overflow: hidden;margin: 0;}
+.nctouch-order-item-con .goods-subtotle dt { float: left;line-height: inherit;color: #a4a4a4;font-weight: normal;font-size: inherit;width: 10rem;}
+.nctouch-order-item-con .goods-subtotle dd { float: right; line-height: inherit;text-align: right;width: calc(100% - 10rem);}
+.nctouch-order-item-con .goods-subtotle dd span { display: block; width: 8rem; height: 0.9rem; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; font-size: 1rem; line-height: 0.9rem; color: #000; }
+.nctouch-order-item-con .goods-subtotle dl.t dd{color:red;}
+
+.nctouch-order-item-head {padding:1rem 0;line-height: 30px;border-bottom: solid 0.05rem #EEE;position: relative;}
+.nctouch-order-item-head span { font-size: 1rem;line-height: 50px; display:block;color:#333; }
+.nctouch-order-item-head span:last-of-type{border-bottom: none;}
+.order-type{position: absolute;bottom: 49px;right: 30px;display: block;color: #ff3358;font-size: 1rem;}
+
+.nctouch-oredr-detail-bottom{width: 100%;  height: 60px; padding: 0 30px; background: #fff; border-top:1px solid #eee;text-align: right;position: fixed;  bottom: 0;  left: 0;  z-index: 21;}
+.nctouch-oredr-detail-bottom .btn{font-size:1rem;margin-top: 18px;margin-left: 10px;display:inline-block;text-align:center;padding:0 1rem;height: 2.2rem;line-height:2.2rem;border: 1px solid #999;color: #999;background: #fff;}
+.nctouch-order-item-footer .shbtn,.nctouch-oredr-detail-bottom .shbtn{color:#ff3358 !important; border: 1px solid #ff3358 !important;;}
+
+.nctouch-oredr-detail-block { position: relative; z-index: 1; display: block;background: #FFF;padding:0 ;border-bottom: 0.3rem solid #f7f7f7;}
+.nctouch-oredr-detail-block h3 { display: inline-block; font-size:1rem;margin:1rem 0 ;height:2rem;line-height:2rem;font-weight: normal;}
+.nctouch-oredr-detail-block h3 i { font-size:1.5rem;margin-right: 10px;vertical-align:middle;color:#76ba8e;}
+.nctouch-oredr-detail-block .order-state ,.nctouch-oredr-detail-block .info{display:block;float:right;color:#ff3358;height:2rem;line-height:2rem;margin:1rem 0 ;}
+
+.nctouch-order-list ul li.loading{height: 80px;line-height: 64px;text-align: center;}
+#list-coupon-scroll{height: calc(100% - 90px);}
+
+.nctouch-order-item-con .goods-subtotle .order_ly{height: auto;padding:28px 30px;line-height: 34px;}
+.nctouch-order-item-con .order_ly dd{width:560px;float:left;margin-left: 20px;color:#a4a4a4;text-align: left;line-height: 34px;}
+
+/*收货地址*/
+.nctouch-oredr-detail-add{position: relative; z-index: 1;width: 100%;border-top: 1px solid #f7f7f7;background: url(../images/img/border.jpg) bottom repeat-x;padding: 1.5rem 0;box-sizing: border-box;}
+.nctouch-oredr-detail-add i.icon-address { position: absolute; z-index: 1;top: 28px;left: 0px;font-size: 1.5rem;color:#76ba8e;}
+.nctouch-oredr-detail-add dl {width: calc(100% - 1.6rem); overflow: hidden; margin-left: 46px;margin-bottom: 0;}
+.nctouch-oredr-detail-add dl .phone{margin-left: 1.5rem;}
+
+.addr_body{border-bottom: 0;}
+.orderUl{overflow: hidden;/*margin-bottom: 80px;*/border-bottom: none;}
+.orderUl ul li{margin-bottom: 0;border-bottom: 0;font-size: 1rem;height: 3rem; line-height:3rem; color: #a4a4a4;border-bottom: 1px solid #f5f5f5; }

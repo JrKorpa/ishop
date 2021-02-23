@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* 产品列表 */
+
+/* 分类 */
+.proclass{width:100%;height: auto;padding-top: 0.5rem;border-bottom: 1px solid #e9e9e9;}
+.proclass ul{padding:0;margin: 0 auto;text-align: center;display:table;word-spacing:-1em;width: 100%;}
+.proclass ul li{display:inline-block;width:12.5%;height: 100%;margin: 0;padding:0;border: none;word-spacing:0;zoom: 1; *display:inline;overflow: hidden;}
+.proclass ul li.active a,.proclass ul li.active a i{color:#ca9a61;}
+.proclass ul li a{display: block;width:100%;height:100%;overflow: hidden;}
+.proclass ul li a:hover i{color:#ca9a61 !important;}
+.proclass span.img{display:block;width:4rem;height:4rem;margin: 0 auto;background: url(../images/menu_icon_01.png) no-repeat;background-size: 700px;}
+.proclass ul li i{display: block;font-style: normal;text-align: center;}
+.proclass .lis1 .img{background-position:-40px 0px;}
+.proclass .lis2 .img{background-position:-286px 0px;}
+.proclass .lis3 .img{background-position:-369px 0px;}
+.proclass .lis4 .img{background-position:-450px 0px;}
+.proclass .lis5 .img{background-position:-533px 0px;}
+.proclass .lis6 .img{background-position:-204px 0px;}
+.proclass .lis7 .img{background-position:-120px 0px;}
+.proclass .lis8 .img{background-position:-613px 0px;}
+
+/* 搜索部分 */
+.prosearch{margin:0;position: relative;padding-bottom: 1.5rem;}
+.prosearchBox{border-bottom: 1px solid #e9e9e9;display: block;}
+.x_schCondition_wrap{width:100%;font-size:1rem;padding:1.5rem 0 0;margin:0;}
+.x_schCondition_wrap .select-list{font-size:0;list-style:none;line-height: 2.5rem;padding:0;margin-bottom:1.5rem;order-bottom: 1px solid #f3f3f4;}
+.x_schCondition_wrap .select-list label{font-size: 1rem;width:5rem;text-align:center;color:#40220f;height:2.5rem;line-height:2.5rem;margin:0;font-weight: normal;vertical-align: middle;}
+.x_schCondition_wrap dl{/*max-width:calc(100% - 6rem);*/position:relative;line-height:2.5rem;margin: 0;display: inline-block;vertical-align: middle;}
+.x_schCondition_wrap dd{box-sizing: border-box;margin-right: -1px;margin-bottom:0;min-width:4rem;line-height: 2.5rem;float:left;text-align: center;border:1px solid #c9c9c9;min-width: 5rem;}
+.x_schCondition_wrap a{font-size: 1rem;display:block;padding: 0 0.5rem;white-space:nowrap;text-decoration:none;color:#727171;}
+.x_schCondition_wrap .selected a{background:#83bc9b;color:#fff;}
+.x_schCondition_wrap dd:first-of-type{border-left:1px solid #c9c9c9;}
+.x_schCondition_wrap dl[data-dl="zhiquan"] input{border:1px solid #c9c9c9;text-indent: 1rem;width: 5rem;font-size: 1rem;}
+
+/* 筛选*/
+.search2{margin: 0;padding:0 0 0.5rem;}
+.btn-group2 button{background: none;padding:0 0.5rem;line-height: 2.5rem; color: #9e9a9a;}
+.btn-group2 button .icon{font-size: 0.8rem; color: inherit;}
+.btn-group2 button.active{color:#76ba8e;}
+.price{display: inline-block;margin-left: 1rem;}
+/*.price p{display: inline-block;width: 8rem;border:1px solid #c9c9c9;height: 2.5rem;line-height: 2.5rem;overflow: hidden;vertical-align: middle;}
+.price i{line-height: 2.5rem;vertical-align: middle;}
+.price input[type=number]{display: inline-block;width: 6rem;}*/
+.price .btn{color:#fff;background: #83bc9b;margin-left: 1rem !important;border-radius: 0.25rem !important;padding: 0.375rem 1.75rem;}
+.price .reset_a{background: #bfb1a2;}
+
+/* 头部 */
+/*.diam_top{overflow: hidden;position: relative;padding:0.1rem 0;}
+.diam_top ul{position: absolute;bottom:0;left: 0;}
+.diamList .diamLink{padding:0.5rem;color:#fff !important;border-radius:5px;background: #83bc9b;}
+.nav-pills .nav-link.active{color:#83bc9b;background: none;}
+.nav-pills .nav-link{padding:0.3rem 0.5rem;border-radius: 0;}
+.searchName{width: 16rem;float: right;}
+.searchName .form-control{height: 2.5rem;line-height: 2.5rem;font-size: 1rem;}
+.searchName .btn{color: #83bc9b;border-color: #83bc9b;background: none;}*/
+
+/* 列表 */
+.jietuoList{border-top: 1px solid #eee;margin: 0;margin-bottom: 2rem;padding-top: 2rem;}
+.jietuoList>div{margin-bottom: 1rem;}
+.jietuoList .imgWap{width: 100%;overflow: hidden;margin-bottom: 1rem;}
+.jietuoList .imgWap img{width: 100%;}
+.jietuoList p{width:100%;text-align: center;margin: 0;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.jietuoList p.price{color:red;}
+.jietuoList .nctouch-norecord {
+    position:static;
+	z-index: 0; 
+	height: 8.2rem; 
+    width: 320px;
+    margin: 50px auto 50px auto;
+    text-align: center;
+}
+
+/* 适配*/
+@media (orientation: portrait ){ /* 竖屏CSS */
+  .vertical_box{display: block;margin-top: 1.5rem;overflow: hidden;}
+}
+@media ( orientation: landscape ){ /* 横屏CSS */
+}

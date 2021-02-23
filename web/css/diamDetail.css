@@ -1,0 +1,123 @@
+@charset "utf-8";
+/* 钻石详情 */
+
+/* 轮播部分 */
+.detailCent{margin-top: 2rem;}
+/*.banner{width: 46%;float:left;overflow: hidden;}
+.diamImg,.swip{width: 100%;position: relative;}
+.diamImg{border: 1px solid #eee;border-radius: 3px;margin-bottom: 1rem;}
+.diamImg img{display: block;width: 100%;}
+.swiper-container { width: 80%;height: 100%;overflow: auto}
+.swiper-slide{text-align: center;  font-size: 18px;  background: #fff;  display: -webkit-box;  display: -ms-flexbox;  display: -webkit-flex;  display: flex;  -webkit-box-pack: center;  -ms-flex-pack: center;  -webkit-justify-content: center;  justify-content: center;  -webkit-box-align: center;  -ms-flex-align: center;  -webkit-align-items: center;  align-items: center;  }
+.swiper-slide img{width:90%;border: 1px solid #eee;}
+.swiper-pagination{display: none;}
+.swiper-button-prev{left: 0;}
+.swiper-button-next{right: 0;}
+.swiper-button-next, .swiper-button-prev{ background-size: 19px 39px;}
+.swiper-slide.active img{border-color:#83bc9b }*/
+
+.banner2{width: 46%;float:left;overflow: hidden;}
+.banner2 img{display: block;width: 100%;}
+.swiper-slide{border: 1px solid #eee;}
+.gallery-thumbs .swiper-slide{opacity: 1 !important;}
+.gallery-thumbs .swiper-slide-active{border:1px solid #83bc9b;}
+.gallery-thumbs { box-sizing: border-box;margin-top: 1rem;}
+.gallery-thumbs .swiper-slide-active { opacity: 1; }
+
+
+/* 右边参数*/
+.diamD_right{width: 54%;float:left;padding-left:2rem;box-sizing:border-box;}
+.diamD_title{font-size: 1.6rem;}
+.priceWap{border-bottom: 1px solid #eee;text-align: right;overflow: hidden;padding:0.5rem 0;margin: 0;}
+.priceWap .price{font-size:1.6rem;color:#83bc9b;float:left;vertical-align: middle;}
+.priceWap .tip{display: inline-block;line-height:2rem;text-align: right;vertical-align: middle;}
+.canshu{border-bottom: 1px solid #eee;overflow: hidden;padding:1rem 0;}
+.canshu span{display:block;width: 25%;float: left;line-height: 2rem;}
+.canshu span em{color:#83bc9b; }
+.diamD_btn{overflow: hidden;padding:1rem 0;}
+.diamD_btn a{background:#83bc9b;border: none;color:#fff;width: 7rem;}
+.jieshao{overflow: hidden;}
+.jieshao p{display: block;width: 100%;overflow: hidden;margin-top: 2rem;margin-bottom: 0.2rem;}
+.jieshao ul{overflow: hidden;}
+.jieshao ul li{float: left;padding:0.5rem 1rem;border: 1px solid #eee;border-right: 0;}
+.jieshao ul li:last-of-type{border-right:1px solid #eee; }
+.jieshao ul li.active{background: #83bc9b;color: #fff;}
+
+
+/* 戒托详情css */
+.viewHand {padding:0.2rem 1rem;display: inline-block;overflow: hidden;border: 1px solid #eee;margin-top: 1rem;}
+.jt_jieshao,.jt_stome,.jt_box2{border-bottom: 1px solid #eee;padding:1rem 0;margin: 0;}
+.jt_stome label,.jt_tuo label,.jt_shoucun label,.jt_kezi label{display:block;float: left;line-height: 2.3rem;}
+.jt_stome p{display: block;float: left;width:90%;}
+.jt_stome span{margin-left: 0.6rem;white-space: nowrap;float: left;line-height: 2.3rem;}
+.jt_stome a{padding:0 0.5rem;float: left; color:#83bc9b ;line-height: 2.3rem;}
+
+.dropdown{display: block;float: left;margin-left: 0.6rem;}
+.dropdown em{float:right;}
+.dropdown-menu em{float: right;padding-left: 0;}
+.jt_tuo .pbtn{width: 15rem;}
+.pbtn{background:none;border:1px solid #eee;position: relative;padding:0.3rem 2rem 0.3rem 0.5rem;min-width: 5rem;}
+.pbtn .text{width: 100%;display: block;text-align: left;}
+.pbtn .icon{font-size: 0.8rem;position: absolute;right:0;top:0.5rem;color:#8c8484;}
+.jt_box2 .colr{width: 0.8rem;height: 0.8rem;background:teal;display: inline-block;vertical-align:middle;margin-right:0.5rem;border-radius: 100rem;}
+.colr.c-bai{background:#d0d2d0;}
+.colr.c-huang{background:#fdd443;}
+.colr.c-meigui{background:#f7bb9b;}
+.jt_shoucun{margin-left: 4rem;}
+.dropdown-menu{min-width: 6rem;}
+.jt_kezi{display: block;width: 100%;margin:1rem 0 0 0;}
+.jt_kezi input[type=text]{margin-left: 0.6rem;text-indent:0.5rem;font-size:1rem;height:2.3rem;width: 8rem;float: left;border:1px solid #eee;border-radius: 5px 0 0 5px;border-right: 0;}
+.jt_kezi em{display: block;float:left;height:2.3rem;line-height:2.3rem;width: 3rem;text-align: center;border: 1px solid #eee ;border-right: 0;background: #eef6f8;}
+.jt_kezi em:last-of-type{border-right: 1px solid #eee;border-radius: 0 5px 5px 0;}
+
+.jtDetail{overflow: hidden;width: 100%;padding-top: 1rem;}
+.jtDetail_top{width: 100%;border-top: 1px solid #eee;overflow: hidden;padding:1rem 0;}
+.nav-pills .nav-link.active{background:#83bc9b;color:#fff;}
+.nav-pills .nav-link{padding:0.3rem 0.5rem;border-radius: 0;margin:0 0.5rem;}
+.nav-pills .vline{padding:0.3rem 0;}
+.proDetail img{width: 100%;display: block;}
+
+/* 弹出试戴框*/
+.shidai-content{width: 100%;height: 100%;}
+.shidai-modal{width: 100%;}
+.shidai-content{width: 100%;position: relative;overflow: hidden;}
+.shidai-content .imgs{display: block;width: 100%;height: auto;}
+.hand1{position: absolute;top:5rem;right:8rem;z-index:1;}
+.hand2{position: absolute;top:5rem;right:8rem;z-index: 2;}
+.ring{position: absolute;top: 10rem;right: 10.8rem;z-index: 3;transform: scale(0.18);}
+.hand1.zoom{transform: scale(1.8);top:10rem;right:5rem;}
+.hand2.zoom{transform: scale(1.8);top:10rem;right:5rem;}
+.ring.zoom{transform: scale(0.33);top: 10rem; right: 12.5rem;}
+
+.shidai-wap{position: absolute;top:0;left:0;width: 100%;}
+.shidai-wap .darker{float: left;}
+.shidai-wap .lighter{float: right;}
+.shidai-wap p{text-align: center;}
+
+.skin{width: 170px;position: relative;margin:1rem;z-index: 10;}
+.light{width: 70px;position: absolute;margin:1rem;right:0;top:0;z-index: 10;}
+.skin .tick{position: absolute;font-size: 0.5rem;color:#a1a1a1;padding: 0 5px;}
+.skin .one{left:-1px;}
+.skin .two{left:55px;}
+.skin .three{left:111px;}
+.skin .four{left:162px;}
+.line{display:block;margin-top:0.6rem;left: 30px;top: 42px;width: 170px;border: none;background: #a1a1a1;height: 2px;}
+.light .line{width:70px;}
+.ui-slider-handle{width: 1.3rem;height: 1.3rem;border-radius: 100rem;position: absolute;top:1.5rem;left:0;background: #fff;display: block;}
+.darker,.lighter{padding-top: 0.5rem;}
+
+
+/* 适配*/
+@media (orientation: portrait ){ /* 竖屏CSS */
+    .jt_shoucun{display: block;width: 100%;margin:1rem 0 0 0;}
+    .shidai-modal{max-width: 600px;}
+    .hand1{top:5rem;right:3rem;}
+    .hand2{top:5rem;right:3rem;}
+    .ring{top: 10rem;right: 5.8rem;transform: scale(0.18);}
+    .hand1.zoom{transform: scale(1.5);top:10rem;right:1rem;}
+    .hand2.zoom{transform: scale(1.5);top:10rem;right:1rem;}
+    .ring.zoom{transform: scale(0.28);top: 11rem; right: 6.8rem;}
+}
+@media ( orientation: landscape ){ /* 横屏CSS */
+
+}

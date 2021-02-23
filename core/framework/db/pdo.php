@@ -1,0 +1,638 @@
+<?php
+/**
+ * pdo驱动
+ *
+ * @珂兰技术中心提供技术支持
+ * @license    http://www.kela.cn
+ * @link       交流QQ：191793328
+ */
+
+
+defined('INTELLIGENT_SYS') or exit('Access Invalid!');
+class Db {
+
+    /**
+     * @var PDO[] $link
+     */
+    private static $link = array();
+
+    private static $iftransacte = true;
+
+    private function __construct(){
+        if (!extension_loaded('PDO')){
+            throw_exception("Db Error: PDO is not install");
+        }
+    }
+
+    private static function connect($host = 'slave'){
+        if (C('db.master') == C('db.slave')){
+            if (is_object(self::$link['slave'])){
+                self::$link['master'] = & self::$link['slave'];return ;
+            }elseif (is_object(self::$link['master'])){
+                self::$link['slave'] = & self::$link['master'];return ;
+            }
+        }
+        if (!in_array($host,array('master','slave'))) $host = 'slave';
+        $conf = C('db.'.$host);
+        if (is_object(self::$link[$host])) return;
+
+        try{
+            self::$link[$host] = new PDO(C("dbdriver") . ":host=" . $conf['dbhost'] . ";port=" . $conf['dbport'] . ";dbname=" . $conf['dbname'], $conf['dbuser'], $conf['dbpwd']);
+        }
+        catch(Exception $e) {
+            throw_exception($e->getMessage());
+        }
+
+        switch (strtoupper($conf['dbcharset'])){
+            case 'UTF-8':
+                $query_string = "
+                         SET CHARACTER_SET_CLIENT = utf8,
+                         CHARACTER_SET_CONNECTION = utf8,
+                         CHARACTER_SET_DATABASE = utf8,
+                         CHARACTER_SET_RESULTS = utf8,
+                         CHARACTER_SET_SERVER = utf8,
+                         COLLATION_CONNECTION = utf8_general_ci,
+                         COLLATION_DATABASE = utf8_general_ci,
+                         COLLATION_SERVER = utf8_general_ci,
+                         sql_mode=''";
+                break;
+            case 'GBK':
+                $query_string = "
+                        SET CHARACTER_SET_CLIENT = gbk,
+                         CHARACTER_SET_CONNECTION = gbk,
+                         CHARACTER_SET_DATABASE = gbk,
+                         CHARACTER_SET_RESULTS = gbk,
+                         CHARACTER_SET_SERVER = gbk,
+                         COLLATION_CONNECTION = gbk_chinese_ci,
+                         COLLATION_DATABASE = gbk_chinese_ci,
+                         COLLATION_SERVER = gbk_chinese_ci,
+                         sql_mode=''";
+                break;
+            default:
+                $error = "Db Error: charset is Invalid";
+                throw_exception($error);
+        }
+        //进行编码声明
+        $infectRows = self::$link[$host]->exec($query_string);
+        if ($infectRows === false){
+            throw_exception("Db Error: ".json_encode(self::$link[$host]->errorInfo()));
+        }
+    }
+
+    public static function ping($host = 'master') {
+        if (is_object(self::$link[$host])) {
+//         if (is_object(self::$link[$host]) && !self::$link[$host]->ping()) {
+            // self::$link[$host]->close();
+            // self::$link[$host] = null;
+        }
+    }
+
+    /**
+     * 执行查询
+     *
+     * @param string $sql
+     * @return mixed
+     */
+    public static function query($sql, $host = 'master'){
+        self::connect($host);
+        if (C('debug')) addUpTime('queryStartTime');
+        try {
+            $query = self::$link[$host]->query($sql, PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e) {
+            $error = 'Db Error: '. $e->getMessage();
+            if (C('debug')) {
+                throw_exception($error.'<br/>'.$sql);
+            } else {
+                Log::record($error."\r\n".$sql,Log::ERR);
+                Log::record($sql,Log::SQL);
+                return false;
+            }
+        }
+        if (C('debug')) addUpTime('queryEndTime');
+        if ($query === false){
+            $error = 'Db Error: '. json_encode(self::$link[$host]->errorInfo());
+            if (C('debug')) {
+                throw_exception($error.'<br/>'.$sql);
+            } else {
+                Log::record($error."\r\n".$sql,Log::ERR);
+                Log::record($sql,Log::SQL);
+                return false;
+            }
+        }else {
+            Log::record($sql." [ RunTime:".addUpTime('queryStartTime','queryEndTime',6)."s ]",Log::SQL);
+            return $query;
+        }
+    }
+
+    /**
+     * 取得数组
+     *
+     * @param string $sql
+     * @return bool/null/array
+     */
+    public static function getAll($sql, $host = 'slave'){
+        if(isset($_GET['debug'])){
+           echo $sql.";\r\n<br/>";
+        }
+        self::connect($host);
+        /**
+         * @var PDOStatement $result
+         */
+        $result = self::query($sql, $host);
+        if ($result === false) return array();
+        $result = $result->fetchAll();
+        return $result;
+    }
+    /**
+     * 取得查询单行操作
+     *
+     * @param string $sql
+     * @return bool/null/array
+     */
+    public static function getRow2($sql, $host = 'slave'){
+        self::connect($host);
+        $result = self::query($sql, $host);
+        if ($result === false) return array();
+        $result = $result->fetch();
+        return $result;
+    }
+    /**
+     * 取得查询单个字段操作
+     *
+     * @param string $sql
+     * @return bool/null/array
+     */
+    public static function getOne($sql, $host = 'slave'){
+        $result = self::getRow2($sql,$host);
+        if(empty($result)){
+            $result = false;
+        }else{
+            $result = current($result);           
+        }
+        return $result;
+    }   
+
+    /**
+     * SELECT查询
+     *
+     * @param array $param 参数
+     * @param object $obj_page 分类对象
+     * @return array
+     */
+    public static function select($param, $obj_page='', $host = 'slave'){
+        self::connect($host);
+        static $_cache = array();
+
+        if (empty($param)) throw_exception('Db Error: select param is empty!');
+
+        if (empty($param['field'])){
+            $param['field'] = '*';
+        }
+        if (empty($param['count'])){
+            $param['count'] = 'count(*)';
+        }
+
+        if (isset($param['index'])){
+            $param['index'] = 'USE INDEX ('.$param['index'].')';
+        }
+
+        if (trim($param['where']) != ''){
+            if (strtoupper(substr(trim($param['where']),0,5)) != 'WHERE'){
+                if (strtoupper(substr(trim($param['where']),0,3)) == 'AND'){
+                    $param['where'] = substr(trim($param['where']),3);
+                }
+                $param['where'] = 'WHERE '.$param['where'];
+            }
+        }else {
+            $param['where'] = '';
+        }
+        $param['where_group'] = '';
+        if (!empty($param['group'])){
+            $param['where_group'] .= ' group by '.$param['group'];
+        }
+        $param['where_order'] = '';
+        if (!empty($param['order'])){
+            $param['where_order'] .= ' order by '.$param['order'];
+        }
+
+        //判断是否是联表
+        $tmp_table = explode(',',$param['table']);
+        if (!empty($tmp_table) && count($tmp_table) > 1){
+            //判断join表数量和join条件是否一致
+            if ((count($tmp_table)-1) != count($param['join_on'])){
+                throw_exception('Db Error: join number is wrong!');
+            }
+
+            //trim 掉空白字符
+            foreach($tmp_table as $key=>$val){
+                $tmp_table[$key] = trim($val) ;
+            }
+
+            //拼join on 语句
+            for ($i=1;$i<count($tmp_table);$i++){
+                $tmp_sql .= $param['join_type'].' `'.DBPRE.$tmp_table[$i].'` as `'.$tmp_table[$i].'` ON '.$param['join_on'][$i-1].' ';
+            }
+            $sql = 'SELECT '.$param['field'].' FROM `'.DBPRE.$tmp_table[0].'` as `'.$tmp_table[0].'` '.$tmp_sql.' '.$param['where'].$param['where_group'].$param['where_order'];
+
+            //如果有分页，那么计算信息总数
+            $count_sql = 'SELECT '.$param['count'].' as count FROM `'.DBPRE.$tmp_table[0].'` as `'.$tmp_table[0].'` '.$tmp_sql.' '.$param['where'].$param['where_group'];
+        }else {
+            $sql = 'SELECT '.$param['field'].' FROM `'.DBPRE.$param['table'].'` as `'.$param['table'].'` '.$param['index'].' '.$param['where'].$param['where_group'].$param['where_order'];
+            $count_sql = 'SELECT '.$param['count'].' as count FROM `'.DBPRE.$param['table'].'` as `'.$param['table'].'` '.$param['index'].' '.$param['where'];
+        }
+        //limit ，如果有分页对象的话，那么优先分页对象
+        if ($obj_page instanceof Page ){
+            $count_query = self::query($count_sql,$host);
+            $count_fetch = $count_query->fetchColumn(0);
+            $obj_page->setTotalNum($count_fetch);
+            $param['limit'] = $obj_page->getLimitStart().",".$obj_page->getEachNum();
+        }
+        if ($param['limit'] != ''){
+            $sql .= ' limit '.$param['limit'];
+        }
+        if ($param['cache'] !== false){
+            $key =  is_string($param['cache_key'])?$param['cache_key']:md5($sql);
+            if (isset($_cache[$key])) return $_cache[$key];
+        }
+        $result = self::query($sql,$host);
+        if ($result === false) $result = array();
+        /*while ($tmp=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+            $array[] = $tmp;
+        }*/
+        if(!is_array($result)) {
+            $array = $result->fetchAll();
+        }
+        if ($param['cache'] !== false && !isset($_cache[$key])){
+            $_cache[$key] = $array;
+        }
+        return $array;
+    }
+
+    /**
+     * 插入操作
+     *
+     * @param string $table_name 表名
+     * @param array $insert_array 待插入数据
+     * @return mixed
+     */
+    public static function insert($table_name, $insert_array=array(), $host = 'master'){
+        self::connect($host);
+        if (!is_array($insert_array)) return false;
+        $fields = array();
+        $value = array();
+        foreach ($insert_array as $key => $val){
+            $fields[] = self::parseKey($key);
+            $value[] = self::parseValue($val);
+        }
+        $sql = 'INSERT INTO `'.DBPRE.$table_name.'` ('.implode(',',$fields).') VALUES('.implode(',',$value).')';
+
+        //当数据库没有自增ID的情况下，返回 是否成功
+        $result = self::query($sql, $host);
+        $insert_id = self::getLastId($host);
+        return $insert_id ? $insert_id : $result;
+    }
+
+    /**
+     * 批量插入
+     *
+     * @param string $table_name 表名
+     * @param array $insert_array 待插入数据
+     * @return mixed
+     */
+    public static function insertAll($table_name, $insert_array=array(), $host = 'master'){
+        self::connect($host);
+        if (!is_array($insert_array[0])) return false;
+        $fields = array_keys($insert_array[0]);
+        array_walk($fields,array(self,'parseKey'));
+        $values = array();
+        foreach ($insert_array as $data) {
+            $value = array();
+            foreach ($data as $key=>$val) {
+                $val = self::parseValue($val);
+                if (is_scalar($val)){
+                    $value[] = $val;
+                }
+            }
+            $values[] = '('.implode(',',$value).')';
+        }
+        $sql = 'INSERT INTO `'.DBPRE.$table_name.'` ('.implode(',',$fields).') VALUES '.implode(',',$values);
+        $result = self::query($sql,$host);
+        $insert_id = self::getLastId($host);
+        return $insert_id ? $insert_id : $result;
+    }
+
+    /**
+     * 更新操作
+     *
+     * @param string $table_name 表名
+     * @param array $update_array 待更新数据
+     * @param string $where 执行条件
+     * @return bool
+     */
+    public static function update($table_name, $update_array = array(), $where = '', $host = 'master'){
+        self::connect($host);
+        if (!is_array($update_array)) return false;
+        $string_value = '';
+        foreach ($update_array as $k => $v){
+            if (is_array($v)){
+                switch ($v['sign']){
+                    case 'increase': $string_value .= " $k = $k + ". $v['value'] .","; break;
+                    case 'decrease': $string_value .= " $k = $k - ". $v['value'] .","; break;
+                    case 'calc': $string_value .= " $k = ". $v['value'] .","; break;
+                    default: $string_value .= " $k = ". self::parseValue($v['value']) .",";
+                }
+            }else {
+                $string_value .= " $k = ". self::parseValue($v) .",";
+            }
+        }
+
+        $string_value = trim(trim($string_value),',');
+        if (trim($where) != ''){
+            if (strtoupper(substr(trim($where),0,5)) != 'WHERE'){
+                if (strtoupper(substr(trim($where),0,3)) == 'AND'){
+                    $where = substr(trim($where),3);
+                }
+                $where = ' WHERE '.$where;
+            }
+        }
+        $sql = 'UPDATE `'.DBPRE.$table_name.'` AS `'.$table_name.'` SET '.$string_value.' '.$where;
+        $result = self::execute($sql, $host);
+        return $result;
+    }
+
+    /**
+     * 删除操作
+     *
+     * @param string $table_name 表名
+     * @param string $where 执行条件
+     * @return bool
+     */
+    public static function delete($table_name, $where = '', $host = 'master'){
+        self::connect($host);
+        if (trim($where) != ''){
+            if (strtoupper(substr(trim($where),0,5)) != 'WHERE'){
+                if (strtoupper(substr(trim($where),0,3)) == 'AND'){
+                    $where = substr(trim($where),3);
+                }
+                $where = ' WHERE '.$where;
+            }
+            $sql = 'DELETE FROM `'.DBPRE.$table_name.'` '.$where;
+            return self::execute($sql, $host);
+        }else {
+            throw_exception('Db Error: the condition of delete is empty!');
+        }
+    }
+
+    /**
+     * 取得上一步插入产生的ID
+     *
+     * @return int
+     */
+    public static function getLastId($host = 'master'){
+        self::connect($host);
+        $id = self::$link[$host]->lastInsertId();
+        if (!$id){
+            $result = self::query('SELECT last_insert_id() as id',$host);
+            if ($result === false) return false;
+            $id = $result->fetchColumn(0);
+        }
+        return $id;
+    }
+
+    /**
+     * 取得一行信息
+     *
+     * @param array $param
+     * @param string $fields
+     * @return array
+     */
+    public static function getRow($param, $fields = '*', $host = 'slave'){
+        self::connect($host);
+        $table = $param['table'];
+        $wfield = $param['field'];
+        $value = $param['value'];
+
+        if (is_array($wfield)){
+            $where = array();
+            foreach ($wfield as $k => $v){
+                $where[] = $v."='".$value[$k]."'";
+            }
+            $where = implode(' and ',$where);
+        }else {
+            $where = $wfield."='".$value."'";
+        }
+
+        $sql = "SELECT ".$fields." FROM `".DBPRE.$table."` WHERE ".$where;
+        $result = self::query($sql,$host);
+        if ($result === false) return array();
+        return $result->fetch();
+    }    
+
+    /**
+     * 执行REPLACE操作
+     *
+     * @param string $table_name 表名
+     * @param array $replace_array 待更新的数据
+     * @return bool
+     */
+    public static function replace($table_name, $replace_array = array(), $host = 'master'){
+        self::connect($host);
+        if (!empty($replace_array)){
+            foreach ($replace_array as $k => $v){
+                $string_field .= " $k ,";
+                $string_value .= " '". $v ."',";
+            }
+            $sql = 'REPLACE INTO `'.DBPRE.$table_name.'` ('.trim($string_field,', ').') VALUES('.trim($string_value,', ').')';
+            return self::query($sql,$host);
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * 返回单表查询记录数量
+     *
+     * @param string $table 表名
+     * @param $condition mixed 查询条件，可以为空，也可以为数组或字符串
+     * @return int
+     */
+    public static function getCount($table, $condition = null, $host = 'slave'){
+        self::connect($host);
+
+        if (!empty($condition) && is_array($condition)){
+            $where = '';
+            foreach ($condition as $key=>$val) {
+                self::parseKey($key);
+                $val = self::parseValue($val);
+                $where .= ' AND '.$key.'='.$val;
+            }
+            $where = ' WHERE '.substr($where,4);
+        }elseif(is_string($condition)){
+            if (strtoupper(substr(trim($condition),0,3)) == 'AND'){
+                $where = ' WHERE '.substr(trim($condition),4);
+            }else{
+                $where = ' WHERE '.$condition;
+            }
+        }
+        $sql = 'SELECT COUNT(*) as `count` FROM `'.DBPRE.$table.'` as `'.$table.'` '.(isset($where) ? $where : '');
+        $result = self::query($sql,$host);
+        if ($result === false) return 0;
+        return $result->fetchColumn(0);
+    }
+
+    /**
+     * 执行SQL语句
+     *
+     * @param string $sql 待执行的SQL
+     * @return
+     */
+    public static function execute($sql, $host = 'master'){
+        self::connect($host);
+        if (C('debug')) addUpTime('queryStartTime');
+        $query = self::$link[$host]->exec($sql);
+        if (C('debug')) addUpTime('queryEndTime');
+        if ($query === false){
+            $error = 'Db Error: '. json_encode(self::$link[$host]->errorInfo());
+            if (C('debug')) {
+                throw_exception($error.'<br/>'.$sql);
+            } else {
+                Log::record($error."\r\n".$sql,Log::ERR);
+                Log::record($sql,Log::SQL);
+                return false;
+            }
+        }else {
+            Log::record($sql." [ RunTime:".addUpTime('queryStartTime','queryEndTime',6)."s ]",Log::SQL);
+            return $query;
+        }
+    }
+
+    /**
+     * 列出所有表
+     *
+     * @return array
+     */
+    public static function showTables($host = 'slave'){
+        self::connect($host);
+        $sql = 'SHOW TABLES';
+        $result = self::query($sql,$host);
+        if ($result === false) return array();
+        $array = array();
+        /*while ($tmp=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+            $array[] = $tmp;
+        }*/
+        $array = $result->fetchAll();
+        return $array;
+    }
+
+    /**
+     * 显示建表语句
+     *
+     * @param string $table
+     * @return string
+     */
+    public static function showCreateTable($table, $host = 'slave'){
+        self::connect($host);
+        $sql = 'SHOW CREATE TABLE `'.DBPRE.$table.'`';
+        $result = self::query($sql,$host);
+        if ($result === false) return '';
+        $result = $result->fetch();
+        return $result['Create Table'];
+    }
+
+    /**
+     * 显示表结构信息
+     *
+     * @param string $table
+     * @return array
+     */
+    public static function showColumns($table, $host = 'slave'){
+        self::connect($host);
+        $sql = 'SHOW COLUMNS FROM `'.DBPRE.$table.'`';
+        $result = self::query($sql,$host);
+        if ($result === false) return array();
+        $array = array();
+        $data = $result->fetchAll();
+        foreach ($data as $tmp) {
+            $array[$tmp['Field']] = array(
+                'name'    => $tmp['Field'],
+                'type'    => $tmp['Type'],
+                'null'    => $tmp['Null'],
+                'default' => $tmp['Default'],
+                'primary' => (strtolower($tmp['Key']) == 'pri'),
+                'autoinc' => (strtolower($tmp['Extra']) == 'auto_increment'),
+            );
+        }
+        return $array;
+    }
+
+    /**
+     * 取得服务器信息
+     *
+     * @return string
+     */
+    public static function getServerInfo($host = 'slave'){
+        self::connect($host);
+        $attributes = array(
+            "AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
+            "ORACLE_NULLS", "PERSISTENT", "PREFETCH", "SERVER_INFO", "SERVER_VERSION",
+            "TIMEOUT"
+        );
+
+        $result = [];
+
+        foreach ($attributes as $val) {
+            $result["PDO::ATTR_$val"] = self::$link[$host]->getAttribute(constant("PDO::ATTR_$val"));
+        }
+        return $result;
+    }
+
+    /**
+     * 格式化字段
+     *
+     * @param string $key 字段名
+     * @return string
+     */
+    public static function parseKey(&$key){
+        $key   =  trim($key);
+        if(!preg_match('/[,\'\"\*\(\)`.\s]/',$key)) {
+           $key = '`'.$key.'`';
+        }
+        return $key;
+    }
+
+    /**
+     * 格式化值
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    public static function parseValue($value){
+        $value = addslashes(stripslashes($value));//重新加斜线，防止从数据库直接读取出错
+        return "'".$value."'";
+    }
+
+    public static function beginTransaction($host = 'master'){
+        self::connect($host);
+        if (self::$iftransacte){
+           self::$link[$host]->beginTransaction();//关闭自动提交
+        }
+        self::$iftransacte = false;
+    }
+
+    public static function commit($host = 'master'){
+        if (!self::$iftransacte){
+            $result = self::$link[$host]->commit();
+            if (!$result) throw_exception("Db Error: ".mysqli_error(self::$link[$host]));
+            self::$iftransacte = true;
+        }
+    }
+
+    public static function rollback($host = 'master'){
+        if (!self::$iftransacte){
+            $result = self::$link[$host]->rollback();
+            self::$iftransacte = true;
+            if (!$result) throw_exception("Db Error: ".mysqli_error(self::$link[$host]));
+        }
+    }
+}

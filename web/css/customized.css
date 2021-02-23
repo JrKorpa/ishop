@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* 钻戒定制 */
+
+.custom1 img,.custom3 img{display: block;width: 100%;}
+
+.custom1,.diamond_alist,.custom3{margin-bottom: 1.5rem;}
+.diamond_alist{overflow: hidden;}
+.diamond_alist li{width:24.1%; display: block;float: left; margin-right: 1.13%;position:relative; overflow: hidden;}
+.diamond_alist li a img{width: 100%;}
+.diamond_alist li span{position:absolute; left:0; bottom:0;width:100%; z-index: 20; height:60px;padding-top:5px;text-align: center; font-size: 1.2rem; color: #fff; background: rgba(0,0,0,0.6);}
+.diamond_alist li span em{font-style: normal; color: #d0a972; font-size: 10px;display: block;}
+.diamond_alist li:last-child{margin:0;}

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>裸钻详情</title>
+    <link rel="stylesheet" href="js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/base.css?1">
+    <link rel="stylesheet" href="css/diamDetail.css?1">
+    <script src="js/jquery3.2.1.min.js"></script>
+    <script src="js/bootstrapt4/js/bootstrap.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <a href="javascript:history.go(-1);">
+            <i class="icon icon-arrowleft1"></i>back
+            </a>
+        </div>
+        <div class="logo"><img src="images/logo.png"/></div>
+        <div class="head-nav">
+            <a href="javascript:;"><i class="icon icon-read"></i>珠宝课堂</a>
+            <a href="javascript:;"><i class="icon icon-person"></i>登录</a>
+            <a href="javascript:;"><i class="icon icon-cart"></i>购物车</a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- 导航 -->
+    <div class="row diamTop">
+        <div class="col col1">定制您的钻戒<span class="d-block">ENGAGEMENT RINGS</span><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col active"><em class="icon icon-jiezhi2"></em>挑选钻石<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col "><em class="icon icon-jiezhi3"></em>挑选戒托<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col "><em class="icon icon-check1"></em>完成下单 <i class="jt1"></i></div>
+    </div>
+
+    <div class="detailCent">
+        <!-- 轮播 -->
+        <div class="banner">
+            <div class="diamImg">
+                <img src="images/img/01.jpg"/>
+            </div>
+            <div class="swip">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide active"><img src="http://www.kela.cn/Public/upload/goods/2017-08-01/28479150158490729406.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://kelacms.kela.cn/images/product/nvjie/yuanban/2.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://www.kela.cn/Public/upload/goods/2018-01-18/25455151626202539207.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://www.kela.cn/Public/upload/goods/2017-08-01/28479150158490729406.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://kelacms.kela.cn/images/product/nvjie/yuanban/2.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://www.kela.cn/Public/upload/goods/2018-01-18/25455151626202539207.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://www.kela.cn/Public/upload/goods/2017-08-01/28479150158490729406.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://kelacms.kela.cn/images/product/nvjie/yuanban/2.jpg"/></div>
+                        <div class="swiper-slide"><img src="http://www.kela.cn/Public/upload/goods/2018-01-18/25455151626202539207.jpg"/></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+        <!-- 右边参数-->
+        <div class="diamD_right">
+            <h3 class="diamD_title">0.82克拉圆形钻石</h3>
+            <p class="priceWap"><label class="price">￥20000</label><em class="tip">今天下单，预计在此时间前送达：2018-05-11</em></p>
+            <div class="canshu">
+                <span>颜色:<em>H</em></span><span>净度:<em>VVS1</em></span><span>切工:<em>EX</em></span>
+                <span>抛光:<em>EX</em></span><span>颜色:<em>H</em></span><span>颜色:<em>H</em></span>
+                <span>颜色:<em>H</em></span>
+            </div>
+            <div class="diamD_btn">
+                <a class="btn " href="jietuo.html" role="button">挑选</a>
+                <a class="btn " href="#" role="button">加入对比</a>
+            </div>
+            <div class="jieshao">
+                <p class="tips">切工:EX极好  最高切割分级。它的切割比例在钻石中形成了火彩和亮度的完美平衡</p>
+                <ul><li>IDEAL</li><li class="active">EX</li><li>VG</li><li>GD</li><li>FR</li></ul>
+                <p class="tips">颜色:H  近乎无色分级。它的切割比例在钻石中形成了火彩和亮度的完美平衡</p>
+                <ul><li>IDEAL</li><li class="active">EX</li><li>VG</li><li>GD</li><li>FR</li></ul>
+                <p class="tips">净度:EX极好  最高切割分级。它的切割比例在钻石中形成了火彩和亮度的完美平衡</p>
+                <ul><li>IDEAL</li><li class="active">EX</li><li>VG</li><li>GD</li><li>FR</li></ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        slidesPerView:4,
+        updateOnImagesReady : true,
+        onInit: function(swiper){
+            var index=swiper.activeIndex;
+            var src=  $(".swiper-slide").eq(index).children("img").attr("src");
+            $(".diamImg img").attr("src",src);
+        },
+        onClick: function(swiper){
+           var thiss=swiper.clickedSlide;
+            $(thiss).addClass("active").siblings().removeClass("active");
+           var src= $(thiss).children("img").attr("src");
+           $(".diamImg img").attr("src",src);
+        }
+    });
+</script>
+</body>
+</html>

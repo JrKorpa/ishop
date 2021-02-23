@@ -1,0 +1,6 @@
+[2018-08-17 20:13:16] /index.php?act=store_account&op=account_save&inajax=1 ( act=store_account&op=account_save ) 
+ERR: Db Error: ["23000",1062,"Duplicate entry '\u5434\u7acb\u69951' for key 'member_name'"]
+INSERT  INTO `member` (member_id,member_name,member_passwd,member_email,member_time,member_login_time,member_old_login_time,member_login_ip,member_old_login_ip,member_truename,member_qq,member_sex,member_avatar,member_qqopenid,member_qqinfo,member_sinaopenid,member_sinainfo,inviter_id) VALUES (NULL,'吴立榕1','4371c2c0c8d1dac19da27613ece91491','','1534507996','1534507996','1534507996','127.0.0.1','127.0.0.1','123132',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+[2018-08-17 20:20:18] /index.php?act=store_account&op=account_save&inajax=1 ( act=store_account&op=account_save ) 
+ERR: Db Error: ["23000",1062,"Duplicate entry '\u5434\u7acb\u69951' for key 'member_name'"]
+INSERT  INTO `member` (member_id,member_name,member_passwd,member_email,member_time,member_login_time,member_old_login_time,member_login_ip,member_old_login_ip,member_truename,member_qq,member_sex,member_avatar,member_qqopenid,member_qqinfo,member_sinaopenid,member_sinainfo,inviter_id) VALUES (NULL,'吴立榕1','4371c2c0c8d1dac19da27613ece91491','','1534508418','1534508418','1534508418','127.0.0.1','127.0.0.1','123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)

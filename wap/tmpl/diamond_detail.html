@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>裸钻详情</title>
+    <link rel="stylesheet" href="../js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../css/base.css?3">
+    <link rel="stylesheet" href="../css/diamDetail.css?3">
+    <script src="../js/jquery3.2.1.min.js"></script>
+    <script src="../js/bootstrapt4/js/bootstrap.min.js"></script>
+    <script src="../js/swiper.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- 导航 -->
+    <div class="row diamTop">
+        <div class="col col1">定制您的钻戒<span class="d-block">ENGAGEMENT RINGS</span><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col active nav-sel-dia" style="cursor:pointer"><em class="icon icon-jiezhi2"></em>挑选钻石<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col nav-sel-jietuo"  style="cursor:pointer"><em class="icon icon-jiezhi3"></em>挑选戒托/成品<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col "><em class="icon icon-check1"></em>完成下单 <i class="jt1"></i></div>
+    </div>
+
+    <div class="detailCent" id="detailCent-box">
+            努力加载中...
+
+    </div>
+</div>
+</body>
+<!-- 详情右侧属性 -->
+<script type="text/html" id="detail-param">
+    <% for (var i in diamond_detail) {%>
+    <div  class="detailCent_box" >
+        <!-- 轮播 -->
+        <div class="banner2">
+            <div class="gallery gallery<%=i%>">
+                <div class="swiper-container gallery-top<%=i%>">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                        <%if(!isEmpty(diamond_detail[i].img)){%>
+                            <%if(!diamond_detail[i].is_jpg){%>
+                                <iframe src="<%=diamond_detail[i].img%>" align="absmiddle" height="520" width="100%" frameborder="0" scrolling="no"></iframe>
+                            <%}else{%>
+                                <img src="<%=diamond_detail[i].img%>" alt="">
+                            <%}%>
+                        <%}else{%>
+                            <img src="../images/img/01.jpg" alt="">
+                        <%}%>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-container gallery-thumb gallery-thumbs<%=i%>">
+                    <div class="swiper-wrapper">
+                        <%if(!isEmpty(diamond_detail[i].img)){%>
+                            <!--<iframe src="<%=diamond_detail[i].img%>" frameborder="0" scrolling="no"></iframe>-->
+                        <%}else{%>
+                            <div class="swiper-slide">
+                                <img src="../images/img/01.jpg" alt="">
+                            </div>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 右边参数-->
+        <div class="diamD_right">
+            <div class="diamD_wap diamD_wap<%=i%>">
+                <h3 class="diamD_title"><%=diamond_detail[i].goods_name%></h3>
+                <p class="priceWap"><label class="price">￥<%=diamond_detail[i].shop_price%></label><!--<em class="tip">今天下单，预计在此时间前送达：<%=send_date%></em>--></p>
+                <div class="canshu">
+                    <span>形状:<i class="shapI shap<%=diamond_detail[i].shape%>"></i></span>
+                    <span>重量:<em><%=diamond_detail[i].carat%></em></span>
+                    <span>颜色:<em><%=diamond_detail[i].color%></em></span>
+                    <span>净度:<em><%=diamond_detail[i].clarity%></em></span>
+                    <span>切工:<em><%=diamond_detail[i].cut%></em></span>
+                    <span>抛光:<em><%=diamond_detail[i].polish%></em></span>
+                    <span>对称:<em><%=diamond_detail[i].symmetry%></em></span>
+                    <span>荧光:<em><%=diamond_detail[i].fluorescence%></em></span>
+                    <span>证书:<em><%=diamond_detail[i].cert%></em></span>
+                    <span class="certId">证书号:<em><%=diamond_detail[i].cert_id%></em></span>
+                    <!--<%if(diamond_detail[i].cert_id2){%><a href="../tmpl/diamond_detail.html?cert_id=<%= diamond_detail[i].cert_id2%>" style="color:#6DBF95;">（<%= diamond_detail[i].cert_id2%>）</a><%}%>-->
+                </div>
+                <div class="jieshao jieshaotab">
+                    <div class="jieshao-top">
+                        <a class="active" data-type="cut">切工</a> <a data-type="color">颜色</a> <a data-type="clarity">净度</a>
+                    </div>
+                    <div class="jieshao-btm">
+                        <div data-type="cut" style="display: block;">
+                            <p class="tips ">切工:<%=diamond_detail[i].cut%>&nbsp;&nbsp<span class="cut-tip"></span></p>
+                            <ul class="cut" data-act="<%=diamond_detail[i].cut%>">
+                                <% for (var id in curlist.cut) { var name = curlist.cut[id]; %>
+                                <li <%if(name == diamond_detail[i].cut){%>class="active"<%}%>><%=name%></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div data-type="color">
+                            <p class="tips">颜色:<%=diamond_detail[i].color%>&nbsp;&nbsp<span class="color-tip"></span></p>
+                            <ul class="color" data-act="<%=diamond_detail[i].color%>">
+                                <% for (var id in curlist.color) { var name = curlist.color[id]; %>
+                                <li <%if(name == diamond_detail[i].color){%>class="active"<%}%>><%=name%></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div data-type="clarity">
+                            <p class="tips">净度:<%=diamond_detail[i].clarity%>&nbsp;&nbsp<span class="clarity-tip"></span></p>
+                            <ul class="clarity" data-act="<%=diamond_detail[i].clarity%>">
+                                <% for (var id in curlist.clarity) { var name = curlist.clarity[id]; %>
+                                <li <%if(name == diamond_detail[i].clarity){%>class="active"<%}%>><%=name%></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% if(!leng){%>
+            <div class="diamD_btn ">
+                <a class="btn " href="javascript:void(0);" id="search_jietuo" data-val="<%=do_cart_id%>" role="button">挑选</a>
+                <!--
+                <a class="btn " href="javascript:void(0);" id="buy_now"  role="button" data-toggle="modal" data-target=".bd-example-modal-lg">立即购买</a>
+                -->
+                <a class="btn " href="javascript:void(0);" id="add_cart" role="button" data-toggle="modal" data-target=".bd-example-modal-lg">加入购物车</a>
+                <a class="btn " href="javascript:void(0);" onclick="addContrast(<%=diamond_detail[0].cert_id%>)" role="button">加入对比</a>
+            </div>
+            <%}%>
+        </div>
+    </div>
+    <% } %>
+    <% if(leng){%>
+    <div class="diamD_btn  <% if(leng){%>fixbtn<%}%>">
+        <a class="btn " href="javascript:void(0);" id="search_jietuo" data-val="<%=do_cart_id%>" role="button">挑选</a>
+        <!--
+        <a class="btn " href="javascript:void(0);" id="buy_now"  role="button" data-toggle="modal" data-target=".bd-example-modal-lg">立即购买</a>
+        -->
+        <a class="btn " href="javascript:void(0);" id="add_cart" role="button" data-toggle="modal" data-target=".bd-example-modal-lg">加入购物车</a>
+        <a class="btn " href="javascript:void(0);" onclick="addContrast(<%=diamond_detail[0].cert_id%>)" role="button">加入对比</a>
+    </div>
+    <%}%>
+</script>
+<!-- 更多定制 -->
+<div class="modal fade bd-example-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" >
+        <div class="modal-content dingzhi-content" id="dingzhi_form">
+            <div class="modal-header">
+                <h5 class="modal-title">更多定制</h5>
+                <button type="button" class="close dialog-dingzhi-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body dingzhi-body">
+                努力加载中...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 裸钻加入购物车-镶嵌方式 -->
+<script id="dingzhi-form" type="text/html">
+<div class="div1"><label>工厂镶嵌方式:</label>
+    <select name="xiangqian" id="xiangqian">
+    <option value="">请选择</option>
+    <% for (var id in attr_list.xiangqian) { var name = attr_list.xiangqian[id]; %>
+        <option <%= name==goods_info.xiangqian?' selected':''%> value="<%= name%>"><%=name%></option>
+    <% } %> 
+    </select>
+</div>
+</script>
+<!-- 防止插件冲突 -->
+<script type="text/javascript">
+    $.noConflict(false);
+</script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/tmpl/diamond_detail.js?v=1.1"></script>
+<script type="text/javascript" src="../js/tmpl/header.js"></script>
+<script type="text/javascript" src="../js/simple-plugin.js"></script>
+</html>

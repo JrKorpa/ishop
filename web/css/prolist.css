@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* 产品列表 */
+
+/* 分类 */
+.proclass{width:100%;height: auto;}
+.proclass ul{padding:0;margin: 0 auto;text-align: center;display:table;word-spacing:-1em;width: 100%;}
+.proclass ul li{display:inline-block;width:12.5%;height: 100%;margin: 0;padding:0;border: none;word-spacing:0;zoom: 1; *display:inline;overflow: hidden;}
+.proclass ul li.active a{color:#ca9a61;}
+.proclass ul li a{display: block;width:100%;height:100%;overflow: hidden;}
+.proclass ul li a:hover i{color:#ca9a61 !important;}
+.proclass span.img{display:block;width:5rem;height:5rem;margin: 0 auto;background: url(../images/menu_icon_01.png) no-repeat;background-size: 1000px;}
+.proclass ul li i{display: block;font-style: normal;text-align: center;}
+.proclass .lis1 .img{background-position:-58px 0px;}
+.proclass .lis2 .img{background-position:-171px 0px;}
+.proclass .lis3 .img{background-position:-292px 0px;}
+.proclass .lis4 .img{background-position:-407px 0px;}
+.proclass .lis5 .img{background-position:-528px 0px;}
+.proclass .lis6 .img{background-position:-645px 0px;}
+.proclass .lis7 .img{background-position:-762px 0px;}
+.proclass .lis8 .img{background-position:-878px 0px;}
+
+/* 搜索部分 */
+.prosearch{margin:1rem 0 2rem;border: 1px solid #eee;border-left:0;border-right: 0;}
+.x_schCondition_wrap{width:100%;font-size:1rem;padding:0;margin:0;}
+.x_schCondition_wrap li{list-style:none;line-height: 2.5rem;padding:0.5rem 0;border-bottom: 1px solid #f3f3f4;}
+.x_schCondition_wrap .select-list{border-bottom:1px solid #eee;}
+.x_schCondition_wrap li label{width:6rem;float:left;text-align:center;color:#666;height:2.5rem;line-height:2.5rem;margin:0;font-weight: normal;}
+.x_schCondition_wrap dl{border-left:1px solid #eee;width:calc(100% - 6rem);overflow-y:hidden;position:relative;line-height:2.5rem;margin: 0;}
+.x_schCondition_wrap dd{min-width:4rem;line-height: 2.5rem;float:left;text-align: center;margin:0 0 0 1rem;}
+.x_schCondition_wrap a{display:block;white-space:nowrap;text-decoration:none;color:#333333;}
+.x_schCondition_wrap .selected a{color:#d09f61;}
+
+/* 筛选*/
+.search2{margin: 0;padding:1rem 0;}
+.btn-group2 button{background: none;padding:0 0.5rem;line-height: 2.5rem; color: #9e9a9a;}
+.btn-group2 button .icon{font-size: 0.8rem; color: inherit;}
+.btn-group2 button.active{color:#76ba8e;}
+.price{display: inline-block;}
+.price p{display: inline-block;width: 8rem;border:1px solid #eee;height: 2.5rem;line-height: 2.5rem;overflow: hidden;vertical-align: middle;}
+.price i{line-height: 2.5rem;vertical-align: middle;}
+.price input[type=number]{display: inline-block;width: 6rem;}
+.price .btn{color:#83bc9b;}
+
+/* 头部 */
+.diam_top{overflow: hidden;position: relative;padding:0.1rem 0;}
+.diam_top ul{position: absolute;bottom:0;left: 0;}
+.diamList .diamLink{padding:0.5rem;color:#fff !important;border-radius:5px;background: #83bc9b;}
+.nav-pills .nav-link.active{color:#83bc9b;background: none;border: 1px solid #83bc9b;}
+.nav-pills .nav-link{padding:0.3rem 0.5rem;border-radius: 0;}
+.searchName{width: 16rem;float: right;}
+.searchName .form-control{height: 2.5rem;line-height: 2.5rem;font-size: 1rem;}
+.searchName .btn{color: #83bc9b;border-color: #83bc9b;background: none;}
+/* 列表 */
+.jietuoList{border-top: 1px solid #eee;margin: 0;margin-bottom: 2rem;padding-top: 2rem;}
+.jietuoList>div{margin-bottom: 1rem;}
+.jietuoList .imgWap{width: 100%;overflow: hidden;margin-bottom: 1rem;}
+.jietuoList .imgWap img{width: 100%;}
+.jietuoList p{width:100%;text-align: center;margin: 0;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.jietuoList p.price{color:red;}
+
+
+/* 适配*/
+@media (orientation: portrait ){ /* 竖屏CSS */
+
+}
+@media ( orientation: landscape ){ /* 横屏CSS */
+    .price{margin-left: 4rem;}
+}

@@ -1,0 +1,6 @@
+[2018-12-24 17:46:24] /mobile/index.php?act=style_goods&op=style_goods_list ( act=style_goods&op=style_goods_list ) 
+ERR: search\indexMissing field of type ID
+
+[2018-12-24 17:49:06] /mobile/index.php?act=style_goods&op=style_goods_list ( act=style_goods&op=style_goods_list ) 
+ERR: search\indexMissing field of type ID
+

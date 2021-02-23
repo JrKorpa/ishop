@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>订单列表</title>
+	<link rel="stylesheet" href="../../js/bootstrapt4/css/bootstrap.css">
+	<link rel="stylesheet" href="../../css/base.css?1">
+	<link rel="stylesheet" href="../../css/order_list.css">
+    <link rel="stylesheet" href="../../css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="../../js/mdatetimer/zepto.mdater.css"/>
+	<script src="../../js/jquery3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.datetimepicker.js"></script>
+    <script src="../../js/bootstrapt4/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var $j=jQuery.noConflict();
+    </script>
+	<style>
+	 .zengpin{
+		display: inline-block;
+		height: 1.2rem;
+		line-height: 1.2rem;
+		vertical-align: middle;
+		padding: 0 0.2rem;
+		margin-right: 0.2rem;
+		background: #76ba8e;
+		font-size: 0.8rem;
+		color: #FFF;
+		border-radius: 0.1rem;
+	 }
+	</style>
+    <!--<script src="../../js/bootstrapt4/js/bootstrap.min.js"></script>-->
+</head>
+
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+	<div class="container-fluid">
+		<div id="fixed_nav" class="nctouch-single-nav">
+			<ul id="filtrate_ul">
+				<li class="selected">
+					<a href="javascript:void(0);" data-state="">全部</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-state="state_toconfirm">待审核</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-state="state_topay">待付款</a>
+				</li>
+                <li>
+                    <a href="javascript:void(0);" data-state="state_tomaking">待布产</a>
+                </li>
+				<li>
+					<a href="javascript:void(0);" data-state="state_making">生产中</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-state="state_tosend">待发货</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-state="state_success">已完成</a>
+				</li>
+                <li>
+                    <a href="javascript:void(0);" data-state="state_cancel">已取消</a>
+                </li>
+			</ul>
+            <p>
+                <span id="folat-left" class="float-left"></span>
+                <span class="float-right clicksx">筛选<i class="icon icon-shaixuan" style="vertical-align: middle;"></i></span>
+            </p>
+		</div>
+		<div class="nctouch-order-list">
+			<ul id="order-list">
+                <p style="text-align: center;">努力加载中...</p>
+			</ul>
+		</div>
+	</div>
+    <div class="shaixuan_mask"></div>
+    <!-- 筛选 -->
+    <div class="shaixuan">
+        <div class="shaixuan_body">
+            <div class="p1 row">
+                <h3>订单号|客户姓名|手机号</h3>
+                <input type="text" id="search_val" name="search_val" placeholder="请输入" class="ipt1"/>
+            </div>
+            <div class="p2 row">
+                <h3>货号|款号</h3>
+                <input type="text" id="goods_sn" name="goods_sn" placeholder="请输入" class="ipt1"/>
+            </div>
+            <div class="p3 row">
+                <h3>是否赠品单</h3>
+                <span id="p3"><a href="javascript:;" data-val="1">是</a><a href="javascript:;" data-val="0">否</a></span>
+            </div>
+            <div class="p4 row">
+                <h3>订单类型</h3>
+                <span id="p4"><a href="javascript:;" data-val="1">现货</a><a href="javascript:;" data-val="0">定制</a></span>
+            </div>
+            <div class="p5 row">
+                <h3>制单时间</h3>
+                <input type="text" id="settle_create_time1" name="starttime" readonly class="seartTime ipt2" placeholder="初始时间"/>
+                <em>to</em>
+                <input type="text" id="settle_create_time2" name="endtime" readonly class="endTime ipt2" placeholder="结束时间"/>
+            </div>
+            <div class="shaixuan_foot">
+                <a class="btn clearq">清空</a><a class="btn success">完成</a>
+            </div>
+        </div>
+    </div>
+	<script type="text/html" id="order-list-tmpl">
+<% var order_group_list = datas.order_group_list; %>
+<% if (order_group_list.length > 0){%>
+	<% for(var i = 0;i<order_group_list.length;i++){
+		var orderlist = order_group_list[i].order_list;
+	%>	
+	<li class="">
+	  <% for(var j = 0;j<orderlist.length;j++){
+				var order_goods = orderlist[j].extend_order_goods;
+			%>
+		<div class="nctouch-order-item">
+			<div class="nctouch-order-item-head">
+				<span>订单编号：<%=orderlist[j].order_sn%></span>
+				<span>制单人：<%=orderlist[j].seller_name%></span>
+				<span>下单日期：<%=$getLocalTime(orderlist[j].add_time)%></span>
+				<label class="order-type"><%= orderlist[j].is_xianhuo_name%>  <%=orderlist[j].state_desc%></label>
+			</div>
+			<div class="nctouch-order-item-con">
+			   <%
+				var count = 0;
+				 for (k in order_goods){
+					count += parseInt(order_goods[k].goods_num);
+				%>		
+				<div class="goods-block">
+					<a href="<%=WapSiteUrl%>/tmpl/member/order_detail.html?order_id=<%=orderlist[j].order_id%>">
+						<div class="goods-pic">
+							<img src="<%=order_goods[k].goods_image_url%>"/>
+						</div>
+						<dl class="goods-info">
+							<dt class="goods-name"><%=order_goods[k].goods_name%></dt>
+							<dd class="goods-canshu">
+							   <% if (order_goods[k].style_sn=="DIA"){%>
+							    <span class="goods-caizhi">货号：<%=order_goods[k].goods_id%></span>
+							    <span class="goods-caizhi">款号：<%=order_goods[k].style_sn%></span>
+								<span class="goods-caizhi">证书号：<%=order_goods[k].cert_id%></span>
+								<span class="goods-shoucun">证书类型：<%=order_goods[k].cert_type%></span>
+								<span class="goods-cart">主石大小：<%=order_goods[k].carat%></span>
+								<span class="goods-cart">主石颜色：<%=order_goods[k].color%></span>
+								<span class="goods-cart">主石切工：<%=order_goods[k].cut%></span>
+								<span class="goods-cart">主石净度：<%=order_goods[k].clarity%></span>
+								<%}else{%>
+								<span class="goods-caizhi">货号：<%=order_goods[k].goods_id%></span>
+							    <span class="goods-caizhi">款号：<%=order_goods[k].style_sn%></span>
+								<span class="goods-caizhi">材质：<%=order_goods[k].caizhi%><%=order_goods[k].jinse%></span>
+								<span class="goods-shoucun">指圈：<%=order_goods[k].zhiquan%></span>
+                                <span class="goods-cart">证书号：<%=order_goods[k].cert_id%></span>
+								<span class="goods-cart">主石大小：<%=order_goods[k].carat%></span>
+								<span class="goods-cart">主石颜色：<%=order_goods[k].color%></span>
+								<span class="goods-cart">主石切工：<%=order_goods[k].cut%></span>
+								<span class="goods-cart">主石净度：<%=order_goods[k].clarity%></span>
+								<%}%>
+							</dd>
+							<dd class="goods-subtotal">
+								<span class="goods-price">￥<em><%=order_goods[k].goods_pay_price%></em></span>
+								<span class="goods-num">x<%=order_goods[k].goods_num%></span>
+							</dd>
+						</dl>
+					</a>
+				</div>
+                <%}%>
+				<%if (orderlist[j].zengpin_list.length > 0){%>
+				<%for (k in orderlist[j].zengpin_list){ %>
+				<div class="goods-block">
+					<a href="<%=WapSiteUrl%>/tmpl/member/order_detail.html?order_id=<%=orderlist[j].order_id%>">
+						<div class="goods-pic">
+							<img src="<%=orderlist[j].zengpin_list[k].goods_image_url%>"/>
+						</div>
+						<dl class="goods-info">
+							<dt class="goods-name"><span><em class="zengpin">赠品</em><%=orderlist[j].zengpin_list[k].goods_name%></dt>
+							<dd class="goods-canshu">
+
+
+								<span class="goods-caizhi">款号：<%=orderlist[j].zengpin_list[k].style_sn%></span>
+
+								<span class="goods-shoucun">指圈：<%=orderlist[j].zengpin_list[k].zhiquan%></span>
+
+							</dd>
+							<dd class="goods-subtotal">
+								<span class="goods-price">￥<em><%=orderlist[j].zengpin_list[k].goods_pay_price%></em></span>
+								<span class="goods-num">x<%=orderlist[j].zengpin_list[k].goods_num%></span>
+							</dd>
+						</dl>
+					</a>
+				</div>
+				<%}%>
+				<!--
+                 <div class="goods-gift">
+                     <span><em>赠品</em>
+                         <%for (k in orderlist[j].zengpin_list){
+
+                              count += parseInt(orderlist[j].zengpin_list[k].goods_num);
+                              %>
+                              <a href="<%=WapSiteUrl%>/tmpl/member/order_detail.html?order_id=<%=orderlist[j].order_id%>">
+                         <%=orderlist[j].zengpin_list[k].goods_name%>
+                         </a>
+                         <%}%>
+                     </span>
+                 </div>-->
+				<%}%>
+			</div>
+			<div class="nctouch-order-item-footer">
+				<div class="store-totle">
+					<span>共<em><%=count%></em>件商品，合计</span><span class="sum">￥<em><%=orderlist[j].order_amount%></em></span><span class="freight">(含运费￥<%if (orderlist[j].shipping_fee){%><%=orderlist[j].shipping_fee%><%}else{%>0.00<%}%>)</span><br>
+				</div>				
+				<div class="handle">
+				    <%if(orderlist[j].if_delete){%>
+							<a href="javascript:void(0)" order_id="<%=orderlist[j].order_id%>" class="del delete-order"><i></i>移除</a>
+					<%}%>
+					<%if(orderlist[j].if_lock){%>
+					<p>退款/退货中...</p>
+					<%}%>
+					<%if(orderlist[j].if_cancel){%>
+					<a href="javascript:void(0)" order_id="<%=orderlist[j].order_id%>" class="btn cancel-order">取消订单</a>
+					<%}%>
+                    <%if(orderlist[j].if_buchan){%>
+                    <!--<a href="javascript:void(0)" order_id="<%=orderlist[j].order_id%>" class="btn order-bc">允许布产</a>-->
+                    <%}%>
+					<!--<%if(orderlist[j].if_deliver){%>
+					<a href="javascript:void(0)" order_id="<%=orderlist[j].order_id%>" class="btn viewdelivery-order">查看物流</a>
+					<%}%>
+					<%if(orderlist[j].if_receive){%>
+					<a href="javascript:void(0)" order_id="<%=orderlist[j].order_id%>" class="btn key sure-order">确认收货</a>
+					<%}%>-->
+					<%if(orderlist[j].if_check){%>			
+					<a href="javascript:void(0)" order_id="<%=orderlist[j].order_id%>" class="btn check-order">审核订单</a>
+					<%}%>
+				</div>
+			</div>
+		</div>
+		<% }%>
+	</li>
+	<%}%>	
+	<% if (hasmore) {%>
+	<li class="loading"><div class="spinner"><i></i></div>订单数据读取中...</li>
+	<% } %>
+<%}else {%>
+	<div class="nctouch-norecord order">
+		<div class="norecord-ico"><i class="icon icon-dianpu"></i></div>
+		<dl>
+			<dt>您还没有相关的订单</dt>
+			<dd>可以去看看哪些想要买的</dd>
+		</dl>
+		<a href="<%=WapSiteUrl%>" class="btn">随便逛逛</a>
+	</div>
+<%}%>
+</script>
+	<script type="text/javascript" src="../../js/zepto.min.js"></script>
+	<script type="text/javascript" src="../../js/template.js"></script>
+	<script type="text/javascript" src="../../js/config.js"></script>
+	<script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript" src="../../js/mdatetimer/zepto.mdater.js"></script>
+	<script type="text/javascript" src="../../js/simple-plugin.js"></script>
+	<script type="text/javascript" src="../../js/zepto.waypoints.js"></script>
+	<script type="text/javascript" src="../../js/tmpl/order_payment_common.js"></script>
+	<script type="text/javascript" src="../../js/tmpl/order_list.js"></script>
+	<script type="text/javascript" src="../../js/tmpl/header.js"></script>
+    <script type="text/javascript">
+        $j(".clicksx").click(function(){
+            $j(".shaixuan_mask").show();
+            $j(".shaixuan").animate({right:"0"});
+        });
+
+        $j(".shaixuan_mask").click(function(){
+            $j(".shaixuan_mask").hide();
+            $j(".shaixuan").animate({right:"-550px"});
+         })
+        //$j('#starttime').datetimepicker({
+        //  lang:"ch",           //语言选择中文
+        //  format:"Y-m-d",      //格式化日期
+        //  timepicker:false,   //关闭时间选项
+        //  yearStart:2000,     //设置最小年份
+        //  yearEnd:2050,     //设置最大年份
+        //  todayButton:false  //关闭选择今天按钮
+        //});
+        //$j('#endtime').datetimepicker({
+        //  lang:"ch",           //语言选择中文
+        //  format:"Y-m-d",      //格式化日期
+        //  timepicker:false,   //关闭时间选项
+        //  yearStart:2000,     //设置最小年份
+        //  yearEnd:2050,     //设置最大年份
+        //  todayButton:false  //关闭选择今天按钮
+        //});
+        $('#settle_create_time1,#settle_create_time2').mdater({
+            minDate : new Date(1970,1,1)
+        });
+    </script>
+</body>
+
+</html>

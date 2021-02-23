@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>戒托材质</title>
+    <link rel="stylesheet" href="../../js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/base.css?3">
+    <link rel="stylesheet" href="../../css/coupIndex.css">
+    <link rel="stylesheet" href="../../css/pageNav.css" />
+    <script src="../../js/jquery3.2.1.min.js"></script>
+    <script src="../../js/bootstrapt4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+<div class="container-fluid" style="overflow: hidden;">
+    <div class="zhuanti" style="margin-top: 5rem;">
+        <div class="tab-fix">
+            <img src="../../images/pixel.gif"/>
+            <div>
+                <a href="tab4c.html"></a>
+                <a href="tabKs.html"></a>
+                <a href="tabCz.html"></a>
+                <a href="tabCl.html"></a>
+            </div>
+        </div>
+        <img src="../../images/pixel.gif"/>
+    </div>
+</div>
+<div class="fix-block-r">
+    <a class="gotop"><img src="../../images/img/gotop.png"/></a>
+</div>
+</body>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script>
+<script type="text/javascript" src="../../js/template.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/tmpl/header.js"></script>
+<script type="text/javascript" src="../../js/native/loader.js"></script>
+<script type="text/javascript">
+
+    if (window.cordovaext && window.cordovaext.is_android()) {
+        $('.zhuanti img').attr('src','file:///android_asset/www/img/zhuanti/tab-cz-02.webp');
+        $('.zhuanti .tab-fix img').attr('src','file:///android_asset/www/img/zhuanti/tab-cz-01.webp');
+    } else {
+        $('.zhuanti img').attr('src',WapSiteUrl+'/images/img/zhuanti/tab-cz-02.jpg');
+        $('.zhuanti .tab-fix img').attr('src',WapSiteUrl+'/images/img/zhuanti/tab-cz-01.jpg');
+    }
+
+    setTimeout(() => {
+        var h=$(".tab-fix").height();
+        $(".zhuanti").css({"margin-top":h});
+        $(document).ready(function(){
+            $(window).resize(function() {
+                var h=$(".tab-fix").height();
+                $(".zhuanti").css({"margin-top":h});
+            });
+        });
+    }, 500);
+
+</script>
+</html>

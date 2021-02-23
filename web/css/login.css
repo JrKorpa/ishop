@@ -1,0 +1,16 @@
+/* 登录 */
+.nctouch-inp-con{width: 60%;margin:4rem auto;}
+.form-box{margin: 0;}
+.form-box li{border-bottom: 1px solid #eee;}
+.form-box li input{height: 4.5rem;width: 100%;}
+.remember-form{text-align: right;line-height:4rem;}
+#loginbtn{width: 100%;height: 4rem;background: #76ba8e;color:#fff;line-height: 3rem;}
+
+/* 适配*/
+@media (orientation: portrait ){ /* 竖屏CSS */
+
+}
+@media ( orientation: landscape ){ /* 横屏CSS */
+    .price{margin-left: 4rem;}
+    .nctouch-inp-con{width: 50%;}
+}

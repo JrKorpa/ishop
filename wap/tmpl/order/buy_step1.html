@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>确认定制</title>
+    <link rel="stylesheet" href="../../js/bootstrapt4/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/swiper.min.css">
+    <link rel="stylesheet" href="../../css/base.css?1">
+    <link rel="stylesheet" href="../../css/order.css?1">
+	<link rel="stylesheet" href="../../js/chosen/css/chosen.css">
+	
+    <script src="../../js/jquery3.2.1.min.js"></script>
+    <script src="../../js/bootstrapt4/js/bootstrap.min.js"></script>
+    <script src="../../js/swiper.min.js"></script>
+	
+</head>
+<body>
+<div class="header">
+    <div class="head">
+        <div class="head-l" id="menuBtn">
+            <i class="icon icon-menu"></i>
+        </div>
+        <div id="header-container"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- 导航 -->
+    <div class="row diamTop">
+        <div class="col col1">定制您的钻戒<span class="d-block">ENGAGEMENT RINGS</span><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col "><em class="icon icon-jiezhi2"></em>挑选钻石<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col "><em class="icon icon-jiezhi3"></em>挑选戒托/成品<i class="jt1"></i><i class="jt2"></i><i class="jt3"></i></div>
+        <div class="col active"><em class="icon icon-check1"></em>完成下单 <i class="jt1"></i></div>
+    </div>
+    <div class="orderCent">
+        <p class="p_title">
+			 购物清单
+			<span class="handle_btn">
+				<a class="btn" id="add_gift" href="javascript:void(0)" role="button" data-toggle="modal" data-target=".bd-gift-modal-lg">添加赠品</a>
+			</span>		
+		</p>
+		<div id="deposit"><p style="text-align: center;">努力加载中...</p></div>
+    </div>
+	
+	<div class="orderCent">
+	    <!--<div class="ordsycard ">
+            <label>使用优惠券:</label><input type="text"/><button>使用</button>
+        </div>-->
+        <p class="p_title">客户信息</p>
+        <div class="ordaddr" id="address_list">
+            
+        </div>
+		<p class="p_title">订单备注</p>
+        <div class="ordaddr">
+            <textarea id="storeMessage" class="text"></textarea>
+        </div>
+        <p class="p_title">结算</p>
+        <div class="ordjiesuan row">
+            <span class="col col-md-6 align-self-center">+ 运费:￥0.00</span>
+            <span class="col col-md-3 align-self-center price">总计: ￥<em id="totalPrice">0.00</em></span>
+            <span class="col col-md-3 align-self-center"><a href="javascript:void(0)" id="ToBuyStep2" class="btn float-right">下一步</a></span>
+        </div>
+	</div>
+</div>
+<!-- 添加收货地址 -->
+<div class="modal fade bd-address-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg addr-modal" >
+        <div class="modal-content addr-content" id="address_form">
+            <div class="modal-header">
+                <h5 class="modal-title">收货信息</h5>
+                <button type="button" class="close dialog-address-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="address_info">
+                <p style="text-align: center;">努力加载中...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save " id="address_save">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-discount-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" id="discount_form">
+        <div class="modal-content dingzhi-content">
+            <div class="modal-header">
+                <h5 class="modal-title">商品优惠</h5>
+                <button type="button" class="close dialog-discount-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body dingzhi-body" >
+                <div class="div1 goods_hand_price"><label>商品价格:</label>
+				    <input type="hidden" name="goods_id" />
+					<input type="hidden" name="goods_type" />				    
+	                <input type="text" name="goods_hand_price" />
+                </div> 
+				<div class="div1 discount_code"><label>商品折扣码:</label>
+                    <input type="text" name="discount_code"/>
+                </div> 
+				<p style="color:gray">提示：请填写商品价格(商品优惠后的价格)或商品折扣码</p>               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="goods-list">
+<%if (error){%>
+<div style="width:100%;text-align:center; color:red; font-size:14px; font-weight:bold">温馨提醒：<%= error%></div>
+<% }%>
+<% for (var k1 in store_cart_list) { var s = store_cart_list[k1]; %>
+	<div class="order_list">
+		<div class="pro_title row">
+			<span class="col-md-6">商品名称</span>
+			<span class="col-md-2">单价</span>
+			<span class="col-md-2">数量</span>
+			<span class="col-md-2">小计</span>
+	    </div>	
+	<% for (var k2 in s.goods_list) { var g = s.goods_list[k2]; %>
+	   <div class="pro_msg row">
+		<div class="col col-md-6">
+			<span class="proimg"><img src="<%= g.goods_image%>"/></span>
+			<div class="protext">
+				<p class="protit"><%= g.goods_name%></p>
+				<% if (g.goods_type==2) { %>
+				<p><em>形状:<%=g.shape_name%></em><em>大小:<%=g.carat%>克拉</em><em>颜色:<%=g.color%></em><em>切工:<%=g.cut%></em><em>净度:<%= g.clarity%></em><em>镶嵌方式:<%=g.xiangqian%></em><em>定制/现货：<%= g.is_xianhuo==1?"现货":"定制"%></em><em>证书类型:<%=g.cert%></em>
+				<br style="clear:both"/><em>裸石货号：<%= g.goods_id%></em><em>证书号：<%= g.cert_id%></em>
+				</p>				
+				<% }else if(g.goods_type==3){ %>
+				<p><em>镶口:<%=g.xiangkou%></em><em>主石粒数:<%=g.zhushi_num%></em><em>主石单颗重:<%=g.carat%></em>	<em>证书类型:<%=g.cert%></em><em>形状:<%=g.shape_name%></em><em>材质:<%=g.caizhi_name%><%=g.yanse_name%></em><em>指圈:<%=g.shoucun%></em><em>金重:<%= g.jinzhong%></em><em>刻字:<%= g.kezi%></em>
+				<br style="clear:both"/><em>起版号：<%= g.goods_id%></em><em>款号：<%= g.style_sn%></em>
+				</p> 
+				<% }else if(g.goods_type==5){%>
+				<p><em>赠品款号:<%=g.style_sn%></em><em>手寸:<%=g.shoucun%></em></p><a href="javascript:" class="goods-del" goods_id="<%=g.goods_id%>" cart_id="<%=g.cart_id%>">删除</a> 
+				<% }else{ %>
+				<p><em>镶口:<%=g.xiangkou%></em><em>主石粒数:<%=g.zhushi_num%></em><em>主石单颗重:<%=g.carat%></em>	<em>形状:<%=g.shape_name%></em><em>材质:<%=g.caizhi_name%><%=g.yanse_name%></em><em>指圈:<%=g.shoucun%></em><em>金重:<%= g.jinzhong%></em><em>证书类型:<%=g.cert%></em><em>证书号:<%=g.cert_id%></em><em>镶嵌方式:<%=g.xiangqian%></em><em>刻字:<%=#g.kezi%></em>	<em>定制/现货：<%= g.is_xianhuo==1?"现货":"定制"%><%if (g.is_cpdz==1){%>(成品定制)<% }%></em><% if (g.is_xianhuo==1){%><em>现货增值项：<%= g.xianhuo_adds%></em><% }%> 		
+				<br style="clear:both"/><em>货号：<%= g.goods_id%></em><em>款号：<%= g.style_sn%></em>
+				</p> 
+				<%}%>
+			</div>
+		</div>
+	<% if(g.goods_type ==5){%>
+		<div class="col col-md-2 align-self-center goods_discount_btn" goods_id="<%= g.goods_id%>" goods_type="<%= g.goods_type%>" goods_hand_price="<%= g.goods_price%>" discount_code="<%= g.discount_code%>" role="button" data-toggle="modal" data-target=".bd-discount-modal-lg">
+		 <% if(g.goods_pay_price == g.goods_price){%>
+		     <em>￥<%= g.goods_price%></em>
+		 <%}else{%>
+			 <em style='text-decoration:line-through;'>￥<%= g.goods_price%></em>
+			 <em>￥<%= g.goods_pay_price%></em>
+	    <%}%>	
+		</div>
+	<%} else{%>
+		<div class="col col-md-2 align-self-center goods_discount_btn" goods_id="<%= g.goods_id%>" goods_type="<%= g.goods_type%>" goods_hand_price="<%= g.goods_price%>" discount_code="<%= g.discount_code%>" role="button" data-toggle="modal" data-target=".bd-discount-modal-lg">		
+		<% if(g.goods_pay_price == g.goods_price){%>
+		 <em>￥<%= g.goods_price%></em>
+		<%}else{%>
+		 <em style='text-decoration:line-through;'>￥<%= g.goods_price%></em>
+		 <em>￥<%= g.goods_pay_price%></em>
+	    <%}%>		
+		</div>
+	<%}%>
+		
+		<div class="col col-md-2 align-self-center"><em ><%= g.goods_num%></em></div>
+		<div class="col col-md-2 align-self-center"><em >￥<%= g.goods_pay_price%></em></div>
+	</div>
+	<% } %>	
+ </div> 	       
+<% } %>		
+</script>
+<script type="text/html" id="address-info">
+<h3>成为会员:</h3>
+<p class="p5 row">
+    <input type="tel" id="khphone" class="khphone" name="khphone" placeholder="手机号" value="<%= mob_phone%>"/>
+    <input type="text" id="khname" class="khname" name="khname" placeholder="客户姓名" value="<%= true_name%>"/>
+    <select class="khly chosen" id="source_id" name="source_id">
+        <option value="">请选择</option>
+        <% for (var id in sourcelist) { var name = sourcelist[id]; %>
+            <option <%= source_id==id?'selected':''%> source_name="<%=name%>"  value="<%= id%>"><%=name%></option>
+        <% } %> 
+    </select>
+</p>
+<h3>收货地址:</h3>
+<p class="p3 row">
+    <select  id="chain_id">
+		<option value="1" <%= chain_id==1?'selected':''%>>门店自提</option>
+		<option value="2" <%= chain_id==0?'selected':''%>>快递邮寄</option>
+	</select>
+</p>
+<p class="p1 row">
+    <input type="text" id="mob_phone" class="phone " placeholder="手机号" value="<%= mob_phone%>"/>
+    <input type="text" id="true_name" class="name" placeholder="收货人姓名" value="<%= true_name%>"/>    
+	<!--<input type="text" id="tel_phone" class="famphone" placeholder="固定电话" value="<%= tel_phone%>"/>-->
+</p>
+<div class="address-info" style="display:none">
+<p class="p3 row">
+	<select id="provice_id">
+		<option value="">请选择所在省</option>
+	</select>
+	<select  id="city_id">
+		<option value="">请选择城市</option>
+	</select>
+	<select  id="area_id">
+		<option value="">请选择区县</option>
+	</select>
+</p>
+<p class="p4">
+	<input type="text" id="address" class="addr" placeholder="街道编号/名称" value="<%= address%>"/>
+</p>
+</div>
+</script>
+
+<div class="modal fade bd-gift-modal-lg " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="true" >
+    <div class="modal-dialog modal-lg dingzhi-modal" id="gift_form">
+        <div class="modal-content dingzhi-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加赠品</h5>
+                <button type="button" class="close dialog-dingzhi-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+			<div class="modal-body dingzhi-body" style="padding-bottom:0px">
+				<div class="div1" style="width:70%"><label>请选择赠品：</label>
+					<select name="goods_id">
+					   <option value="">请选择赠品</option>					
+					</select>
+				</div> 				       
+            </div>
+            <div class="modal-body dingzhi-body" id="gift_info">
+                  
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn quxiao" data-dismiss="modal" >取消</button>
+                <button type="button" class="btn save ">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="gift-info">
+<div class="div1"><label>赠品名称:</label>
+	<input type="text" name="goods_name"  value="<%= gift_info.goods_name%>" readonly/>
+</div>
+<div class="div1"><label>赠品款号:</label>
+	<input type="text" name="style_sn"  value="<%= gift_info.goods_id%>" readonly/>
+</div>
+<div class="div1"><label>赠品价格:</label>
+	<input type="text" name="goods_pay_price"  value="<%= gift_info.goods_price%>" />
+	<input type="hidden" name="goods_price"  value="<%= gift_info.goods_price%>"/>
+</div>
+<div class="div1"><label>赠品指圈:</label>
+	<input type="text" name="shoucun" placeholder="请输入指圈" value=""/>
+</div>
+</script>
+<script type="text/html" id="address-list">
+<% if (true_name){%>
+<div class="ordaddrlis" style="display:;">
+	<div class="pro_title row">		
+		<span class="col-md-2">姓名</span>		
+		<span class="col-md-4">详细地址</span>
+		<span class="col-md-2">电话</span>
+		<span class="col-md-2">收货方式</span>
+		<span class="col-md-2">操作</span>
+	</div>
+	<div class="pro_msg row">
+		<div class="col col-md-2 align-self-center"><%= true_name%></div>		
+		<div class="col col-md-4 align-self-center">
+			<p id="order_area_info"><%= area_info%></p>
+			<p id="order_address"><%= address%></p>
+		</div>
+		<div class="col col-md-2 align-self-center" id="order_mob_phone"><%= mob_phone%></div>
+		<div class="col col-md-2 align-self-center"><%= chain_id==1?"门店自提":"快递邮寄"%></div>
+		<div class="col col-md-2 align-self-center">
+		<a href="javascript:;" id="add_address" data-toggle="modal" data-target=".bd-address-modal-lg">编辑</a>&nbsp;&nbsp;
+		<a href="javascript:;" id="del_address">删除</a>
+		</div>
+	</div>	
+</div>
+<% }else{%>
+<p class="p-tip" >还没有收货地址，请<a href="javascript:;" id="add_address" data-toggle="modal" data-target=".bd-address-modal-lg">添加收货地址</a></p>
+<% } %>
+</script>
+<script type="text/javascript">
+    $.noConflict(false);
+</script>
+<script type="text/javascript" src="../../js/config.js"></script>
+<script type="text/javascript" src="../../js/zepto.min.js"></script> 
+<script type="text/javascript" src="../../js/template.js"></script> 
+<script type="text/javascript" src="../../js/common.js"></script> 
+<script type="text/javascript" src="../../js/simple-plugin.js"></script> 
+<script type="text/javascript" src="../../js/tmpl/order_payment_common.js?v=1"></script>
+<script type="text/javascript" src="../../js/jquery3.2.1.min.js"></script>
+<script type="text/javascript" src="../../js/chosen/js/chosen.jquery.js"></script>
+<script type="text/javascript" src="../../js/tmpl/buy_step1.js"></script>
+<script type="text/javascript" src="../../js/tmpl/header.js"></script>
+
+</body>
+</html>
